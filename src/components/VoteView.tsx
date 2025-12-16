@@ -168,7 +168,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
 
      if (authStage === 'voted') {
           return (
-               <div className="container mx-auto px-4 py-32 text-center min-h-[60vh] flex items-center justify-center">
+               <div className="container mx-auto px-4 py-24 text-center min-h-[60vh] flex items-center justify-center">
                     <motion.div
                          initial={{ scale: 0.8, opacity: 0 }}
                          animate={{ scale: 1, opacity: 1 }}
