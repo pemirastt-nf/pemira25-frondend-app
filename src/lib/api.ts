@@ -35,7 +35,15 @@ export const api = {
      },
 
      getCandidates: async (options?: RequestInit) => {
-          const res = await fetch(`${API_URL}/candidates`, options);
+          // Merge defaults with tags to allow revalidation
+          const fetchOptions = {
+               ...options,
+               next: {
+                    ...options?.next,
+                    tags: ['candidates']
+               }
+          };
+          const res = await fetch(`${API_URL}/candidates`, fetchOptions);
           if (!res.ok) throw new Error('Failed to fetch candidates');
           return res.json(); // Returns array
      },
