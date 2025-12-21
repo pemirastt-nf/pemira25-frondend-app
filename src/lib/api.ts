@@ -84,5 +84,11 @@ export const api = {
           const res = await fetch(`${API_URL}/votes/results`, options);
           if (!res.ok) throw new Error('Failed to fetch results');
           return res.json();
+     },
+
+     getSettings: async (options?: RequestInit) => {
+          const res = await fetch(`${API_URL}/settings`, options);
+          if (!res.ok) throw new Error('Failed to fetch settings');
+          return res.json();
      }
 };

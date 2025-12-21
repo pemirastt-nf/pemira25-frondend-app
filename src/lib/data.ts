@@ -45,9 +45,9 @@ export const candidates = [
 ];
 
 export const timeline = [
-  { date: "1 - 7 Des 2025", event: "Pendaftaran Paslon" },
-  { date: "8 - 10 Des 2025", event: "Verifikasi Berkas" },
-  { date: "11 - 17 Des 2025", event: "Kampanye Terbuka" },
-  { date: "18 Des 2025", event: "Debat Kandidat" },
-  { date: "20 Des 2025", event: "Pemungutan Suara" },
+  { date: "7 - 12 Jan 2026", event: "Pendaftaran Paslon" },
+  { date: "24 - 25 Jan 2026", event: "Verifikasi Berkas" },
+  { date: "28 Jan - 10 Feb 2026", event: "Kampanye Terbuka" },
+  { date: "16 - 18 Feb 2026", event: "Pemungutan Suara" },
+  { date: "28 Feb 2026", event: "Pelantikan" }
 ];

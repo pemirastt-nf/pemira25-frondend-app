@@ -2,12 +2,13 @@
 
 @theme {
   --font-sans: var(--font-inter);
-  --color-primary: #0f2c59;
-  --color-primary-light: #1a3e70;
-  --color-secondary: #f2b636;
-  --color-secondary-hover: #d9a025;
+  --font-heading: var(--font-outfit);
+  --color-primary: #023e84;
+  --color-primary-light: #0077b6;
+  --color-secondary: #ff6d00;
+  --color-secondary-hover: #ff9e00;
   --color-neutral-cream: #ebe6d9;
-  --color-neutral-slate: #4a6583;
+  --color-neutral-slate: #023e84;
   --color-surface: #ffffff;
 }
 

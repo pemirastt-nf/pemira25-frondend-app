@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingChat from "@/components/FloatingChat";
+import AlertBanner from "@/components/AlertBanner";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 const metadataBase = new URL("https://pemira-sttnf.vercel.app");
 const metadataTitle = "#AyoVote | PEMILIHAN RAYA MAHASISWA STTNF 2025";
@@ -64,8 +66,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="id">
-            <body className={inter.className}>
+            <body className={`${inter.variable} ${outfit.variable} font-sans antialiased`}>
                 <div className="flex flex-col min-h-screen">
+                    <AlertBanner />
                     <Navbar />
                     <main className="grow pt-24">
                         {children}

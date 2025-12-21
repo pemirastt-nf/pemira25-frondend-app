@@ -17,6 +17,7 @@ const navItems = [
 export default function Navbar() {
      const pathname = usePathname();
      const [pillStyle, setPillStyle] = useState({ left: 0, width: 0, opacity: 0 });
+     const [topOffset, setTopOffset] = useState(24);
      const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
      useEffect(() => {
@@ -34,8 +35,32 @@ export default function Navbar() {
           }
      }, [pathname]);
 
+     useEffect(() => {
+          const updatePosition = () => {
+               const bannerHeightStr = getComputedStyle(document.documentElement).getPropertyValue('--alert-banner-height').trim();
+               const bannerHeight = parseFloat(bannerHeightStr) || 0;
+               const scrollY = window.scrollY;
+
+               const newTop = Math.max(24, 24 + bannerHeight - scrollY);
+               setTopOffset(newTop);
+          };
+
+          window.addEventListener('scroll', updatePosition);
+          updatePosition();
+
+          const interval = setInterval(updatePosition, 500);
+
+          return () => {
+               window.removeEventListener('scroll', updatePosition);
+               clearInterval(interval);
+          };
+     }, []);
+
      return (
-          <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
+          <div
+               className="fixed left-0 right-0 z-50 flex justify-center px-4 will-change-[top]"
+               style={{ top: `${topOffset}px` }}
+          >
                <motion.nav
                     initial={{ y: -100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}

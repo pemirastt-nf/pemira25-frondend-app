@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { timeline } from "@/lib/data";
@@ -12,40 +13,69 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
      return (
           <div className="flex flex-col gap-16 md:gap-24 pb-24">
                {/* Hero Section */}
-               <section id="hero" className="relative pt-24 px-4 text-center pb-8 overflow-hidden">
-                    <motion.div
-                         initial={{ opacity: 0, y: 20 }}
-                         animate={{ opacity: 1, y: 0 }}
-                         transition={{ duration: 0.8 }}
-                         className="max-w-4xl mx-auto z-10 relative"
-                    >
-                         <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-white/50 text-primary text-xs md:text-sm font-bold tracking-wide border border-primary/10">
-                              PEMIRA STTNF 2025
-                         </div>
-                         <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-4 md:mb-6 tracking-tight text-slate-900 leading-tight">
-                              Suaramu Menentukan <br />
-                              <span className="text-primary">Masa Depan Kampus</span>
-                         </h1>
-                         <p className="text-base md:text-xl text-neutral-slate mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed">
-                              Mari wujudkan demokrasi yang jujur, adil, dan transparan.
-                              Gunakan hak pilihmu untuk STT Terpadu Nurul Fikri yang lebih baik.
-                         </p>
-                         <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center">
-                              <Link href="/vote" className="w-full sm:w-auto">
-                                   <Button size="lg" className="w-full sm:w-auto rounded-full text-base md:text-lg h-12 md:h-14 px-8 bg-primary hover:bg-primary-light shadow-lg shadow-primary/20 transition-all hover:scale-105">
-                                        Vote Sekarang <ChevronRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
-                                   </Button>
-                              </Link>
-                              <Link href="/candidates" className="w-full sm:w-auto">
-                                   <Button size="lg" variant="ghost" className="w-full sm:w-auto rounded-full text-base md:text-lg h-12 md:h-14 px-8 text-neutral-slate hover:text-primary hover:bg-white/50">
-                                        Lihat Kandidat
-                                   </Button>
-                              </Link>
-                         </div>
-                    </motion.div>
+               <section id="hero" className="relative pt-8 pb-12 lg:pt-20 lg:pb-24 overflow-hidden">
+                    {/* Background Pattern - Dot Grid */}
+                    <div className="absolute inset-0 -z-10 h-full w-full bg-neutral-cream bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
-                    {/* Background Elements */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-250 h-150 bg-white/30 rounded-full blur-3xl -z-10 opacity-60 pointer-events-none" />
+                    <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
+                         {/* Left: Text Content */}
+                         <motion.div
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ duration: 0.8 }}
+                              className="text-center lg:text-left z-10"
+                         >
+
+                              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight text-slate-900 leading-[1.1]">
+                                   Suaramu <span className="underline decoration-secondary decoration-4 underline-offset-4">Menentukan</span> <br />
+                                   <span className="text-primary">Masa Depan.</span>
+                              </h1>
+
+                              <p className="text-base md:text-lg text-slate-600 mb-8 md:mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                                   Wujudkan demokrasi kampus yang jujur, adil, dan transparan. Satu suara darimu adalah langkah besar untuk STT Terpadu Nurul Fikri yang lebih gemilang.
+                              </p>
+
+                              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+                                   <Link href="/vote" className="w-full sm:w-auto">
+                                        <Button size="lg" className="w-full sm:w-auto rounded-full text-base font-bold h-14 px-8 bg-primary hover:bg-primary-light text-white shadow-xl shadow-primary/20 hover:scale-105 transition-all duration-300">
+                                             Vote Sekarang <ChevronRight className="ml-2 h-5 w-5" />
+                                        </Button>
+                                   </Link>
+                                   <Link href="/candidates" className="w-full sm:w-auto">
+                                        <Button size="lg" variant="outline" className="w-full sm:w-auto rounded-full text-base font-bold h-14 px-8 bg-white/50 border-slate-300 hover:bg-white hover:text-primary transition-all duration-300">
+                                             Lihat Kandidat
+                                        </Button>
+                                   </Link>
+                              </div>
+                         </motion.div>
+
+                         {/* Right: Floating Visual (CSS Only) */}
+                         {/* Right: Floating Visual (Logo) */}
+                         <motion.div
+                              initial={{ opacity: 0, x: 20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ duration: 0.8, delay: 0.2 }}
+                              className="relative hidden lg:flex items-center justify-center h-125 w-full"
+                         >
+                              {/* Abstract Decorative blobs */}
+                              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-100 h-100 bg-primary/10 rounded-full blur-3xl -z-10" />
+
+                              {/* Floating Logo */}
+                              <motion.div
+                                   animate={{ y: [0, -20, 0] }}
+                                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                                   className="relative z-20 w-80 h-80 md:w-96 md:h-96"
+                              >
+                                   <Image
+                                        src="/pemira-logo.png"
+                                        alt="Logo PEMIRA STTNF"
+                                        fill
+                                        className="object-contain drop-shadow-2xl"
+                                        priority
+                                   />
+                              </motion.div>
+                         </motion.div>
+                    </div>
                </section>
 
                {/* Stats Section */}
