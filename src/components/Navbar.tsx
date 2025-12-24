@@ -92,7 +92,7 @@ export default function Navbar() {
                                         ref={(el) => { itemRefs.current[index] = el; }}
                                         className={cn(
                                              "relative px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-colors z-10 whitespace-nowrap",
-                                             isActive ? "text-white" : "text-neutral-slate hover:text-primary"
+                                             isActive ? "text-white" : "hover:text-primary"
                                         )}
                                    >
                                         {item.name}
