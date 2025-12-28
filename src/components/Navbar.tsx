@@ -20,8 +20,15 @@ export default function Navbar() {
      const [topOffset, setTopOffset] = useState(24);
      const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
+     // Helper function for matching paths
+     const isActiveLink = (itemPath: string, currentPath: string) => {
+          if (itemPath === "/") return currentPath === "/";
+          return currentPath.startsWith(itemPath);
+     };
+
+     const activeIndex = navItems.findIndex((item) => isActiveLink(item.path, pathname));
+
      useEffect(() => {
-          const activeIndex = navItems.findIndex((item) => item.path === pathname);
           const el = itemRefs.current[activeIndex];
 
           if (el) {
@@ -33,7 +40,7 @@ export default function Navbar() {
           } else {
                setPillStyle((prev) => ({ ...prev, opacity: 0 }));
           }
-     }, [pathname]);
+     }, [activeIndex]);
 
      useEffect(() => {
           const updatePosition = () => {
@@ -82,9 +89,7 @@ export default function Navbar() {
                          />
 
                          {navItems.map((item, index) => {
-                              const isActive = item.path === "/"
-                                   ? pathname === "/"
-                                   : pathname.startsWith(item.path);
+                              const isActive = index === activeIndex;
                               return (
                                    <Link
                                         key={item.path}
