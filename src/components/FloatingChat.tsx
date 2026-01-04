@@ -9,6 +9,7 @@ import { jwtDecode } from 'jwt-decode';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils'; // Ensure utils exists or use standard classnames
+import { initSocket } from '@/lib/api';
 
 interface Message {
      id: string;
@@ -16,8 +17,6 @@ interface Message {
      senderType: 'student' | 'admin' | 'system';
      createdAt: string;
 }
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:5000';
 
 export default function FloatingChat() {
      const [isOpen, setIsOpen] = useState(false);
@@ -51,11 +50,7 @@ export default function FloatingChat() {
                setTimeout(() => setShowGuestForm(true), 0);
           }
 
-          const newSocket = io(API_URL, {
-               auth: { token },
-               withCredentials: true,
-               reconnection: true,
-          });
+          const newSocket = initSocket(token);
 
           newSocket.on('connect', () => {
                console.log('Connected to socket server');

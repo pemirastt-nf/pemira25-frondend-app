@@ -92,3 +92,15 @@ export const api = {
           return res.json();
      }
 };
+
+export const SOCKET_URL = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:5000';
+
+import { io, Socket } from 'socket.io-client';
+
+export const initSocket = (token: string | null): Socket => {
+     return io(SOCKET_URL, {
+          auth: { token },
+          withCredentials: true,
+          reconnection: true,
+     });
+};
