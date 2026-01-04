@@ -93,7 +93,19 @@ export const api = {
      }
 };
 
-export const SOCKET_URL = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:5000';
+
+export const SOCKET_URL = (() => {
+     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+     try {
+          // Robust way to get origin (protocol + host)
+          const url = new URL(apiUrl);
+          console.log('[API] Socket URL derived:', url.origin);
+          return url.origin;
+     } catch (e) {
+          console.error('[API] Invalid API URL for socket:', apiUrl);
+          return 'http://localhost:5000';
+     }
+})();
 
 import { io, Socket } from 'socket.io-client';
 
@@ -102,5 +114,6 @@ export const initSocket = (token: string | null): Socket => {
           auth: { token },
           withCredentials: true,
           reconnection: true,
+          transports: ['polling', 'websocket'] // Force order for better compatibility
      });
 };
