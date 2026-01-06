@@ -57,7 +57,7 @@ export const tutorialSteps = [
     step: "1",
     title: "Lihat Kandidat & Program",
     desc: "Cermati visi, misi, dan program kerja yang diusung setiap kandidat.",
-    image: "/assets/list-tutorial/view-candidate.png",
+    image: "https://cdn.pemira.oktaa.my.id/assets/list-tutorial/view-candidate.png",
     color: "bg-green-50 text-green-600",
     badge: "bg-green-600"
   },
@@ -65,7 +65,7 @@ export const tutorialSteps = [
     step: "2",
     title: "Login & Verifikasi OTP",
     desc: "Masuk menggunakan email kampus dan verifikasi kode OTP yang dikirimkan pada emailmu.",
-    image: "/assets/list-tutorial/login.png",
+    image: "https://cdn.pemira.oktaa.my.id/assets/list-tutorial/login.png",
     color: "bg-blue-50 text-blue-600",
     badge: "bg-blue-600"
   },
@@ -73,7 +73,7 @@ export const tutorialSteps = [
     step: "3",
     title: "Pilih Kandidat Favoritmu",
     desc: "Tentukan pilihan terbaikmu dan tekan tombol pilih pada kandidat.",
-    image: "/assets/list-tutorial/select-candidate.png",
+    image: "https://cdn.pemira.oktaa.my.id/assets/list-tutorial/select-candidate.png",
     color: "bg-orange-50 text-orange-600",
     badge: "bg-orange-500"
   },
@@ -81,7 +81,7 @@ export const tutorialSteps = [
     step: "4",
     title: "Konfirmasi Pilihanmu",
     desc: "Pastikan pilihanmu sudah benar sebelum mengirim suara.",
-    image: "/assets/list-tutorial/confirm.png",
+    image: "https://cdn.pemira.oktaa.my.id/assets/list-tutorial/confirm.png",
     color: "bg-blue-50 text-blue-800",
     badge: "bg-blue-700"
   }

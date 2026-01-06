@@ -94,7 +94,7 @@ export default function Navbar() {
                          <div className="shrink-0 flex items-center">
                               <Link href="/" className="flex items-center gap-2 group">
                                    <div className="relative w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                                        <Image src="/pemira-logo.svg" alt="Logo" width={20} height={20} className="w-5 h-5 text-primary" />
+                                        <Image src="https://cdn.pemira.oktaa.my.id/pemira-logo.svg" alt="Logo" width={20} height={20} className="w-5 h-5 text-primary" />
                                    </div>
                                    <span className="font-bold text-xl text-slate-800 tracking-tight group-hover:text-primary transition-colors">PEMIRA</span>
                               </Link>

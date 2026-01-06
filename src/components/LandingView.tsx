@@ -66,7 +66,7 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                                    className="relative z-20 w-96 h-96 lg:w-125 lg:h-125"
                               >
                                    <Image
-                                        src="/pemira-logo-text.svg"
+                                        src="https://cdn.pemira.oktaa.my.id/pemira-logo-text.svg"
                                         alt="Logo PEMIRA STTNF"
                                         fill
                                         className="object-contain drop-shadow-2xl"
