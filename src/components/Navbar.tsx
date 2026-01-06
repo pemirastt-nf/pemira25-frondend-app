@@ -4,8 +4,9 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { Menu, X } from "lucide-react";
 
 const navItems = [
      { name: "Beranda", path: "/" },
@@ -16,99 +17,123 @@ const navItems = [
 
 export default function Navbar() {
      const pathname = usePathname();
-     const [pillStyle, setPillStyle] = useState({ left: 0, width: 0, opacity: 0 });
-     const [topOffset, setTopOffset] = useState(24);
-     const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+     const menuRef = useRef<HTMLDivElement>(null);
 
      // Helper function for matching paths
      const isActiveLink = (itemPath: string, currentPath: string) => {
           if (!currentPath) return false;
-          // Strict match for root to avoid partial match active state
+          // Strict match for root
           if (itemPath === "/") return currentPath === "/" || currentPath === "";
-          // For other paths, ensure it's a proper subpath match
+          // Subpath match
           return currentPath === itemPath || currentPath.startsWith(`${itemPath}/`);
      };
 
-     const activeIndex = navItems.findIndex((item) => isActiveLink(item.path, pathname));
-
+     // Close mobile menu on clicking outside
      useEffect(() => {
-          const el = itemRefs.current[activeIndex];
-
-          if (el) {
-               setPillStyle({
-                    left: el.offsetLeft,
-                    width: el.offsetWidth,
-                    opacity: 1,
-               });
-          } else {
-               setPillStyle((prev) => ({ ...prev, opacity: 0 }));
-          }
-     }, [activeIndex]);
-
-     useEffect(() => {
-          const updatePosition = () => {
-               const bannerHeightStr = getComputedStyle(document.documentElement).getPropertyValue('--alert-banner-height').trim();
-               const bannerHeight = parseFloat(bannerHeightStr) || 0;
-               const scrollY = window.scrollY;
-
-               const newTop = Math.max(24, 24 + bannerHeight - scrollY);
-               setTopOffset(newTop);
+          const handleClickOutside = (event: MouseEvent) => {
+               if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                    setIsMobileMenuOpen(false);
+               }
           };
-
-          window.addEventListener('scroll', updatePosition);
-          updatePosition();
-
-          const interval = setInterval(updatePosition, 500);
-
-          return () => {
-               window.removeEventListener('scroll', updatePosition);
-               clearInterval(interval);
-          };
+          document.addEventListener("mousedown", handleClickOutside);
+          return () => document.removeEventListener("mousedown", handleClickOutside);
      }, []);
 
+     // Close mobile menu on route change
+     useEffect(() => {
+          if (isMobileMenuOpen) {
+               setIsMobileMenuOpen(false);
+          }
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+     }, [pathname]);
+
      return (
-          <div
-               className="fixed left-0 right-0 z-50 flex justify-center px-4 will-change-[top]"
-               style={{ top: `${topOffset}px` }}
+          <motion.nav
+               initial={{ y: -100 }}
+               animate={{ y: 0 }}
+               transition={{ duration: 0.4, ease: "easeOut" }}
+               className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-neutral-200 shadow-sm"
           >
-               <motion.nav
-                    initial={{ y: -100, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className="bg-white/80 backdrop-blur-md border border-white/20 shadow-lg rounded-full px-6 py-3 flex items-center gap-2 md:gap-8"
-               >
-                    <Link href="/" className="font-bold text-primary mr-2 md:mr-4 flex items-center gap-2">
-                         <Image src="/pemira-logo.svg" alt="Logo" width={24} height={24} />
-                         <span className="hidden md:inline">PEMIRA</span>
-                    </Link>
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex justify-between items-center h-16">
+                         {/* Logo Section */}
+                         <div className="shrink-0 flex items-center">
+                              <Link href="/" className="flex items-center gap-2">
+                                   <Image src="/pemira-logo.svg" alt="Logo" width={32} height={32} />
+                                   <span className="font-bold text-xl text-primary tracking-tight">PEMIRA</span>
+                              </Link>
+                         </div>
 
-                    <div className="relative flex items-center gap-1 bg-neutral-cream/50 p-1 rounded-full overflow-x-auto max-w-70 md:max-w-none scrollbar-hide">
-                         {/* Animated Pill */}
-                         <motion.div
-                              className="absolute top-1 bottom-1 bg-primary rounded-full z-0"
-                              initial={false}
-                              animate={pillStyle}
-                              transition={{ type: "spring", bounce: 0.1, duration: 0.4 }}
-                         />
+                         {/* Desktop Menu */}
+                         <div className="hidden md:flex items-center space-x-1">
+                              {navItems.map((item) => {
+                                   const isActive = isActiveLink(item.path, pathname);
+                                   return (
+                                        <Link
+                                             key={item.path}
+                                             href={item.path}
+                                             className={cn(
+                                                  "px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200",
+                                                  isActive
+                                                       ? "text-primary bg-primary/5 font-semibold"
+                                                       : "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50"
+                                             )}
+                                        >
+                                             {item.name}
+                                        </Link>
+                                   );
+                              })}
+                         </div>
 
-                         {navItems.map((item, index) => {
-                              const isActive = index === activeIndex;
-                              return (
-                                   <Link
-                                        key={item.path}
-                                        href={item.path}
-                                        ref={(el) => { itemRefs.current[index] = el; }}
-                                        className={cn(
-                                             "relative px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-colors z-10 whitespace-nowrap",
-                                             isActive ? "text-neutral-50!" : "text-slate-600 hover:text-primary"
-                                        )}
-                                   >
-                                        {item.name}
-                                   </Link>
-                              );
-                         })}
+                         {/* Mobile Hamburger Button */}
+                         <div className="flex md:hidden" ref={menuRef}>
+                              <button
+                                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                   className="p-2 rounded-md text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 focus:outline-hidden"
+                              >
+                                   {isMobileMenuOpen ? (
+                                        <X className="h-6 w-6" />
+                                   ) : (
+                                        <Menu className="h-6 w-6" />
+                                   )}
+                              </button>
+
+                              {/* Mobile Dropdown Menu (Popover Style) */}
+                              <AnimatePresence>
+                                   {isMobileMenuOpen && (
+                                        <motion.div
+                                             initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                                             animate={{ opacity: 1, scale: 1, y: 0 }}
+                                             exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                                             transition={{ duration: 0.15 }}
+                                             className="absolute top-16 right-4 w-56 bg-white rounded-xl shadow-xl border border-neutral-100 ring-1 ring-black/5 overflow-hidden origin-top-right"
+                                        >
+                                             <div className="py-2 flex flex-col">
+                                                  {navItems.map((item) => {
+                                                       const isActive = isActiveLink(item.path, pathname);
+                                                       return (
+                                                            <Link
+                                                                 key={item.path}
+                                                                 href={item.path}
+                                                                 className={cn(
+                                                                      "px-4 py-3 text-sm font-medium transition-colors hover:bg-neutral-50",
+                                                                      isActive
+                                                                           ? "text-primary bg-primary/5 border-l-4 border-primary pl-3"
+                                                                           : "text-neutral-600 border-l-4 border-transparent"
+                                                                 )}
+                                                            >
+                                                                 {item.name}
+                                                            </Link>
+                                                       );
+                                                  })}
+                                             </div>
+                                        </motion.div>
+                                   )}
+                              </AnimatePresence>
+                         </div>
                     </div>
-               </motion.nav>
-          </div>
+               </div>
+          </motion.nav>
      );
 }
