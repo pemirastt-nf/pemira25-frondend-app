@@ -5,11 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { timeline } from "@/lib/data";
+import { timeline, tutorialSteps } from "@/lib/data";
 import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function LandingView({ stats }: { stats: { totalVoters: number; votesCast: number; turnout: string } }) {
+
      return (
           <div className="flex flex-col gap-16 md:gap-24 pb-24">
                {/* Hero Section */}
@@ -92,58 +93,64 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-primary -translate-x-1/2 md:hidden rounded-full"></div>
 
                          <div className="grid grid-cols-1 md:grid-cols-5 gap-0 md:gap-6">
-                              {timeline.map((item, i) => {
-                                   const styles = [
-                                        { bg: "bg-blue-100" },
-                                        { bg: "bg-blue-200" },
-                                        { bg: "bg-orange-100" },
-                                        { bg: "bg-orange-200" }
-                                   ];
-                                   const style = styles[i % styles.length];
-                                   const isEven = i % 2 === 0;
+                              {timeline.length === 0 ? (
+                                   <div className="col-span-full py-12 text-center">
+                                        <p className="text-slate-500 italic">Belum ada informasi jadwal yang tersedia saat ini.</p>
+                                   </div>
+                              ) : (
+                                   timeline.map((item: { event: string; date: string }, i: number) => {
+                                        const styles = [
+                                             { bg: "bg-blue-100" },
+                                             { bg: "bg-blue-200" },
+                                             { bg: "bg-orange-100" },
+                                             { bg: "bg-orange-200" }
+                                        ];
+                                        const style = styles[i % styles.length];
+                                        const isEven = i % 2 === 0;
 
-                                   return (
-                                        <div key={i} className={`
+                                        return (
+                                             <div key={i} className={`
                                              relative flex items-center md:flex-col md:h-full group
                                              ${isEven ? 'flex-row' : 'flex-row-reverse'}
                                              mb-8 md:mb-0
                                         `}>
-                                             {/* Card Content */}
-                                             <div className={`
+                                                  {/* Card Content */}
+                                                  <div className={`
                                                   w-[calc(50%-5px)] hover:-translate-y-2 md:w-full
                                                   ${isEven ? 'text-right pr-4 md:text-center md:pr-0' : 'text-left pl-4 md:text-center md:pl-0'}
                                                   transition-all duration-300 z-10 md:h-full md:flex md:flex-col md:justify-center
                                              `}>
-                                                  <div className={`${style.bg} w-full rounded-xl p-4 md:p-6 shadow-sm border border-white/50 hover:shadow-md transition-shadow`}>
-                                                       <h3 className="font-bold text-slate-800 text-sm md:text-base mb-1">{item.event}</h3>
-                                                       <p className="text-xs font-semibold text-slate-600 bg-white/40 inline-block px-2 py-0.5 rounded-md">{item.date}</p>
+                                                       <div className={`${style.bg} w-full rounded-xl p-4 md:p-6 shadow-sm border border-white/50 hover:shadow-md transition-shadow`}>
+                                                            <h3 className="font-bold text-slate-800 text-sm md:text-base mb-1">{item.event}</h3>
+                                                            <p className="text-xs font-semibold text-slate-600 bg-white/40 inline-block px-2 py-0.5 rounded-md">{item.date}</p>
+                                                       </div>
                                                   </div>
-                                             </div>
 
-                                             {/* Center Dot (Mobile) & Connector (Desktop) */}
-                                             <div className={`
+                                                  {/* Center Dot (Mobile) & Connector (Desktop) */}
+                                                  <div className={`
                                                   absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
                                                   md:static md:translate-x-0 md:translate-y-0 md:w-full md:flex md:items-center md:justify-center md:-mt-3
                                                   z-20
                                              `}>
-                                                  {/* Desktop Connecting Line */}
-                                                  {i < timeline.length - 1 && (
-                                                       <div className="hidden md:block absolute top-1/2 left-1/2 w-[calc(100%+1.5rem)] h-2 -translate-y-1/2 z-0 bg-slate-600">
-                                                            <div className="w-full h-full bg-primary"></div>
+                                                       {/* Desktop Connecting Line */}
+                                                       {i < timeline.length - 1 && (
+                                                            <div className="hidden md:block absolute top-1/2 left-1/2 w-[calc(100%+1.5rem)] h-2 -translate-y-1/2 z-0 bg-slate-600">
+                                                                 <div className="w-full h-full bg-primary"></div>
+                                                            </div>
+                                                       )}
+
+                                                       {/* The Dot */}
+                                                       <div className={`w-4 h-4 rounded-full border-2 border-white shadow-sm z-20 md:relative ${style.bg.replace('bg-', 'bg-slate-400')}`}>
+                                                            <div className={`w-full h-full rounded-full ${style.bg.replace('bg-', 'text-') === 'text-white' ? 'bg-slate-500' : 'bg-current'}`}></div>
                                                        </div>
-                                                  )}
-
-                                                  {/* The Dot */}
-                                                  <div className={`w-4 h-4 rounded-full border-2 border-white shadow-sm z-20 md:relative ${style.bg.replace('bg-', 'bg-slate-400')}`}>
-                                                       <div className={`w-full h-full rounded-full ${style.bg.replace('bg-', 'text-') === 'text-white' ? 'bg-slate-500' : 'bg-current'}`}></div>
                                                   </div>
-                                             </div>
 
-                                             {/* Mobile Spacer (to balance the flex row) */}
-                                             <div className="w-[calc(50%-20px)] md:hidden"></div>
-                                        </div>
-                                   );
-                              })}
+                                                  {/* Mobile Spacer (to balance the flex row) */}
+                                                  <div className="w-[calc(50%-20px)] md:hidden"></div>
+                                             </div>
+                                        );
+                                   })
+                              )}
                          </div>
                     </div>
                </section >
@@ -161,40 +168,7 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
 
                     {/* Step Cards with Illustration Style */}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 relative z-10">
-                         {[
-                              {
-                                   step: "1",
-                                   title: "Lihat Kandidat & Program",
-                                   desc: "Cermati visi, misi, dan program kerja yang diusung setiap kandidat.",
-                                   image: "/assets/list-tutorial/view-candidate.png",
-                                   color: "bg-green-50 text-green-600",
-                                   badge: "bg-green-600"
-                              },
-                              {
-                                   step: "2",
-                                   title: "Login & Verifikasi OTP",
-                                   desc: "Masuk menggunakan email kampus dan verifikasi kode OTP yang dikirimkan pada emailmu.",
-                                   image: "/assets/list-tutorial/login.png",
-                                   color: "bg-blue-50 text-blue-600",
-                                   badge: "bg-blue-600"
-                              },
-                              {
-                                   step: "3",
-                                   title: "Pilih Kandidat Favoritmu",
-                                   desc: "Tentukan pilihan terbaikmu dan tekan tombol pilih pada kandidat.",
-                                   image: "/assets/list-tutorial/select-candidate.png",
-                                   color: "bg-orange-50 text-orange-600",
-                                   badge: "bg-orange-500"
-                              },
-                              {
-                                   step: "4",
-                                   title: "Konfirmasi Pilihanmu",
-                                   desc: "Pastikan pilihanmu sudah benar sebelum mengirim suara.",
-                                   image: "/assets/list-tutorial/confirm.png",
-                                   color: "bg-blue-50 text-blue-800",
-                                   badge: "bg-blue-700"
-                              }
-                         ].map((item, index) => (
+                         {tutorialSteps.map((item, index) => (
                               <div key={index} className="bg-white rounded-3xl shadow-lg border border-slate-100 hover:-translate-y-2 transition-transform duration-300 h-full flex flex-col group overflow-hidden">
                                    {/* Illustration Area (Full Bleed) */}
                                    <div className={`w-full aspect-video relative ${item.color} flex items-center justify-center overflow-hidden`}>
