@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 const metadataBase = new URL("https://pemira-sttnf.vercel.app");
-const metadataTitle = "#AyoVote | PEMILIHAN RAYA MAHASISWA STTNF 2025";
+const metadataTitle = "PEMIRA STTNF 2025-2026 | Pemilihan Raya Mahasiswa Nurul Fikri";
 const metadataDescription = "Pemilihan Raya Mahasiswa STT Terpadu Nurul Fikri atau PEMIRA 2025 adalah acara pemilihan mahasiswa STTNF untuk memilih calon PRESMA (Presiden Mahasiswa) dan WAKIL PRESMA (Wakil Presiden Mahasiswa) dari STTNF untuk masa 2025-2026.";
 
 export const metadata: Metadata = {
@@ -22,12 +22,18 @@ export const metadata: Metadata = {
     },
     keywords: [
         "pemira sttnf",
-        "pemira 2025",
-        "pemilihan raya mahasiswa website",
-        "pemilihan raya sttnf",
-        "pemilihan raya sttnf 2025",
+        "pemira sttnf 2025-2026",
+        "pemira nurul fikri",
+        "pemilihan raya mahasiswa sttnf",
+        "pemilihan raya mahasiswa nurul fikri",
+        "website pemira sttnf",
+        "login pemira sttnf",
+        "e-voting pemira sttnf",
+        "pemira online sttnf",
+        "hasil pemira sttnf",
         "stt terpadu nurul fikri",
-        "pemilihan raya sttnf 2025"
+        "kampus nurul fikri",
+        "pemilihan raya mahasiswa website"
     ],
     manifest: "/icons/site.webmanifest",
     openGraph: {
@@ -38,7 +44,7 @@ export const metadata: Metadata = {
         type: "website",
         images: [
             {
-                url: "/icons/favicon.ico",
+                url: "https://cdn.pemira.oktaa.my.id/og-banner.png",
                 width: 1200,
                 height: 630,
                 alt: metadataTitle
@@ -51,7 +57,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         images: [
             {
-                url: "/icons/favicon.ico",
+                url: "https://cdn.pemira.oktaa.my.id/og-banner.png",
                 width: 1200,
                 height: 630,
                 alt: metadataTitle
