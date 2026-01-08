@@ -5,7 +5,7 @@ export const revalidate = 60;
 
 export default async function ResultsPage() {
      let results = [];
-     let stats = { totalVoters: 0, votesCast: 0, turnout: "0%" };
+     let stats = { totalVoters: 0, votesCast: 0, turnout: "0%", onlineVotes: 0, offlineVotes: 0 };
 
      try {
           const [statsData, resultsData] = await Promise.all([
