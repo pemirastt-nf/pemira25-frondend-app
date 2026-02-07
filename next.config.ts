@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   allowedDevOrigins: ["localhost:3000", "10.0.3.111:3000"],
   reactCompiler: true,
   images: {
