@@ -47,15 +47,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
-<<<<<<< HEAD
 EXPOSE 5000
 
 ENV PORT 5000
-=======
-EXPOSE 3000
-
-ENV PORT 3000
->>>>>>> f9259b325f5229dc6ecfb0021e2b1746373b492e
 # set hostname to localhost
 ENV HOSTNAME "0.0.0.0"
 
