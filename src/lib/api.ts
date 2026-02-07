@@ -1,5 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const getBaseUrl = () => {
+     let url = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+     if (url.endsWith('/')) {
+          url = url.slice(0, -1);
+     }
+     if (!url.endsWith('/api')) {
+          url += '/api';
+     }
+     return url;
+};
+
+const API_URL = getBaseUrl();
 
 export const api = {
 
