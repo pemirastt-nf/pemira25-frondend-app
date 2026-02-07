@@ -111,7 +111,6 @@ export const SOCKET_URL = (() => {
      try {
           // Robust way to get origin (protocol + host)
           const url = new URL(apiUrl);
-          console.log('[API] Socket URL derived:', url.origin);
           return url.origin;
      } catch (e) {
           console.error('[API] Invalid API URL for socket:', apiUrl);

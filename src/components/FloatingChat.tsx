@@ -53,7 +53,7 @@ export default function FloatingChat() {
           const newSocket = initSocket(token);
 
           newSocket.on('connect', () => {
-               console.log('Connected to socket server');
+               // Connected to socket
                setIsConnected(true);
 
                // Try to restore session from localStorage
@@ -86,7 +86,7 @@ export default function FloatingChat() {
           });
 
           newSocket.on('session_joined', (data: { sessionId: string }) => {
-               console.log("Session joined:", data.sessionId);
+               // Session joined
                setSessionId(data.sessionId);
                localStorage.setItem('chat_session_id', data.sessionId); // Persist session ID
                setShowGuestForm(false);
@@ -99,7 +99,7 @@ export default function FloatingChat() {
           });
 
           newSocket.on('session_ended', () => {
-               console.log("Session ended by admin.");
+               // Session ended by admin
                // Clear local session data
                setSessionId(null);
                localStorage.removeItem('chat_session_id');
