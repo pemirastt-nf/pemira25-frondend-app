@@ -110,7 +110,6 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
           try {
                const res = await api.requestOtp(email);
                if (res.devOtp) {
-                    console.log("DEV OTP:", res.devOtp);
                     alert(`DEV OTP: ${res.devOtp}`);
                }
 
