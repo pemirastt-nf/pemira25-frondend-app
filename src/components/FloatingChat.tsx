@@ -26,6 +26,7 @@ export default function FloatingChat() {
      const [isConnected, setIsConnected] = useState(false);
      const [sessionId, setSessionId] = useState<string | null>(null);
      const [isSending, setIsSending] = useState(false);
+     const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
      // Guest State
      const [guestName, setGuestName] = useState("");
@@ -150,6 +151,7 @@ export default function FloatingChat() {
 
      const handleGuestJoin = (e: React.FormEvent) => {
           e.preventDefault();
+          setErrorMsg(null);
           if (!socketRef.current) return;
           if (!guestName || !guestEmail) return;
 
@@ -164,9 +166,6 @@ export default function FloatingChat() {
 
           setIsSending(true);
 
-          // Emit with callback if possible, or just set timeout to reset state
-          // Since we rely on optimistic UI or socket confirmation, we'll reset after a short delay or when msg received.
-          // For now, simple timeout to prevent instant double-click
           socketRef.current.emit('send_message', {
                message: inputValue,
                sessionId
@@ -216,6 +215,11 @@ export default function FloatingChat() {
                                              <div className="bg-white p-6 rounded-xl shadow-lg border border-neutral-100 w-full">
                                                   <h4 className="font-bold text-center mb-4 text-slate-800">Mulai Chat</h4>
                                                   <form onSubmit={handleGuestJoin} className="space-y-4">
+                                                       {errorMsg && (
+                                                            <div className="bg-red-50 text-red-600 text-xs p-3 rounded-lg border border-red-100">
+                                                                 {errorMsg}
+                                                            </div>
+                                                       )}
                                                        <div>
                                                             <label className="text-xs font-semibold text-slate-500 ml-1">Nama</label>
                                                             <Input
