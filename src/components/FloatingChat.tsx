@@ -122,24 +122,21 @@ export default function FloatingChat() {
 
           newSocket.on('error', (err: string) => {
                console.error("Socket error:", err);
-               // If error relates to invalid session, maybe clear localStorage?
-               if (err === 'Session not found' || err === 'Failed to join chat') {
-                    // Optional: localStorage.removeItem('chat_session_id'); 
+
+               // Handle specific errors
+               if (err === 'User not found. Please re-login.' || err === 'Authentication failed') {
+                    // Clear invalid credentials
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('chat_session_id');
+                    localStorage.removeItem('user'); // If any other user data exists
+
+                    // Force reload/logout to ensure clean state
+                    window.location.reload();
+               } else if (err === 'Session not found' || err === 'Failed to join chat') {
+                    localStorage.removeItem('chat_session_id');
+                    setSessionId(null);
+                    setTimeout(() => setShowGuestForm(true), 0);
                }
-          });
-
-          newSocket.on('message_history', (history: Message[]) => {
-               setMessages(history);
-               scrollToBottom();
-          });
-
-          newSocket.on('new_message', (msg: Message) => {
-               setMessages((prev) => [...prev, msg]);
-          });
-
-          newSocket.on('error', (err: string) => {
-               console.error("Socket error:", err);
-               // Simple toast or alert?
           });
 
           socketRef.current = newSocket;

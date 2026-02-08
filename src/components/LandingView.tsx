@@ -14,7 +14,7 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
      return (
           <div className="flex flex-col gap-16 md:gap-24 pb-24">
                {/* Hero Section */}
-               <section id="hero" className="relative pt-8 pb-12 lg:pt-20 lg:pb-24 overflow-hidden">
+               <section id="hero" className="container mx-auto relative pt-8 pb-12 lg:pt-20 lg:pb-24 overflow-hidden">
 
                     {/* Background Pattern - Dot Grid */}
                     <div className="absolute inset-0 -z-10 h-full w-full bg-neutral-cream bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
