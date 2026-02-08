@@ -13,6 +13,7 @@ import { CheckCircle2, Loader2, Mail, Lock, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { OtpInput } from "@/components/ui/otp-input";
+import { storage } from "@/lib/storage";
 import {
      Dialog,
      DialogContent,
@@ -73,7 +74,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
      }, []);
 
      const checkAuth = async () => {
-          const token = localStorage.getItem("token");
+          const token = storage.getItem("token");
           if (!token) {
                const savedState = sessionStorage.getItem("voting_state");
                if (!savedState) {
@@ -135,7 +136,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
           setError("");
           try {
                const res = await api.verifyOtp(email, tokenToVerify);
-               localStorage.setItem("token", res.token);
+               storage.setItem("token", res.token);
 
                sessionStorage.removeItem("voting_state");
 
@@ -160,7 +161,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
 
           setIsSubmitting(true);
           try {
-               const token = localStorage.getItem("token");
+               const token = storage.getItem("token");
                if (!token) throw new Error("Sesi habis, silakan login ulang");
 
                await api.vote(selectedId.toString(), token);
@@ -170,7 +171,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                alert(err.message || "Gagal memilih");
                setShowConfirmation(false);
                if (err.message?.includes('jwt') || err.message?.includes('token')) {
-                    localStorage.removeItem("token");
+                    storage.removeItem("token");
                     setAuthStage('email_input');
                }
           } finally {
@@ -211,7 +212,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                     <Card className="max-w-md w-full p-8 rounded-3xl shadow-2xl bg-white/80 backdrop-blur-sm border-blue-50">
                          <div className="text-center mb-8">
                               <h1 className="text-2xl font-bold text-slate-900 mb-2">Masuk untuk Memilih</h1>
-                              <p className="text-slate-500">Masukkan email yang terdaftar di sistem.</p>
+                              <p className="text-slate-500">Masukkan email kampusmu untuk melakukan voting.</p>
                          </div>
 
                          <form onSubmit={handleRequestOtp} className="space-y-6">
@@ -221,9 +222,9 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                                         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                                         <input
                                              type="email"
-                                             placeholder="nim@student.nurulfikri.ac.id"
+                                             placeholder="emailkamu@student.nurulfikri.ac.id"
                                              pattern=".+@student\.nurulfikri\.ac\.id"
-                                             title="Gunakan email mahasiswa (@student.nurulfikri.ac.id)"
+                                             title="Gunakan email mahasiswa (emailkamu@student.nurulfikri.ac.id)"
                                              required
                                              className="w-full h-12 pl-12 pr-4 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                              value={email}
@@ -333,7 +334,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                                         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                                         <input
                                              type="email"
-                                             placeholder="nim@student.nurulfikri.ac.id"
+                                             placeholder="emailkamu@student.nurulfikri.ac.id"
                                              required
                                              className="w-full h-12 pl-12 pr-4 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                              value={email}

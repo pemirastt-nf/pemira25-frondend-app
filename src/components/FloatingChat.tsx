@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { initSocket } from '@/lib/api';
+import { storage } from '@/lib/storage';
 
 interface Message {
      id: string;
@@ -29,7 +30,6 @@ export default function FloatingChat() {
      const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
      // Guest State
-     const [guestName, setGuestName] = useState("");
      const [guestEmail, setGuestEmail] = useState("");
      const [showGuestForm, setShowGuestForm] = useState(false);
 
@@ -44,8 +44,8 @@ export default function FloatingChat() {
      }, [messages, isOpen]);
 
      useEffect(() => {
-          const token = localStorage.getItem("token");
-          const storedSessionId = localStorage.getItem("chat_session_id");
+          const token = storage.getItem("token");
+          const storedSessionId = storage.getItem("chat_session_id");
 
           if (!token && !storedSessionId) {
                // Defer to avoid sync state update warning in effect
@@ -59,7 +59,7 @@ export default function FloatingChat() {
                setIsConnected(true);
 
                // Try to restore session from localStorage
-               const storedSessionId = localStorage.getItem('chat_session_id');
+               const storedSessionId = storage.getItem('chat_session_id');
 
                if (token) {
                     try {
@@ -90,13 +90,34 @@ export default function FloatingChat() {
           newSocket.on('session_joined', (data: { sessionId: string }) => {
                // Session joined
                setSessionId(data.sessionId);
-               localStorage.setItem('chat_session_id', data.sessionId); // Persist session ID
+               storage.setItem('chat_session_id', data.sessionId); // Persist session ID
                setShowGuestForm(false);
+
+
+               // Request message history for this session
+               newSocket.emit('get_message_history', { sessionId: data.sessionId });
+          });
+
+          // Add message event handlers
+          newSocket.on('message_history', (messages: Message[]) => {
+               setMessages(messages || []);
+          });
+
+          newSocket.on('new_message', (message: Message) => {
+               setMessages(prev => [...prev, message]);
+          });
+
+          newSocket.on('message_sent', (message: Message) => {
+               // Update the optimistic message with the real one
+               setMessages(prev => {
+                    const filtered = prev.filter(m => m.id !== Date.now().toString());
+                    return [...filtered, message];
+               });
           });
 
           newSocket.on('session_join_failed', () => {
                console.warn("Session resume failed. Clearing generic session.");
-               localStorage.removeItem('chat_session_id');
+               storage.removeItem('chat_session_id');
                setShowGuestForm(true);
           });
 
@@ -104,10 +125,10 @@ export default function FloatingChat() {
                // Session ended by admin
                // Clear local session data
                setSessionId(null);
-               localStorage.removeItem('chat_session_id');
+               storage.removeItem('chat_session_id');
                setMessages([]);
 
-               const currentToken = localStorage.getItem("token");
+               const currentToken = storage.getItem("token");
                if (currentToken) {
                     // If student, auto-start new session immediately
                     try {
@@ -131,14 +152,14 @@ export default function FloatingChat() {
                     setShowGuestForm(true);
                } else if (err === 'User not found. Please re-login.' || err === 'Authentication failed') {
                     // Clear invalid credentials
-                    localStorage.removeItem('token');
-                    localStorage.removeItem('chat_session_id');
-                    localStorage.removeItem('user'); // If any other user data exists
+                    storage.removeItem('token');
+                    storage.removeItem('chat_session_id');
+                    storage.removeItem('user'); // If any other user data exists
 
                     // Force reload/logout to ensure clean state
                     window.location.reload();
                } else if (err === 'Session not found' || err === 'Failed to join chat') {
-                    localStorage.removeItem('chat_session_id');
+                    storage.removeItem('chat_session_id');
                     setSessionId(null);
                     setTimeout(() => setShowGuestForm(true), 0);
                }
@@ -156,10 +177,10 @@ export default function FloatingChat() {
           e.preventDefault();
           setErrorMsg(null);
           if (!socketRef.current) return;
-          if (!guestName || !guestEmail) return;
+          if (!guestEmail) return;
 
           socketRef.current.emit('join_student', {
-               guestInfo: { name: guestName, email: guestEmail }
+               guestInfo: { email: guestEmail }
           });
      };
 
@@ -169,17 +190,24 @@ export default function FloatingChat() {
 
           setIsSending(true);
 
+          // Store message content before clearing
+          const messageContent = inputValue.trim();
+          setInputValue("");
+
+          // Send message to socket
           socketRef.current.emit('send_message', {
-               message: inputValue,
+               message: messageContent,
                sessionId
           });
 
-          setInputValue("");
           setTimeout(() => setIsSending(false), 1000); // 1s cooldown
      };
 
      return (
-          <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4">
+          <div
+               className="fixed bottom-6 right-6 flex flex-col items-end gap-4"
+               style={{ zIndex: 9999, position: 'fixed' }}
+          >
                <AnimatePresence>
                     {isOpen && (
                          <motion.div
@@ -216,7 +244,6 @@ export default function FloatingChat() {
                                    {showGuestForm ? (
                                         <div className="absolute inset-0 bg-white/50 backdrop-blur-sm z-10 flex items-center justify-center p-6">
                                              <div className="bg-white p-6 rounded-xl shadow-lg border border-neutral-100 w-full">
-                                                  <h4 className="font-bold text-center mb-4 text-slate-800">Mulai Chat</h4>
                                                   <form onSubmit={handleGuestJoin} className="space-y-4">
                                                        {errorMsg && (
                                                             <div className="bg-red-50 text-red-600 text-xs p-3 rounded-lg border border-red-100">
@@ -224,58 +251,59 @@ export default function FloatingChat() {
                                                             </div>
                                                        )}
                                                        <div>
-                                                            <label className="text-xs font-semibold text-slate-500 ml-1">Nama</label>
-                                                            <Input
-                                                                 value={guestName}
-                                                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGuestName(e.target.value)}
-                                                                 placeholder="Nama Anda"
-                                                                 required
-                                                                 className="h-10"
-                                                            />
-                                                       </div>
-                                                       <div>
-                                                            <label className="text-xs font-semibold text-slate-500 ml-1">Email</label>
+                                                            <label className="text-xs font-semibold text-slate-500 ml-1">Email kamu</label>
                                                             <Input
                                                                  value={guestEmail}
                                                                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGuestEmail(e.target.value)}
                                                                  type="email"
-                                                                 placeholder="email@student.nurulfikri.ac.id"
+                                                                 placeholder="emailkamu@student.nurulfikri.ac.id"
                                                                  required
                                                                  className="h-10"
+                                                                 autoComplete="email"
                                                             />
                                                        </div>
                                                        <Button className="w-full bg-primary hover:bg-primary-light h-10 rounded-lg font-bold">
-                                                            Mulai Obrolan
+                                                            Yuk Chat!
                                                        </Button>
                                                   </form>
                                              </div>
                                         </div>
                                    ) : (
                                         <div className="space-y-4 min-h-full flex flex-col justify-end">
-                                             {messages.map((msg) => (
-                                                  <div
-                                                       key={msg.id}
-                                                       className={cn(
-                                                            "flex w-full mb-2",
-                                                            msg.senderType === 'student' ? "justify-end" : "justify-start"
-                                                       )}
-                                                  >
-                                                       <div className={cn(
-                                                            "max-w-[80%] p-3 rounded-2xl text-sm shadow-sm",
-                                                            msg.senderType === 'student'
-                                                                 ? "bg-primary text-white rounded-br-none"
-                                                                 : "bg-white text-slate-700 border border-slate-100 rounded-bl-none"
-                                                       )}>
-                                                            {msg.message}
-                                                            <div className={cn(
-                                                                 "text-[10px] mt-1 text-right opacity-70",
-                                                                 msg.senderType === 'student' ? "text-white" : "text-slate-400"
-                                                            )}>
-                                                                 {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                                            </div>
+                                             {messages.length === 0 ? (
+                                                  <div className="flex-1 flex items-center justify-center">
+                                                       <div className="text-center text-gray-500">
+                                                            <MessageCircle size={48} className="mx-auto mb-2 opacity-50" />
+                                                            <p className="text-sm">Belum ada pesan</p>
+                                                            <p className="text-xs">Mulai percakapan dengan panitia</p>
                                                        </div>
                                                   </div>
-                                             ))}
+                                             ) : (
+                                                  messages.map((msg) => (
+                                                       <div
+                                                            key={msg.id}
+                                                            className={cn(
+                                                                 "flex w-full mb-2",
+                                                                 msg.senderType === 'student' ? "justify-end" : "justify-start"
+                                                            )}
+                                                       >
+                                                            <div className={cn(
+                                                                 "max-w-[80%] p-3 rounded-2xl text-sm shadow-sm",
+                                                                 msg.senderType === 'student'
+                                                                      ? "bg-primary text-white rounded-br-none"
+                                                                      : "bg-white text-slate-700 border border-slate-100 rounded-bl-none"
+                                                            )}>
+                                                                 {msg.message}
+                                                                 <div className={cn(
+                                                                      "text-[10px] mt-1 text-right opacity-70",
+                                                                      msg.senderType === 'student' ? "text-white" : "text-slate-400"
+                                                                 )}>
+                                                                      {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                                 </div>
+                                                            </div>
+                                                       </div>
+                                                  ))
+                                             )}
                                              <div ref={messagesEndRef} />
                                         </div>
                                    )}
@@ -315,18 +343,17 @@ export default function FloatingChat() {
                <button
                     onClick={() => setIsOpen(!isOpen)}
                     className={cn(
-                         "group flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-secondary/30",
+                         "group flex items-center justify-center w-16 h-16 rounded-full shadow-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-secondary/30 border-2 border-white/20",
                          isOpen ? "bg-slate-800 rotate-90" : "bg-primary hover:bg-primary-light hover:scale-105"
                     )}
+                    style={{ zIndex: 9999 }}
                >
                     {isOpen ? (
                          <X className="text-white" size={24} />
                     ) : (
-                         <MessageCircle className="text-white animate-pulse-slow" size={28} />
+                         <MessageCircle className="text-white animate-pulse" size={32} />
                     )}
 
-                    {/* Unread Badge (Mockup logic needed if we want persistence of unread) */}
-                    {/* <span className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span> */}
                </button>
           </div>
      );

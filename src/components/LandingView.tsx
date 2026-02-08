@@ -34,7 +34,7 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                               </h1>
 
                               <p className="text-base md:text-lg text-slate-600 mb-8 md:mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-                                   PEMIRA STT Terpadu Nurul Fikri merupakan sarana resmi pemilihan pimpinan mahasiswa yang menjunjung tinggi nilai integritas, partisipasi aktif, dan tanggung jawab bersama demi masa depan kampus yang lebih baik.
+                                   PEMIRA IM STT Terpadu Nurul Fikri merupakan sarana resmi pemilihan pimpinan mahasiswa yang menjunjung tinggi nilai integritas, partisipasi aktif, dan tanggung jawab bersama demi masa depan kampus yang lebih baik.
                               </p>
 
                               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
@@ -67,7 +67,7 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                               >
                                    <Image
                                         src="https://cdn.pemira.oktaa.my.id/pemira-logo-text.svg"
-                                        alt="Logo PEMIRA STTNF"
+                                        alt="Logo PEMIRA IM STTNF"
                                         fill
                                         className="object-contain drop-shadow-2xl"
                                         priority
@@ -81,10 +81,10 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                <section id="about" className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-slate-50/50 rounded-3xl my-8">
                     <div className="mb-16 text-center max-w-3xl mx-auto">
                          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
-                              Tentang <span className="text-primary">PEMIRA</span>
+                              Tentang <span className="text-primary">PEMIRA IM STTNF</span>
                          </h2>
                          <p className="text-lg text-slate-600 leading-relaxed">
-                              PEMIRA STT Terpadu Nurul Fikri merupakan sarana resmi pemilihan pimpinan mahasiswa yang menjunjung tinggi nilai demokrasi, integritas, dan transparansi demi masa depan kampus yang lebih baik.
+                              PEMIRA IM STT Terpadu Nurul Fikri merupakan sarana resmi pemilihan pimpinan mahasiswa yang menjunjung tinggi nilai demokrasi, integritas, dan transparansi demi masa depan kampus yang lebih baik.
                          </p>
                     </div>
 
