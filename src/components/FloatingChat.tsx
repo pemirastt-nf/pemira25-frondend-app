@@ -126,7 +126,10 @@ export default function FloatingChat() {
                console.error("Socket error:", err);
 
                // Handle specific errors
-               if (err === 'User not found. Please re-login.' || err === 'Authentication failed') {
+               if (err.includes('Email')) {
+                    setErrorMsg(err);
+                    setShowGuestForm(true);
+               } else if (err === 'User not found. Please re-login.' || err === 'Authentication failed') {
                     // Clear invalid credentials
                     localStorage.removeItem('token');
                     localStorage.removeItem('chat_session_id');
