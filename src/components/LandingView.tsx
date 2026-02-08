@@ -14,7 +14,7 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
      return (
           <div className="flex flex-col gap-16 md:gap-24 pb-24">
                {/* Hero Section */}
-               <section id="hero" className="container mx-auto relative pt-8 pb-12 lg:pt-20 lg:pb-24 overflow-hidden">
+               <section id="hero" className="container mx-auto lg:mx-12 relative pt-8 pb-12 lg:pt-20 lg:pb-24 overflow-hidden">
 
                     {/* Background Pattern - Dot Grid */}
                     <div className="absolute inset-0 -z-10 h-full w-full bg-neutral-cream bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
@@ -77,8 +77,8 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                     </div>
                </section>
 
-               {/* About & Timeline Section (User Requested Design) */}
-               <section id="about" className="container mx-auto px-4 py-8">
+               {/* About & Timeline Section */}
+               <section id="about" className="container mx-auto lg:mx-12 px-4 py-8">
                     <div className="mb-16 text-center max-w-3xl mx-auto">
                          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
                               Tentang <span className="text-primary">PEMIRA</span>
@@ -155,8 +155,8 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                     </div>
                </section >
 
-               {/* Tutorial Section (Redesigned) */}
-               <section id="tutorial" className="container mx-auto px-4 py-20">
+               {/* Tutorial Section */}
+               <section id="tutorial" className="container mx-auto lg:mx-12 px-4 py-20">
                     <div className="text-center max-w-3xl mx-auto mb-16">
                          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
                               Cara Melakukan <span className="text-primary">Voting</span>
@@ -247,7 +247,7 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                </section>
 
                {/* FAQ Section */}
-               <section id="faq" className="container mx-auto px-4 pb-24 pt-10">
+               <section id="faq" className="container mx-auto lg:mx-12 px-4 pb-24 pt-10">
                     <div className="text-center max-w-3xl mx-auto mb-12">
                          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
                               Tanya Jawab <span className="text-primary">Umum</span>
