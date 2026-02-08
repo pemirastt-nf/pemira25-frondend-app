@@ -8,7 +8,7 @@ import { io, Socket } from 'socket.io-client';
 import { jwtDecode } from 'jwt-decode';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils'; // Ensure utils exists or use standard classnames
+import { cn } from '@/lib/utils';
 import { initSocket } from '@/lib/api';
 
 interface Message {
@@ -25,6 +25,7 @@ export default function FloatingChat() {
      const [inputValue, setInputValue] = useState("");
      const [isConnected, setIsConnected] = useState(false);
      const [sessionId, setSessionId] = useState<string | null>(null);
+     const [isSending, setIsSending] = useState(false);
 
      // Guest State
      const [guestName, setGuestName] = useState("");
@@ -159,13 +160,20 @@ export default function FloatingChat() {
 
      const handleSendMessage = (e: React.FormEvent) => {
           e.preventDefault();
-          if (!inputValue.trim() || !socketRef.current || !sessionId) return;
+          if (!inputValue.trim() || !socketRef.current || !sessionId || isSending) return;
 
+          setIsSending(true);
+
+          // Emit with callback if possible, or just set timeout to reset state
+          // Since we rely on optimistic UI or socket confirmation, we'll reset after a short delay or when msg received.
+          // For now, simple timeout to prevent instant double-click
           socketRef.current.emit('send_message', {
                message: inputValue,
                sessionId
           });
+
           setInputValue("");
+          setTimeout(() => setIsSending(false), 1000); // 1s cooldown
      };
 
      return (
@@ -274,15 +282,22 @@ export default function FloatingChat() {
                                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
                                              placeholder="Ketik pesan..."
                                              className="rounded-full bg-slate-50 border-slate-200 focus:bg-white transition-all pl-4"
-                                             disabled={showGuestForm || !isConnected}
+                                             disabled={showGuestForm || !isConnected || isSending}
                                         />
                                         <Button
                                              size="icon"
                                              type="submit"
-                                             disabled={showGuestForm || !isConnected || !inputValue.trim()}
-                                             className="rounded-full aspect-square bg-primary hover:bg-primary-light shrink-0"
+                                             disabled={showGuestForm || !isConnected || !inputValue.trim() || isSending}
+                                             className={cn(
+                                                  "rounded-full aspect-square bg-primary hover:bg-primary-light shrink-0 transition-all",
+                                                  isSending && "opacity-70 cursor-not-allowed"
+                                             )}
                                         >
-                                             <Send size={18} />
+                                             {isSending ? (
+                                                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                             ) : (
+                                                  <Send size={18} />
+                                             )}
                                         </Button>
                                    </form>
                               </div>

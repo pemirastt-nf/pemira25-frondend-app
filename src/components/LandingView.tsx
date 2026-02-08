@@ -63,7 +63,7 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
 
                               {/* Floating Logo */}
                               <div
-                                   className="relative z-20 w-96 h-96 lg:w-125 lg:h-125"
+                                   className="relative ml-16 z-20 w-96 h-96 lg:w-125 lg:h-125"
                               >
                                    <Image
                                         src="https://cdn.pemira.oktaa.my.id/pemira-logo-text.svg"
@@ -78,7 +78,7 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                </section>
 
                {/* About & Timeline Section */}
-               <section id="about" className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24 bg-slate-50/50 rounded-3xl my-8">
+               <section id="about" className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-slate-50/50 rounded-3xl my-8">
                     <div className="mb-16 text-center max-w-3xl mx-auto">
                          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
                               Tentang <span className="text-primary">PEMIRA</span>
@@ -156,7 +156,7 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                </section >
 
                {/* Tutorial Section */}
-               <section id="tutorial" className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+               <section id="tutorial" className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     <div className="text-center max-w-3xl mx-auto mb-16">
                          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
                               Cara Melakukan <span className="text-primary">Voting</span>
@@ -213,23 +213,7 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                          transition={{ duration: 0.8 }}
                          className="max-w-4xl mx-auto"
                     >
-                         {/* Browser Window Frame */}
                          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200/60 ring-1 ring-slate-900/5">
-                              {/* Browser Header */}
-                              <div className="bg-slate-50 border-b border-slate-200 px-4 py-3 flex items-center gap-2">
-                                   <div className="flex gap-1.5">
-                                        <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                                        <div className="w-3 h-3 rounded-full bg-amber-400"></div>
-                                        <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                                   </div>
-                                   <div className="mx-auto bg-white border border-slate-200 rounded-md px-3 py-1 text-xs text-slate-400 font-medium flex items-center gap-1.5 min-w-50 justify-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-3 h-3">
-                                             <path fillRule="evenodd" d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.696l5.925-2.662 5.925 2.662a.75.75 0 001.075-.696V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" clipRule="evenodd" />
-                                        </svg>
-                                        panduan-pemira.mp4
-                                   </div>
-                              </div>
-
                               {/* Video Container */}
                               <div className="relative w-full pb-[56.25%] bg-slate-900">
                                    <iframe
@@ -242,12 +226,13 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                                         className="absolute top-0 left-0 w-full h-full"
                                    ></iframe>
                               </div>
+
                          </div>
                     </motion.div>
                </section>
 
                {/* FAQ Section */}
-               <section id="faq" className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+               <section id="faq" className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     <div className="text-center max-w-3xl mx-auto mb-12">
                          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
                               Tanya Jawab <span className="text-primary">Umum</span>
