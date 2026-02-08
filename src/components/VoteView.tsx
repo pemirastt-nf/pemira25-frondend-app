@@ -185,7 +185,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
 
      if (authStage === 'voted') {
           return (
-               <div className="container mx-auto px-4 py-24 text-center min-h-[60vh] flex items-center justify-center">
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center min-h-[60vh] flex items-center justify-center">
                     <motion.div
                          initial={{ scale: 0.8, opacity: 0 }}
                          animate={{ scale: 1, opacity: 1 }}
@@ -208,7 +208,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
 
      if (authStage === 'email_input') {
           return (
-               <div className="container mx-auto px-4 py-32 flex items-center justify-center min-h-[80vh]">
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 flex items-center justify-center min-h-[80vh]">
                     <Card className="max-w-md w-full p-8 rounded-3xl shadow-2xl bg-white/80 backdrop-blur-sm border-blue-50">
                          <div className="text-center mb-8">
                               <h1 className="text-2xl font-bold text-slate-900 mb-2">Masuk untuk Memilih</h1>
@@ -267,7 +267,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
 
      if (authStage === 'otp_input') {
           return (
-               <div className="container mx-auto px-4 py-32 flex items-center justify-center min-h-[80vh]">
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 flex items-center justify-center min-h-[80vh]">
                     <Card className="max-w-md w-full p-8 rounded-3xl shadow-2xl bg-white/80 backdrop-blur-sm border-blue-50">
                          <div className="text-center mb-8">
                               <h1 className="text-2xl font-bold text-slate-900 mb-2">Verifikasi OTP</h1>
@@ -320,7 +320,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
 
      if (authStage === 'manual_otp') {
           return (
-               <div className="container mx-auto px-4 py-32 flex items-center justify-center min-h-[80vh]">
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 flex items-center justify-center min-h-[80vh]">
                     <Card className="max-w-md w-full p-8 rounded-3xl shadow-2xl bg-white/80 backdrop-blur-sm border-blue-50">
                          <div className="text-center mb-8">
                               <h1 className="text-2xl font-bold text-slate-900 mb-2">Verifikasi Manual</h1>
@@ -388,19 +388,20 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
      }
 
      return (
-          <div className="container mx-auto px-4 py-6 pb-20 md:py-10 md:pb-32">
-               <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-10"
-               >
-                    <h1 className="text-2xl md:text-4xl font-bold mb-2 text-slate-900">Bilik <span className="text-primary">Suara Digital</span></h1>
-                    <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                         Silakan pilih salah satu pasangan calon di bawah ini.
-                    </p>
-               </motion.div>
+          <div className="py-16 md:py-24 pb-20">
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <motion.div
+                         initial={{ opacity: 0, y: 20 }}
+                         animate={{ opacity: 1, y: 0 }}
+                         className="text-center mb-10"
+                    >
+                         <h1 className="text-2xl md:text-4xl font-bold mb-2 text-slate-900">Bilik <span className="text-primary">Suara Digital</span></h1>
+                         <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                              Silakan pilih salah satu pasangan calon di bawah ini.
+                         </p>
+                    </motion.div>
 
-               <div className="flex flex-wrap justify-center gap-4 md:gap-8 max-w-5xl mx-auto mb-12">
+                    <div className="flex flex-wrap justify-center gap-4 md:gap-8 max-w-5xl mx-auto mb-12">
                     {candidates.map((candidate) => (
                          <motion.div
                               key={candidate.id}
@@ -483,7 +484,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                               exit={{ y: 100, opacity: 0 }}
                               className="fixed bottom-8 left-0 right-0 px-4 z-40"
                          >
-                              <div className="container mx-auto max-w-xl bg-white/90 backdrop-blur-md p-4 rounded-full shadow-2xl border border-blue-100 flex items-center justify-between pl-8">
+                              <div className="max-w-xl mx-auto bg-white/90 backdrop-blur-md p-4 rounded-full shadow-2xl border border-blue-100 flex items-center justify-between pl-8">
                                    <div className="text-sm font-medium text-slate-600">
                                         Pilihan Anda: <span className="font-bold text-primary">No. {candidates.find(c => c.id === selectedId)?.orderNumber}</span>
                                    </div>
@@ -647,6 +648,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                          </div>
                     </DialogContent>
                </Dialog>
-          </div >
+               </div>
+          </div>
      );
 }

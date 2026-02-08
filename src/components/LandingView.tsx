@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import Link from "next/link";
@@ -9,23 +8,23 @@ import { timeline, tutorialSteps } from "@/lib/data";
 import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-export default function LandingView({ stats }: { stats: { totalVoters: number; votesCast: number; turnout: string } }) {
+export default function LandingView() {
 
      return (
           <div className="flex flex-col gap-16 md:gap-24 pb-24">
                {/* Hero Section */}
-               <section id="hero" className="container mx-auto relative px-4 sm:px-6 lg:px-8 pt-12 pb-16 md:pt-20 md:pb-28 overflow-hidden">
+               <section id="hero" className="relative px-4 sm:px-6 lg:px-8 pt-12 pb-16 md:pt-20 md:pb-28 overflow-hidden">
 
                     {/* Background Pattern - Dot Grid */}
-                    <div className="absolute inset-0 -z-10 h-full w-full bg-neutral-cream bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+                    <div className="absolute inset-0 -z-10 h-full w-full dot-pattern"></div>
 
-                    <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-125 max-w-7xl mx-auto px-4">
                          {/* Left: Text Content */}
                          <motion.div
                               initial={{ opacity: 0, x: -20 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ duration: 0.8 }}
-                              className="text-center lg:text-left z-10"
+                              className="text-center lg:text-left z-10 order-2 lg:order-1"
                          >
 
                               <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight text-slate-900 leading-[1.1]">
@@ -56,21 +55,24 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                               initial={{ opacity: 0, x: 20 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ duration: 0.8, delay: 0.2 }}
-                              className="relative hidden lg:flex items-center justify-center h-125 w-full"
+                              className="relative hidden lg:flex items-center justify-center w-full min-h-100 order-1 lg:order-2"
                          >
                               {/* Abstract Decorative blobs */}
-                              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-100 h-100 bg-primary/10 rounded-full blur-3xl -z-10" />
+                              <div className="absolute inset-0 w-80 h-80 mx-auto my-auto bg-primary/10 rounded-full blur-3xl -z-10" />
 
                               {/* Floating Logo */}
-                              <div
-                                   className="relative ml-16 z-20 w-96 h-96 lg:w-125 lg:h-125"
-                              >
+                              <div className="relative z-20 w-80 h-80 max-w-full max-h-full">
                                    <Image
                                         src="https://cdn.pemira.oktaa.my.id/pemira-logo-text.svg"
                                         alt="Logo PEMIRA IM STTNF"
                                         fill
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 320px"
                                         className="object-contain drop-shadow-2xl"
                                         priority
+                                        style={{
+                                             objectFit: 'contain',
+                                             objectPosition: 'center'
+                                        }}
                                    />
                               </div>
                          </motion.div>
@@ -78,15 +80,17 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                </section>
 
                {/* About & Timeline Section */}
-               <section id="about" className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-slate-50/50 rounded-3xl my-8">
-                    <div className="mb-16 text-center max-w-3xl mx-auto">
-                         <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
-                              Tentang <span className="text-primary">PEMIRA IM STTNF</span>
-                         </h2>
-                         <p className="text-lg text-slate-600 leading-relaxed">
-                              PEMIRA IM STT Terpadu Nurul Fikri merupakan sarana resmi pemilihan pimpinan mahasiswa yang menjunjung tinggi nilai demokrasi, integritas, dan transparansi demi masa depan kampus yang lebih baik.
-                         </p>
-                    </div>
+               <section id="about" className="py-16 md:py-24">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                         <div className="bg-slate-50/50 rounded-3xl py-12 px-6 lg:px-12">
+                              <div className="mb-16 text-center max-w-3xl mx-auto">
+                                   <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+                                        Tentang <span className="text-primary">PEMIRA IM STTNF</span>
+                                   </h2>
+                                   <p className="text-lg text-slate-600 leading-relaxed">
+                                        PEMIRA IM STT Terpadu Nurul Fikri merupakan sarana resmi pemilihan pimpinan mahasiswa yang menjunjung tinggi nilai demokrasi, integritas, dan transparansi demi masa depan kampus yang lebih baik.
+                                   </p>
+                              </div>
 
                     <div className="relative">
                          {/* Mobile Vertical Line */}
@@ -153,18 +157,21 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                               )}
                          </div>
                     </div>
-               </section >
+                         </div>
+                    </div>
+               </section>
 
                {/* Tutorial Section */}
-               <section id="tutorial" className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
-                         <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
-                              Cara Melakukan <span className="text-primary">Voting</span>
-                         </h2>
-                         <p className="text-lg text-p leading-relaxed">
-                              Ikuti 4 langkah mudah berikut untuk menggunakan hak suaramu.
-                         </p>
-                    </div>
+               <section id="tutorial" className="py-16 md:py-24">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                         <div className="text-center max-w-3xl mx-auto mb-16">
+                              <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+                                   Cara Melakukan <span className="text-primary">Voting</span>
+                              </h2>
+                              <p className="text-lg text-slate-600 leading-relaxed">
+                                   Ikuti 4 langkah mudah berikut untuk menggunakan hak suaramu.
+                              </p>
+                         </div>
 
                     {/* Step Cards with Illustration Style */}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 relative z-10">
@@ -229,18 +236,20 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
 
                          </div>
                     </motion.div>
+                    </div>
                </section>
 
                {/* FAQ Section */}
-               <section id="faq" className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <div className="text-center max-w-3xl mx-auto mb-12">
-                         <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
-                              Tanya Jawab <span className="text-primary">Umum</span>
-                         </h2>
-                         <p className="text-lg text-slate-600 leading-relaxed">
-                              Jawaban untuk pertanyaan yang sering diajukan seputar PEMIRA.
-                         </p>
-                    </div>
+               <section id="faq" className="py-16 md:py-24">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                         <div className="text-center max-w-3xl mx-auto mb-12">
+                              <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+                                   Tanya Jawab <span className="text-primary">Umum</span>
+                              </h2>
+                              <p className="text-lg text-slate-600 leading-relaxed">
+                                   Jawaban untuk pertanyaan yang sering diajukan seputar PEMIRA.
+                              </p>
+                         </div>
 
                     <div className="max-w-3xl mx-auto">
                          <Accordion type="single" collapsible className="space-y-4">
@@ -289,6 +298,7 @@ export default function LandingView({ stats }: { stats: { totalVoters: number; v
                                    </AccordionContent>
                               </AccordionItem>
                          </Accordion>
+                    </div>
                     </div>
                </section>
           </div>

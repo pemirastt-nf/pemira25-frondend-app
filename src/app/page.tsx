@@ -16,5 +16,5 @@ export default async function Home() {
           console.error("Failed to fetch stats:", err);
      }
 
-     return <LandingView stats={stats} />;
+     return <LandingView />;
 }

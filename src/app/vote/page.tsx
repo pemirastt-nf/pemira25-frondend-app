@@ -18,7 +18,7 @@ export default async function VotePage() {
 
      if (!settings) {
           return (
-               <div className="container mx-auto px-4 py-24 flex items-center justify-center min-h-[60vh]">
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 flex items-center justify-center min-h-[60vh]">
                     <Card className="max-w-md w-full shadow-2xl border-slate-200">
                          <CardHeader className="text-center pb-2">
                               <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
@@ -50,7 +50,7 @@ export default async function VotePage() {
 
      if (!isOpen) {
           return (
-               <div className="container mx-auto px-4 py-24 flex items-center justify-center min-h-[60vh]">
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 flex items-center justify-center min-h-[60vh]">
                     <Card className="max-w-md w-full shadow-2xl border-slate-200">
                          <CardHeader className="text-center pb-2">
                               <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
