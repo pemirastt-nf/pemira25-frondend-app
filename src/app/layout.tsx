@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -83,6 +84,11 @@ export default function RootLayout({
                     <Footer />
                     <FloatingChat />
                 </div>
+                <Script 
+                    src="https://cloud.umami.is/script.js" 
+                    data-website-id="895c8390-4014-4558-864d-051df20f1cbf"
+                    strategy="afterInteractive"
+                />
             </body>
         </html>
     );
