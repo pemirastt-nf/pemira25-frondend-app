@@ -2,41 +2,90 @@
 
 @theme {
   --font-sans: var(--font-inter);
-  --font-heading: var(--font-outfit);
-  --color-primary: #023e84;
-  --color-primary-light: #0077b6;
-  --color-secondary: #ff6d00;
-  --color-secondary-hover: #ff9e00;
-  --color-neutral-cream: #ebe6d9;
-  --color-neutral-slate: #023e84;
+  --font-heading: var(--font-archivo); /* Archivo Black for headers */
+  --font-mono: var(--font-space); /* Space Mono for data/UI */
+
+  --color-primary: #023e8a; /* Deep Blue - Main */
+  --color-primary-light: #0077b6; /* Medium Blue - Secondary */
+  --color-secondary: var(--color-primary-light);
+  --color-accent-blue: #00b4d8; /* Light Blue - Accent 1 */
+  --color-accent-yellow: #ff9e00; /* Orange - Accent 2 */
+  --color-accent-orange: #ff6d00; /* Dark Orange - Accent 3 */
+  --color-border-black: #000000;
+
+  --color-neutral-cream: #f4f7f6; /* Cool neutral background */
   --color-surface: #ffffff;
 }
 
+@utility neo-shadow {
+  box-shadow: 4px 4px 0px 0px #000000;
+  border: 2px solid #000000;
+}
+
+@utility neo-shadow-sm {
+  box-shadow: 2px 2px 0px 0px #000000;
+  border: 2px solid #000000;
+}
+
+@utility neo-shadow-lg {
+  box-shadow: 8px 8px 0px 0px #000000;
+  border: 3px solid #000000;
+}
+
+@utility neo-button {
+  @apply inline-flex items-center justify-center font-bold uppercase transition-all duration-150 ease-in-out border-2 border-black bg-primary text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-primary-light;
+}
+
+@utility neo-card {
+  @apply bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)];
+}
+
+@utility dot-pattern {
+  background-color: #f0f0f0;
+  background-image: radial-gradient(#000 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.15;
+}
+
+/* Base styles */
 @layer base {
-  body {
-    @apply bg-neutral-cream text-slate-900 antialiased;
+  html {
+    scroll-behavior: smooth;
   }
   
-  /* Essential cross-browser normalizations only */
-  *, *::before, *::after {
+  body {
+    @apply bg-neutral-cream text-black font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading tracking-tight;
+  }
+
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
-  
-  html {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+}
+@utility text-stroke-black {
+  -webkit-text-stroke: 2px black;
+  color: var(--color-primary);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 
-@layer utilities {
-  /* Only keep truly custom patterns that Tailwind can't handle */
-  .dot-pattern {
-    background-color: #ebe6d9;
-    background-image: 
-      linear-gradient(to right, rgba(128, 128, 128, 0.07) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(128, 128, 128, 0.07) 1px, transparent 1px);
-    background-size: 24px 24px;
-    mask: radial-gradient(ellipse 60% 50% at 50% 0%, black 70%, transparent 100%);
-    -webkit-mask: radial-gradient(ellipse 60% 50% at 50% 0%, black 70%, transparent 100%);
-  }
+@utility animate-marquee {
+  animation: marquee 20s linear infinite;
 }

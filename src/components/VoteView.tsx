@@ -196,7 +196,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                          </div>
                          <h2 className="text-3xl font-bold mb-4 text-slate-900">Terima Kasih!</h2>
                          <p className="text-neutral-slate mb-10 text-lg">
-                              Suara anda telah berhasil direkam. Terima kasih telah berpartisipasi dalam <span className="font-bold">PEMIRA IM STTNF 2025-2026</span>.
+                              Suara anda telah berhasil direkam. Terima kasih telah berpartisipasi dalam <span className="font-bold">PEMIRA IM STTNF 2025</span>.
                          </p>
                          <Button onClick={() => window.location.href = "/"} className="w-full h-12 text-lg rounded-full bg-primary hover:bg-primary-light">
                               Kembali ke Beranda
@@ -209,58 +209,66 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
      if (authStage === 'email_input') {
           return (
                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 flex items-center justify-center min-h-[80vh]">
-                    <Card className="max-w-md w-full p-8 rounded-3xl shadow-2xl bg-white/80 backdrop-blur-sm border-blue-50">
+                    <div className="max-w-md w-full bg-white border-4 border-black neo-shadow-lg p-8 relative">
+                         {/* Decorative Corner */}
+                         <div className="absolute -top-3 -left-3 w-8 h-8 bg-accent-blue border-2 border-black z-10"></div>
+
                          <div className="text-center mb-8">
-                              <h1 className="text-2xl font-bold text-slate-900 mb-2">Masuk untuk Memilih</h1>
-                              <p className="text-slate-500">Masukkan email kampusmu untuk melakukan voting.</p>
+                              <h1 className="text-3xl font-heading uppercase mb-2">Login Pemilih</h1>
+                              <div className="h-1 w-20 bg-black mx-auto mb-4"></div>
+                              <p className="font-mono text-sm">Masuk untuk menggunakan hak suara anda.</p>
                          </div>
 
                          <form onSubmit={handleRequestOtp} className="space-y-6">
                               <div className="space-y-2">
-                                   <label className="text-sm font-medium text-slate-700 ml-1">Email</label>
+                                   <label className="font-bold font-mono uppercase text-sm border-l-4 border-primary pl-2">Email Student</label>
                                    <div className="relative">
-                                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-black" />
                                         <input
                                              type="email"
-                                             placeholder="emailkamu@student.nurulfikri.ac.id"
+                                             placeholder="nim@student.nurulfikri.ac.id"
                                              pattern=".+@student\.nurulfikri\.ac\.id"
                                              title="Gunakan email mahasiswa (emailkamu@student.nurulfikri.ac.id)"
                                              required
-                                             className="w-full h-12 pl-12 pr-4 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                             className="w-full h-12 pl-12 pr-4 border-2 border-black neo-shadow-sm focus:bg-blue-50 outline-none font-mono text-sm transition-all placeholder:text-gray-500"
                                              value={email}
                                              onChange={(e) => setEmail(e.target.value)}
                                         />
                                    </div>
                               </div>
 
-                              {error && <p className="text-red-500 text-sm text-center bg-red-50 p-2 rounded-lg">{error}</p>}
+                              {error && (
+                                   <div className="bg-red-100 border-2 border-black p-3 text-red-600 font-bold font-mono text-sm text-center">
+                                        ⚠️ {error}
+                                   </div>
+                              )}
 
-                              <Button type="submit" className="w-full h-12 text-lg rounded-xl bg-primary hover:bg-primary-light" disabled={isSubmitting}>
-                                   {isSubmitting ? <Loader2 className="animate-spin" /> : "Kirim Kode OTP"}
+                              <Button type="submit" className="w-full h-14 neo-button hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none text-lg" disabled={isSubmitting}>
+                                   {isSubmitting ? <Loader2 className="animate-spin" /> : "KIRIM KODE OTP"}
                               </Button>
 
-                              <div className="relative">
+                              <div className="relative py-2">
                                    <div className="absolute inset-0 flex items-center">
-                                        <span className="w-full border-t border-slate-200" />
+                                        <span className="w-full border-t-2 border-black border-dashed" />
                                    </div>
-                                   <div className="relative flex justify-center text-xs uppercase">
-                                        <span className="bg-white px-2 text-slate-500">Atau</span>
+                                   <div className="relative flex justify-center text-xs uppercase font-bold">
+                                        <span className="bg-white px-2 border-2 border-black">Atau</span>
                                    </div>
                               </div>
 
                               <Button
                                    type="button"
-                                   variant="outline"
-                                   className="w-full h-12 rounded-xl border-slate-200 text-slate-600 hover:bg-slate-50"
+                                   variant="ghost"
+                                   className="w-full h-12 font-mono font-bold border-2 border-black hover:bg-neutral-cream rounded-none"
                                    onClick={() => {
                                         setAuthStage('manual_otp');
                                         setError("");
                                    }}
                               >
-                                   Sudah punya kode OTP?
+                                   SUDAH PUNYA KODE?
                               </Button>
                          </form>
-                    </Card>
+                    </div>
                </div>
           );
      }
@@ -268,11 +276,13 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
      if (authStage === 'otp_input') {
           return (
                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 flex items-center justify-center min-h-[80vh]">
-                    <Card className="max-w-md w-full p-8 rounded-3xl shadow-2xl bg-white/80 backdrop-blur-sm border-blue-50">
+                    <div className="max-w-md w-full bg-white border-4 border-black neo-shadow-lg p-8 relative">
                          <div className="text-center mb-8">
-                              <h1 className="text-2xl font-bold text-slate-900 mb-2">Verifikasi OTP</h1>
-                              <p className="text-slate-500 mb-2">Masukkan kode OTP yang dikirim ke <span className="font-semibold text-primary">{email}</span></p>
-                              <p className="text-xs text-slate-400 italic">Periksa folder Inbox atau Spam/Junk jika email tidak masuk.</p>
+                              <h1 className="text-3xl font-heading uppercase mb-2">Verifikasi OTP</h1>
+                              <p className="font-mono text-sm mb-4">
+                                   Kode dikirim ke: <br />
+                                   <span className="font-bold bg-accent-blue/20 px-1">{email}</span>
+                              </p>
                          </div>
 
                          <div className="space-y-8">
@@ -292,28 +302,30 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                               </div>
 
                               {isSubmitting && (
-                                   <div className="flex justify-center text-primary animate-pulse">
-                                        <Loader2 className="animate-spin mr-2" /> Verifikasi...
+                                   <div className="bg-black text-white p-2 text-center font-mono font-bold animate-pulse">
+                                        MEMERIKSA KODE...
                                    </div>
                               )}
 
-                              {error && <p className="text-red-500 text-sm text-center bg-red-50 p-2 rounded-lg">{error}</p>}
+                              {error && (
+                                   <div className="bg-red-100 border-2 border-black p-3 text-red-600 font-bold font-mono text-sm text-center">
+                                        ⚠️ {error}
+                                   </div>
+                              )}
 
-                              <div className="flex flex-col gap-3">
-                                   <Button
-                                        type="button"
-                                        variant="ghost"
-                                        onClick={() => {
-                                             setAuthStage('email_input');
-                                             sessionStorage.removeItem("voting_state");
-                                        }}
-                                        className="w-full text-slate-500 hover:text-slate-800"
-                                   >
-                                        Ganti Email
-                                   </Button>
-                              </div>
+                              <Button
+                                   type="button"
+                                   variant="ghost"
+                                   onClick={() => {
+                                        setAuthStage('email_input');
+                                        sessionStorage.removeItem("voting_state");
+                                   }}
+                                   className="w-full font-mono font-bold underline hover:bg-transparent hover:text-primary"
+                              >
+                                   &lt; GANTI EMAIL
+                              </Button>
                          </div>
-                    </Card>
+                    </div>
                </div>
           );
      }
@@ -321,22 +333,22 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
      if (authStage === 'manual_otp') {
           return (
                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 flex items-center justify-center min-h-[80vh]">
-                    <Card className="max-w-md w-full p-8 rounded-3xl shadow-2xl bg-white/80 backdrop-blur-sm border-blue-50">
+                    <div className="max-w-md w-full bg-white border-4 border-black neo-shadow-lg p-8 relative">
                          <div className="text-center mb-8">
-                              <h1 className="text-2xl font-bold text-slate-900 mb-2">Verifikasi Manual</h1>
-                              <p className="text-slate-500">Masukkan email dan kode OTP yang anda miliki.</p>
+                              <h1 className="text-3xl font-heading uppercase mb-2">INPUT MANUAL</h1>
+                              <p className="font-mono text-sm">Masukkan kredensial anda secara manual.</p>
                          </div>
 
                          <div className="space-y-6">
                               <div className="space-y-2">
-                                   <label className="text-sm font-medium text-slate-700 ml-1">Email</label>
+                                   <label className="font-bold font-mono uppercase text-sm border-l-4 border-primary pl-2">Email</label>
                                    <div className="relative">
-                                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-black" />
                                         <input
                                              type="email"
-                                             placeholder="emailkamu@student.nurulfikri.ac.id"
+                                             placeholder="email@student.nurulfikri.ac.id"
                                              required
-                                             className="w-full h-12 pl-12 pr-4 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                             className="w-full h-12 pl-12 pr-4 border-2 border-black neo-shadow-sm focus:bg-yellow-50 outline-none font-mono text-sm transition-all"
                                              value={email}
                                              onChange={(e) => setEmail(e.target.value)}
                                         />
@@ -344,7 +356,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                               </div>
 
                               <div className="space-y-2">
-                                   <label className="text-sm font-medium text-slate-700 ml-1">Kode OTP</label>
+                                   <label className="font-bold font-mono uppercase text-sm border-l-4 border-primary pl-2">Kode OTP</label>
                                    <div className="flex justify-center">
                                         <OtpInput
                                              length={6}
@@ -360,188 +372,153 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                                    </div>
                               </div>
 
-                              {error && <p className="text-red-500 text-sm text-center bg-red-50 p-2 rounded-lg">{error}</p>}
+                              {error && (
+                                   <div className="bg-red-100 border-2 border-black p-3 text-red-600 font-bold font-mono text-sm text-center">
+                                        ⚠️ {error}
+                                   </div>
+                              )}
 
                               <Button
                                    onClick={(e) => handleVerifyOtp(e)}
-                                   className="w-full h-12 text-lg rounded-xl bg-primary hover:bg-primary-light"
+                                   className="w-full h-14 neo-button hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none text-lg"
                                    disabled={isSubmitting || !email || otp.length !== 6}
                               >
-                                   {isSubmitting ? <Loader2 className="animate-spin" /> : "Verifikasi"}
+                                   {isSubmitting ? <Loader2 className="animate-spin" /> : "VERIFIKASI MASUK"}
                               </Button>
 
                               <Button
                                    type="button"
                                    variant="ghost"
-                                   className="w-full h-12 rounded-xl text-slate-600 hover:bg-slate-50"
+                                   className="w-full font-mono font-bold border-2 border-black hover:bg-neutral-cream rounded-none mt-2"
                                    onClick={() => {
                                         setAuthStage('email_input');
                                         setError("");
                                    }}
                               >
-                                   Kembali
+                                   KEMBALI
                               </Button>
                          </div>
-                    </Card>
+                    </div>
                </div>
           );
      }
 
      return (
-          <div className="py-16 md:py-24 pb-20">
+          <div className="py-8 md:py-12 pb-20 bg-neutral-cream min-h-screen">
                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div
-                         initial={{ opacity: 0, y: 20 }}
-                         animate={{ opacity: 1, y: 0 }}
-                         className="text-center mb-10"
-                    >
-                         <h1 className="text-2xl md:text-4xl font-bold mb-2 text-slate-900">Bilik <span className="text-primary">Suara Digital</span></h1>
-                         <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                              Silakan pilih salah satu pasangan calon di bawah ini.
+                    <div className="text-center mb-16">
+                         <div className="inline-block bg-black text-white px-4 py-1 font-mono font-bold text-sm mb-4 transform -rotate-2">
+                              PEMIRA 2025
+                         </div>
+                         <h1 className="text-5xl md:text-6xl font-heading uppercase mb-4 text-stroke-black text-center">
+                              KERTAS SUARA
+                         </h1>
+                         <p className="font-mono max-w-2xl mx-auto">
+                              Silakan tentukan pilihan anda dengan bijak. Satu suara menentukan masa depan.
                          </p>
-                    </motion.div>
+                    </div>
 
-                    <div className="flex flex-wrap justify-center gap-4 md:gap-8 max-w-5xl mx-auto mb-12">
-                    {candidates.map((candidate) => (
-                         <motion.div
-                              key={candidate.id}
-                              whileHover={{ scale: 1.02 }}
-                              whileTap={{ scale: 0.98 }}
-                              onClick={() => setSelectedId(candidate.id)}
-                              className={cn(
-                                   "w-full max-w-[320px] cursor-pointer transition-all duration-300 relative",
-                                   selectedId === candidate.id ? "ring-4 ring-primary ring-offset-4 rounded-2xl" : "opacity-80 hover:opacity-100"
-                              )}
-                         >
-                              <Card className="overflow-hidden h-full border-none shadow-xl shadow-slate-200/50 rounded-2xl bg-surface group">
-                                   <div className="relative aspect-4/5 bg-neutral-cream w-full overflow-hidden">
+                    <div className="flex flex-wrap justify-center gap-8 md:gap-12 max-w-6xl mx-auto mb-16">
+                         {candidates.map((candidate) => (
+                              <div
+                                   key={candidate.id}
+                                   className="group relative bg-white border-4 border-black neo-shadow-lg hover:-translate-y-2 hover:neo-shadow-xl transition-all duration-300 flex flex-col w-full md:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2rem)]"
+                              >
+                                   {/* Number Badge */}
+                                   <div className="absolute -top-6 -left-6 w-16 h-16 bg-black text-white border-4 border-white neo-shadow-sm flex items-center justify-center z-10 transform -rotate-6 group-hover:rotate-0 transition-transform">
+                                        <span className="font-heading text-3xl">{candidate.orderNumber}</span>
+                                   </div>
+
+                                   {/* Image */}
+                                   <div className="relative aspect-4/5 w-full border-b-4 border-black overflow-hidden bg-gray-100">
                                         <Image
                                              src={candidate.photoUrl || "https://placehold.co/800x1000/png"}
                                              alt={candidate.name}
                                              fill
-                                             className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                             className="object-cover object-top filter grayscale group-hover:grayscale-0 transition-all duration-500"
                                         />
-
-                                        {/* Order Number Badge */}
-                                        <div className="absolute top-4 left-4 z-20">
-                                             <div className="h-10 w-10 flex items-center justify-center rounded-full bg-white/90 backdrop-blur-sm shadow-lg text-primary font-bold text-xl border border-white/50">
-                                                  {candidate.orderNumber}
-                                             </div>
-                                        </div>
-
-                                        {/* Gradient & Names Overlay */}
-                                        <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 via-black/50 to-transparent p-5 pt-24 text-white">
-                                             <div className="flex justify-between items-end gap-4">
-                                                  <div className="text-left flex-1 min-w-0">
-                                                       <p className="text-white/80 text-[10px] uppercase font-medium mb-0.5">Ketua</p>
-                                                       <p className="font-bold text-sm leading-tight truncate">
-                                                            {candidate.name.split('&')[0]?.trim() || candidate.name}
-                                                       </p>
-                                                  </div>
-                                                  {candidate.name.includes('&') && (
-                                                       <div className="text-right flex-1 min-w-0">
-                                                            <p className="text-white/80 text-[10px] uppercase font-medium mb-0.5">Wakil</p>
-                                                            <p className="font-bold text-sm leading-tight truncate">
-                                                                 {candidate.name.split('&')[1]?.trim()}
-                                                            </p>
-                                                       </div>
-                                                  )}
-                                             </div>
-                                        </div>
+                                        <div className="absolute inset-0 bg-primary-light/10 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                    </div>
 
-                                   {selectedId === candidate.id && (
-                                        <motion.div
-                                             initial={{ opacity: 0, scale: 0.5 }}
-                                             animate={{ opacity: 1, scale: 1 }}
-                                             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 bg-primary text-white p-4 rounded-full shadow-2xl ring-4 ring-white/50"
-                                        >
-                                             <CheckCircle2 className="h-8 w-8" />
-                                        </motion.div>
-                                   )}
+                                   {/* Content */}
+                                   <div className="p-6 flex flex-col grow text-center">
+                                        <h3 className="text-2xl font-heading uppercase leading-tight mb-2 min-h-14 flex items-center justify-center">
+                                             {candidate.name.split('&')[0]?.trim()}
+                                             {candidate.name.includes('&') && (
+                                                  <>
+                                                       <span className="text-primary mx-2">&</span>
+                                                       {candidate.name.split('&')[1]?.trim()}
+                                                  </>
+                                             )}
+                                        </h3>
 
-                                   <Button
-                                        variant="secondary"
-                                        size="icon"
-                                        className="absolute top-4 right-4 z-20 rounded-full shadow-lg shadow-black/20 hover:scale-110 transition-transform bg-white text-primary hover:bg-slate-50 border border-slate-100"
-                                        onClick={(e) => {
-                                             e.stopPropagation();
-                                             setViewCandidate(candidate);
-                                        }}
-                                   >
-                                        <Info className="h-6 w-6" />
-                                   </Button>
-                              </Card>
-                         </motion.div>
-                    ))}
+                                        <div className="mt-auto space-y-3 pt-6">
+                                             <Button
+                                                  variant="outline"
+                                                  className="w-full h-12 font-mono font-bold border-2 border-black hover:bg-neutral-cream rounded-none text-xs tracking-wider"
+                                                  onClick={() => setViewCandidate(candidate)}
+                                             >
+                                                  LIHAT VISI & MISI
+                                             </Button>
+
+                                             <Button
+                                                  onClick={() => setSelectedId(candidate.id)}
+                                                  className="w-full h-14 neo-button text-xl hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none bg-primary hover:bg-primary-light"
+                                             >
+                                                  PILIH KANDIDAT
+                                             </Button>
+                                        </div>
+                                   </div>
+                              </div>
+                         ))}
+                    </div>
                </div>
 
-               <AnimatePresence>
-                    {selectedId && (
-                         <motion.div
-                              initial={{ y: 100, opacity: 0 }}
-                              animate={{ y: 0, opacity: 1 }}
-                              exit={{ y: 100, opacity: 0 }}
-                              className="fixed bottom-8 left-0 right-0 px-4 z-40"
-                         >
-                              <div className="max-w-xl mx-auto bg-white/90 backdrop-blur-md p-4 rounded-full shadow-2xl border border-blue-100 flex items-center justify-between pl-8">
-                                   <div className="text-sm font-medium text-slate-600">
-                                        Pilihan Anda: <span className="font-bold text-primary">No. {candidates.find(c => c.id === selectedId)?.orderNumber}</span>
-                                   </div>
-                                   <Button
-                                        size="lg"
-                                        disabled={isSubmitting}
-                                        onClick={() => setShowConfirmation(true)}
-                                        className="min-w-35 rounded-full bg-primary hover:bg-primary-light h-12"
-                                   >
-                                        Kirim Suara
-                                   </Button>
-                              </div>
-                         </motion.div>
-                    )}
-               </AnimatePresence>
+               {/* Confirmation Dialog */}
+               <AlertDialog open={!!selectedId} onOpenChange={(open) => !open && setSelectedId(null)}>
+                    <AlertDialogContent className="max-w-md bg-white border-4 border-black neo-shadow-xl p-0 gap-0 sm:rounded-none">
+                         <AlertDialogHeader className="bg-primary/20 border-b-4 border-black p-6 text-center space-y-0 text-black">
+                              <CheckCircle className="w-16 h-16 mx-auto mb-2" />
+                              <AlertDialogTitle className="text-2xl font-heading uppercase text-center">Konfirmasi Pilihan</AlertDialogTitle>
+                         </AlertDialogHeader>
 
-               <AlertDialog open={showConfirmation} onOpenChange={setShowConfirmation}>
-                    <AlertDialogContent className="rounded-3xl max-w-sm bg-white border-none shadow-2xl p-8">
-                         <div className="text-center mb-2">
-                              <div className="w-16 h-16 bg-blue-50 text-primary rounded-full flex items-center justify-center mx-auto mb-6 ring-8 ring-blue-50/50">
-                                   <CheckCircle className="w-8 h-8" />
+                         <div className="p-8 text-center">
+                              <p className="font-mono mb-2">Anda akan memilih kandidat nomor urut:</p>
+                              <div className="text-6xl font-heading mb-2 text-primary text-stroke-black">
+                                   {candidates.find(c => c.id === selectedId)?.orderNumber}
                               </div>
-                              <AlertDialogHeader>
-                                   <AlertDialogTitle className="text-xl font-bold text-slate-900 text-center">Konfirmasi Pilihan</AlertDialogTitle>
-                                   <AlertDialogDescription className="text-slate-600 text-center text-base mt-2">
-                                        Anda akan memilih Pasangan Calon <br />
-                                        <span className="font-bold text-primary text-lg">No. {candidates.find(c => c.id === selectedId)?.orderNumber}</span>
-                                        <span className="block mt-2 text-sm text-slate-500 font-normal">
-                                             Apakah anda yakin dengan pilihan ini?
-                                        </span>
-                                   </AlertDialogDescription>
-                              </AlertDialogHeader>
+                              <h3 className="text-xl font-heading uppercase mb-6 max-w-xs mx-auto leading-tight">
+                                   {candidates.find(c => c.id === selectedId)?.name}
+                              </h3>
+                              <p className="font-mono text-sm text-gray-500 bg-yellow-50 p-2 border border-yellow-200">
+                                   ⚠️ Pilihan tidak dapat diubah setelah anda menekan tombol &quot;YA, PILIH&quot;.
+                              </p>
                          </div>
 
-                         <AlertDialogFooter className="flex-col-reverse sm:flex-row gap-3 mt-6">
-                              <AlertDialogCancel className="w-full rounded-xl h-12 border-slate-200 hover:bg-slate-50 hover:text-slate-900 text-slate-600 font-medium m-0">
-                                   Batal
+                         <div className="p-4 border-t-4 border-black bg-gray-50 flex gap-4">
+                              <AlertDialogCancel
+                                   className="flex-1 font-mono font-bold border-2 border-black hover:bg-neutral-cream rounded-none h-12 mt-0"
+                                   onClick={() => setSelectedId(null)}
+                              >
+                                   BATAL
                               </AlertDialogCancel>
                               <AlertDialogAction
-                                   onClick={(e: React.MouseEvent) => {
-                                        e.preventDefault();
-                                        handleVote();
-                                   }}
-                                   className="w-full rounded-xl h-12 bg-primary hover:bg-primary-light font-bold text-white shadow-lg shadow-blue-200 m-0"
+                                   className="flex-1 neo-button h-12 text-lg hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none bg-primary hover:bg-primary-light"
+                                   onClick={handleVote}
                                    disabled={isSubmitting}
                               >
-                                   {isSubmitting ? <Loader2 className="animate-spin" /> : "Ya, Pilih"}
+                                   {isSubmitting ? <Loader2 className="animate-spin" /> : "YA, PILIH"}
                               </AlertDialogAction>
-                         </AlertDialogFooter>
+                         </div>
                     </AlertDialogContent>
                </AlertDialog>
 
+               {/* Vision Mission Modal */}
                <Dialog open={!!viewCandidate} onOpenChange={(open) => !open && setViewCandidate(null)}>
-                    <DialogContent aria-description="" className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white p-0 overflow-hidden rounded-2xl">
-                         <div className="grid md:grid-cols-2 h-full">
+                    <DialogContent className="max-w-4xl max-h-[90vh] bg-white border-4 border-black neo-shadow-xl p-0 gap-0 overflow-hidden sm:rounded-none">
+                         <div className="grid md:grid-cols-2 h-full max-h-[90vh]">
                               {/* Left Column: Image & Basic Info */}
-                              <div className="relative bg-neutral-100 md:h-full h-87.5 md:min-h-100">
+                              <div className="relative bg-neutral-100 h-64 md:h-full hidden md:block">
                                    <Image
                                         src={viewCandidate?.photoUrl || "https://placehold.co/800x1000/png"}
                                         alt={viewCandidate?.name || "Candidate"}
@@ -549,21 +526,21 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                                         className="object-cover"
                                    />
                                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-8 text-white">
-                                        <div className="inline-block self-start px-3 py-1 bg-primary rounded-full text-xs font-bold mb-4 shadow-lg border border-white/20">
-                                             Kandidat No. {viewCandidate?.orderNumber}
+                                        <div className="inline-block self-start px-3 py-1 bg-primary rounded-none border-2 border-black text-black text-xs font-bold mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                                             KANDIDAT NO. {viewCandidate?.orderNumber}
                                         </div>
 
-                                        <div className="flex justify-between items-end gap-4 border-t border-white/20 pt-4">
+                                        <div className="flex justify-between items-end gap-4 border-t-2 border-white/50 pt-4">
                                              <div className="text-left flex-1 min-w-0">
-                                                  <p className="text-white/80 text-xs uppercase font-medium mb-1">Ketua</p>
-                                                  <h2 className="text-xl font-bold leading-tight shadow-black drop-shadow-md">
+                                                  <p className="text-white/80 text-xs uppercase font-medium mb-1 font-mono">Ketua</p>
+                                                  <h2 className="text-xl font-heading leading-tight">
                                                        {viewCandidate?.name.split('&')[0]?.trim() || viewCandidate?.name}
                                                   </h2>
                                              </div>
                                              {viewCandidate?.name.includes('&') && (
                                                   <div className="text-right flex-1 min-w-0">
-                                                       <p className="text-white/80 text-xs uppercase font-medium mb-1">Wakil</p>
-                                                       <h2 className="text-xl font-bold leading-tight shadow-black drop-shadow-md">
+                                                       <p className="text-white/80 text-xs uppercase font-medium mb-1 font-mono">Wakil</p>
+                                                       <h2 className="text-xl font-heading leading-tight">
                                                             {viewCandidate?.name.split('&')[1]?.trim()}
                                                        </h2>
                                                   </div>
@@ -573,82 +550,91 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                               </div>
 
                               {/* Right Column: Visi Misi */}
-                              <div className="p-8 flex flex-col h-full overflow-y-auto max-h-[60vh] md:max-h-[85vh]">
-                                   <DialogHeader className="mb-6">
-                                        <DialogTitle className="text-2xl font-bold text-slate-900 border-b pb-4">
-                                             Visi & Misi
-                                        </DialogTitle>
-                                   </DialogHeader>
-
-                                   <div className="space-y-6 grow">
-                                        <div className="bg-blue-50/50 p-5 rounded-2xl border border-blue-100">
-                                             <h4 className="font-bold text-primary mb-3 flex items-center gap-2 text-lg">
-                                                  <span className="p-1.5 bg-white rounded-lg shadow-sm"><CheckCircle2 className="w-4 h-4 text-primary" /></span>
-                                                  Visi
-                                             </h4>
-                                             <p className="text-slate-700 leading-relaxed whitespace-pre-line text-sm md:text-base">
-                                                  {viewCandidate?.vision}
-                                             </p>
-                                        </div>
-
-                                        <div className="bg-orange-50/50 p-5 rounded-2xl border border-orange-100">
-                                             <h4 className="font-bold text-secondary mb-3 flex items-center gap-2 text-lg">
-                                                  <span className="p-1.5 bg-white rounded-lg shadow-sm"><CheckCircle className="w-4 h-4 text-secondary" /></span>
-                                                  Misi
-                                             </h4>
-                                             <ul className="grid gap-2">
-                                                  {viewCandidate?.mission.split('\n').map((m, i) => (
-                                                       <li key={i} className="flex items-start gap-3 text-slate-700 leading-relaxed text-sm md:text-base">
-                                                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
-                                                            {m}
-                                                       </li>
-                                                  ))}
-                                             </ul>
-                                        </div>
-
-                                        {/* Flagship Programs Section */}
-                                        <div className="bg-blue-50/50 p-5 rounded-2xl border border-blue-100">
-                                             <h4 className="font-bold text-blue-600 mb-3 flex items-center gap-2 text-lg">
-                                                  <span className="p-1.5 bg-white rounded-lg shadow-sm"><Rocket className="w-4 h-4 text-blue-500" /></span>
-                                                  Program Unggulan
-                                             </h4>
-                                             {viewCandidate?.programs && viewCandidate.programs.length > 0 ? (
-                                                  <div className="grid gap-3">
-                                                       {viewCandidate.programs.map((program, i) => (
-                                                            <div key={i} className="flex items-start gap-3 bg-white p-3 rounded-xl border border-blue-100 shadow-sm">
-                                                                 <span className="shrink-0 w-6 h-6 rounded-md bg-blue-100 text-blue-600 font-bold flex items-center justify-center text-xs">
-                                                                      {i + 1}
-                                                                 </span>
-                                                                 <span className="text-slate-700 text-sm md:text-base">{program}</span>
-                                                            </div>
-                                                       ))}
-                                                  </div>
-                                             ) : (
-                                                  <div className="text-center py-4 text-slate-400 italic text-sm">
-                                                       Belum ada data program unggulan
-                                                  </div>
-                                             )}
-                                        </div>
+                              <div className="flex flex-col h-full overflow-hidden">
+                                   <div className="p-6 border-b-4 border-black bg-accent-blue flex justify-between items-center md:hidden">
+                                        <h2 className="font-heading uppercase text-xl">Kandidat No. {viewCandidate?.orderNumber}</h2>
+                                        <DialogClose className="p-2 hover:bg-black/10 rounded-full">
+                                             <CheckCircle className="w-6 h-6 rotate-45" />
+                                        </DialogClose>
                                    </div>
 
-                                   <div className="pt-8 mt-auto sticky bottom-0 bg-white">
-                                        <Button
-                                             onClick={() => {
-                                                  if (viewCandidate) {
-                                                       setSelectedId(viewCandidate.id);
-                                                       setViewCandidate(null);
-                                                  }
-                                             }}
-                                             className="w-full h-12 text-lg rounded-xl font-bold bg-primary hover:bg-primary-light shadow-lg shadow-blue-200 transition-all hover:-translate-y-0.5"
-                                        >
-                                             Pilih Kandidat Ini
-                                        </Button>
+                                   <div className="p-6 md:p-8 flex flex-col h-full overflow-y-auto custom-scrollbar">
+                                        <DialogHeader className="mb-6">
+                                             <DialogTitle className="text-2xl font-heading uppercase text-black border-b-4 border-black pb-4 inline-block">
+                                                  Visi & Misi
+                                             </DialogTitle>
+                                        </DialogHeader>
+
+                                        <div className="space-y-6 grow">
+                                             <div className="bg-neutral-cream p-5 border-2 border-black neo-shadow-sm">
+                                                  <h4 className="font-heading uppercase text-lg mb-3 flex items-center gap-2">
+                                                       <span className="bg-black text-white p-1"><CheckCircle2 className="w-4 h-4" /></span>
+                                                       Visi
+                                                  </h4>
+                                                  <p className="font-mono text-sm leading-relaxed whitespace-pre-line">
+                                                       {viewCandidate?.vision}
+                                                  </p>
+                                             </div>
+
+                                             <div className="bg-white p-5 border-2 border-black neo-shadow-sm">
+                                                  <h4 className="font-heading uppercase text-lg mb-3 flex items-center gap-2">
+                                                       <span className="bg-black text-white p-1"><Rocket className="w-4 h-4" /></span>
+                                                       Misi
+                                                  </h4>
+                                                  <ul className="grid gap-2">
+                                                       {viewCandidate?.mission.split('\n').map((m, i) => (
+                                                            <li key={i} className="flex items-start gap-3 font-mono text-sm leading-relaxed">
+                                                                 <span className="mt-1.5 w-2 h-2 bg-black shrink-0" />
+                                                                 {m}
+                                                            </li>
+                                                       ))}
+                                                  </ul>
+                                             </div>
+
+                                             {/* Flagship Programs Section */}
+                                             <div className="bg-blue-50 p-5 border-2 border-black neo-shadow-sm">
+                                                  <h4 className="font-heading uppercase text-lg mb-3 flex items-center gap-2 text-blue-800">
+                                                       <span className="bg-blue-800 text-white p-1"><Rocket className="w-4 h-4" /></span>
+                                                       Program Unggulan
+                                                  </h4>
+                                                  {viewCandidate?.programs && Array.isArray(viewCandidate.programs) && viewCandidate.programs.length > 0 ? (
+                                                       <div className="grid gap-3">
+                                                            {viewCandidate.programs.map((program, i) => (
+                                                                 <div key={i} className="flex items-start gap-3 bg-white p-3 border-2 border-black shadow-sm">
+                                                                      <span className="shrink-0 w-6 h-6 bg-black text-white font-mono font-bold flex items-center justify-center text-xs">
+                                                                           {i + 1}
+                                                                      </span>
+                                                                      <span className="font-mono text-sm">{program}</span>
+                                                                 </div>
+                                                            ))}
+                                                       </div>
+                                                  ) : (
+                                                       <div className="text-center py-4 text-gray-500 italic font-mono text-sm">
+                                                            Belum ada data program unggulan
+                                                       </div>
+                                                  )}
+                                             </div>
+                                        </div>
+
+                                        <div className="pt-8 mt-auto sticky bottom-0 bg-white">
+                                             <Button
+                                                  onClick={() => {
+                                                       if (viewCandidate) {
+                                                            setSelectedId(viewCandidate.id);
+                                                            setViewCandidate(null);
+                                                       }
+                                                  }}
+                                                  className="w-full h-14 neo-button text-lg bg-primary hover:bg-primary-light hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none"
+                                             >
+                                                  PILIH KANDIDAT INI
+                                             </Button>
+                                        </div>
                                    </div>
                               </div>
                          </div>
                     </DialogContent>
                </Dialog>
-               </div>
           </div>
      );
+
 }

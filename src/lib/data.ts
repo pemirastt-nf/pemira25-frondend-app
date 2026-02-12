@@ -45,11 +45,11 @@ export const candidates = [
 ];
 
 export const timeline = [
-  { date: "12 - 18 Jan 2026", event: "Pendaftaran Paslon" },
-  { date: "09 - 22 Feb 2026", event: "Masa Kampanye" },
-  { date: "24 - 26 Feb 2026", event: "Pemungutan Suara" },
-  { date: "01 Mar 2026", event: "Sidang Voting" },
-  { date: "08 Mar 2026", event: "Pelantikan" }
+  { date: "12 - 18 Jan 2025", event: "Pendaftaran Paslon" },
+  { date: "09 - 22 Feb 2025", event: "Masa Kampanye" },
+  { date: "24 - 26 Feb 2025", event: "Pemungutan Suara" },
+  { date: "01 Mar 2025", event: "Sidang Voting" },
+  { date: "08 Mar 2025", event: "Pelantikan" }
 ];
 
 export const tutorialSteps = [

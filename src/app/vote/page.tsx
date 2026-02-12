@@ -19,24 +19,20 @@ export default async function VotePage() {
      if (!settings) {
           return (
                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 flex items-center justify-center min-h-[60vh]">
-                    <Card className="max-w-md w-full shadow-2xl border-slate-200">
-                         <CardHeader className="text-center pb-2">
-                              <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
-                                   <CalendarClock className="w-8 h-8 text-red-600" />
-                              </div>
-                              <CardTitle className="text-2xl font-bold text-slate-800">Gagal Memuat Jadwal</CardTitle>
-                         </CardHeader>
-                         <CardContent className="text-center space-y-6">
-                              <p className="text-slate-600">
-                                   Terjadi kesalahan saat memeriksa jadwal pemilihan. Mohon coba beberapa saat lagi.
-                              </p>
-                              <Link href="/">
-                                   <Button className="w-full bg-primary hover:bg-primary-light h-12 text-lg">
-                                        Kembali ke Beranda
-                                   </Button>
-                              </Link>
-                         </CardContent>
-                    </Card>
+                    <div className="max-w-md w-full bg-white border-4 border-black neo-shadow-lg p-8 text-center">
+                         <div className="mx-auto w-20 h-20 bg-red-600 border-2 border-black rounded-full flex items-center justify-center mb-6 text-white neo-shadow-sm">
+                              <CalendarClock className="w-10 h-10" />
+                         </div>
+                         <h2 className="text-3xl font-heading uppercase mb-4">Gagal Memuat Jadwal</h2>
+                         <p className="font-mono text-sm mb-8">
+                              Terjadi kesalahan saat memeriksa jadwal pemilihan. Mohon coba beberapa saat lagi.
+                         </p>
+                         <Link href="/">
+                              <Button className="w-full h-12 neo-button hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none">
+                                   KEMBALI KE BERANDA
+                              </Button>
+                         </Link>
+                    </div>
                </div>
           );
      }
@@ -51,25 +47,26 @@ export default async function VotePage() {
      if (!isOpen) {
           return (
                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 flex items-center justify-center min-h-[60vh]">
-                    <Card className="max-w-md w-full shadow-2xl border-slate-200">
-                         <CardHeader className="text-center pb-2">
-                              <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
-                                   <CalendarClock className="w-8 h-8 text-red-600" />
-                              </div>
-                              <CardTitle className="text-2xl font-bold text-slate-800">Pemilihan Belum Dibuka</CardTitle>
-                         </CardHeader>
-                         <CardContent className="text-center space-y-6">
-                              <p className="text-slate-600">
-                                   Mohon maaf, sesi pemilihan belum dimulai atau sudah berakhir. Silakan cek jadwal pemilihan atau tunggu informasi selanjutnya.
-                              </p>
+                    <div className="max-w-md w-full bg-white border-4 border-black neo-shadow-lg p-8 text-center">
+                         <div className="mx-auto w-20 h-20 bg-accent-yellow border-2 border-black rounded-full flex items-center justify-center mb-6 neo-shadow-sm">
+                              <CalendarClock className="w-10 h-10 text-black" />
+                         </div>
+                         <h2 className="text-3xl font-heading uppercase mb-4">Pemilihan Belum Dibuka</h2>
+                         <p className="font-mono text-sm mb-8">
+                              Sesi pemilihan belum dimulai atau sudah berakhir. Silakan cek jadwal pemilihan.
+                         </p>
 
-                              <Link href="/">
-                                   <Button className="w-full bg-primary hover:bg-primary-light h-12 text-lg">
-                                        Kembali ke Beranda
-                                   </Button>
-                              </Link>
-                         </CardContent>
-                    </Card>
+                         <Link href="/#timeline">
+                              <Button className="w-full h-12 neo-button hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none mb-4">
+                                   LIHAT JADWAL
+                              </Button>
+                         </Link>
+                         <Link href="/">
+                              <Button variant="outline" className="w-full h-12 font-bold font-mono border-2 border-black hover:bg-neutral-cream rounded-none">
+                                   KEMBALI
+                              </Button>
+                         </Link>
+                    </div>
                </div>
           );
      }
