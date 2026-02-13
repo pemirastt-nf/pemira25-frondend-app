@@ -1,6 +1,7 @@
 "use client";
 
 import { timeline } from "@/lib/data";
+import Link from "next/link";
 
 export default function TimelineSection() {
      return (
@@ -57,10 +58,17 @@ export default function TimelineSection() {
                     </div>
 
                     {/* Footer Connect */}
-                    <div className="mt-16 text-center">
+                    <div className="mt-16 text-center flex flex-col items-center gap-8">
                          <div className="inline-block border-4 border-black p-4 bg-white font-mono font-bold rotate-2 neo-shadow">
                               MASA DEPAN DIMULAI SEKARANG
                          </div>
+
+                         <Link
+                              href="/vote"
+                              className="neo-button text-2xl py-4 px-12 bg-primary text-white hover:bg-primary-light hover:text-white"
+                         >
+                              VOTE SEKARANG
+                         </Link>
                     </div>
                </div>
 
