@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function HeroSection() {
      return (
-          <section className="relative min-h-[50vh] md:min-h-[90vh] flex flex-col justify-center items-center overflow-hidden border-b-4 border-black bg-neutral-cream pb-16">
+          <section className="relative min-h-[60vh] md:min-h-[90vh] flex flex-col justify-center items-center overflow-hidden border-b-4 border-black bg-neutral-cream pb-16">
                <div id="home" className="absolute top-0 left-0 w-full h-1 -translate-y-32" />
                {/* Background Decor */}
                <div className="absolute inset-0 dot-pattern pointer-events-none" />
