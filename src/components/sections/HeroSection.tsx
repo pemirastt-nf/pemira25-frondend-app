@@ -24,8 +24,8 @@ export default function HeroSection() {
                               PEMIRA <br />
                               <span className="text-primary text-stroke-black">2025</span>
                          </h1>
-                         <p className="font-mono text-xs sm:text-sm md:text-lg max-w-2xl mx-auto mb-10 border-l-4 border-black pl-4 text-center bg-white/50 p-4 neo-shadow-sm">
-                             SATU SUARA. SATU MASA DEPAN. TENTUKAN PILIHANMU HARI INI.
+                         <p className="font-mono text-xs sm:text-sm md:text-lg max-w-xl mx-auto mb-10 border-l-4 border-black pl-4 text-center bg-white/50 p-4 neo-shadow-sm">
+                             SUKSESKAN, TUNTASKAN! TENTUKAN PILIHANMU HARI INI.
                          </p>
 
                          <Link href="/vote" className="neo-button text-xl md:text-2xl py-4 px-10 md:px-12 hover:bg-white hover:text-black">
