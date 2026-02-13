@@ -27,7 +27,7 @@ export default function Footer() {
                               @pemirasttnf
                          </Link>
 
-                         <div className="flex items-center gap-1.5 text-gray-400 font-semibold text-xs md:text-sm">
+                         <div className="flex items-center gap-1.5 text-neutral-400 font-semibold text-xs md:text-sm">
                               <span>Made with</span>
                               <Heart className="w-3 h-3 text-red-500 fill-red-500 animate-pulse" />
                               <span>By IT Support PEMIRA IM STTNF</span>
