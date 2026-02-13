@@ -208,7 +208,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
 
      if (authStage === 'email_input') {
           return (
-               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 flex items-center justify-center min-h-[80vh]">
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 flex items-center justify-center min-h-[70vh]">
                     <div className="max-w-md w-full bg-white border-4 border-black neo-shadow-lg p-8 relative">
                          {/* Decorative Corner */}
                          <div className="absolute -top-3 -left-3 w-8 h-8 bg-accent-blue border-2 border-black z-10"></div>
@@ -332,11 +332,11 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
 
      if (authStage === 'manual_otp') {
           return (
-               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 flex items-center justify-center min-h-[80vh]">
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 flex items-center justify-center min-h-[60vh]">
                     <div className="max-w-md w-full bg-white border-4 border-black neo-shadow-lg p-8 relative">
                          <div className="text-center mb-8">
                               <h1 className="text-3xl font-heading uppercase mb-2">INPUT MANUAL</h1>
-                              <p className="font-mono text-sm">Masukkan kredensial anda secara manual.</p>
+                              <p className="font-mono text-sm">Masukkan OTP yang diterima melalui email.</p>
                          </div>
 
                          <div className="space-y-6">

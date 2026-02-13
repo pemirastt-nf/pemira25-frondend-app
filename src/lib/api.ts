@@ -82,7 +82,9 @@ export const api = {
                     'Authorization': `Bearer ${token}`
                }
           });
-          if (!res.ok) return { hasVoted: false };
+          if (!res.ok) {
+               throw new Error('Failed to get status');
+          }
           return res.json();
      },
 
