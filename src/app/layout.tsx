@@ -13,7 +13,7 @@ const archivo = Archivo_Black({ weight: "400", subsets: ["latin"], variable: "--
 const space = Space_Mono({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-space" });
 
 const metadataBase = new URL("https://pemira-sttnf.vercel.app");
-const metadataTitle = "PEMIRA STTNF 2025 | Pemilihan Raya Mahasiswa Nurul Fikri";
+const metadataTitle = "PEMIRA STTNF 2025 | Pemilihan Raya Mahasiswa STT Terpadu Nurul Fikri";
 const metadataDescription = "Pemilihan Raya Mahasiswa STT Terpadu Nurul Fikri atau PEMIRA 2025 adalah acara pemilihan mahasiswa STTNF untuk memilih calon PRESMA (Presiden Mahasiswa) dan WAKIL PRESMA (Wakil Presiden Mahasiswa) dari STTNF untuk masa 2025.";
 
 export const metadata: Metadata = {
