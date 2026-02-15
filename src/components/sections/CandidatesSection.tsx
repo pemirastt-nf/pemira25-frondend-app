@@ -32,7 +32,7 @@ export default function CandidatesSection({ candidates = [] }: CandidatesSection
                               </h2>
                               <div className="inline-block bg-black text-white px-4 py-1 transform rotate-1">
                                    <p className="font-mono text-sm md:text-lg font-bold uppercase tracking-widest">
-                                        KENALI CALON PEMIMPIN MASA DEPAN
+                                        KENALI CALON PRESMA dan WA-PRESMA
                                    </p>
                               </div>
                          </div>

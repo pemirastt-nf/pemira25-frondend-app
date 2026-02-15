@@ -5,14 +5,14 @@ import { motion } from "framer-motion";
 
 export default function HeroSection() {
      return (
-          <section className="relative min-h-[60vh] md:min-h-[90vh] flex flex-col justify-center items-center overflow-hidden border-b-4 border-black bg-neutral-cream pb-16">
+          <section className="relative min-h-[70vh] md:min-h-[90vh] flex flex-col justify-center items-center overflow-hidden border-b-4 border-black bg-neutral-cream pb-16">
                <div id="home" className="absolute top-0 left-0 w-full h-1 -translate-y-32" />
                {/* Background Decor */}
-               <div className="absolute inset-0 dot-pattern pointer-events-none" />
+               {/* <div className="absolute inset-0 dot-pattern pointer-events-none" /> */}
 
                {/* Abstract Shapes */}
                <div className="absolute top-10 right-5 md:top-20 md:right-10 w-20 h-20 md:w-32 md:h-32 bg-primary-light border-2 border-black rounded-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] opacity-50 blur-sm" />
-               <div className="hidden md:flex absolute bottom-20 left-5 md:bottom-20 md:left-10 w-24 h-24 md:w-48 md:h-48 bg-accent-blue/20 border-2 border-black rotate-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]" />
+               <div className="hidden md:flex absolute bottom-20 left-5 md:bottom-30 md:left-10 w-24 h-24 md:w-48 md:h-48 bg-accent-blue/20 border-2 border-black rotate-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]" />
 
                <div className="container mx-auto px-4 z-10 text-center">
                     <motion.div

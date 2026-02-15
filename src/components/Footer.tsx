@@ -1,7 +1,5 @@
-"use client";
-
-import Link from "next/link";
 import { Heart, Instagram } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
      return (
@@ -21,7 +19,7 @@ export default function Footer() {
                          <Link
                               href="https://www.instagram.com/pemirasttnf/"
                               target="_blank"
-                              className="flex items-center gap-2 hover:text-accent-blue transition-colors font-bold"
+                              className="flex items-center gap-2 text-neutral-400 hover:text-accent-blue transition-colors font-semibold"
                          >
                               <Instagram className="w-5 h-5" />
                               @pemirasttnf

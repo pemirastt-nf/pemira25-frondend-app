@@ -35,7 +35,7 @@ export default function AboutSection() {
                               <div className="neo-card p-6 md:p-12 relative z-10 bg-neutral-cream h-full">
                                    <h3 className="font-heading text-3xl md:text-5xl mb-4 md:mb-6">APA ITU PEMIRA?</h3>
                                    <p className="font-mono text-sm md:text-lg leading-relaxed mb-6">
-                                        Wujud nyata demokrasi mahasiswa. Di sini, setiap suara punya kuasa untuk menunjuk pemimpin masa depan. Mari ciptakan ekosistem politik kampus yang sehat, transparan, dan berintegritas tinggi.
+                                        PEMIRA (Pemilihan Raya) adalah mekanisme demokrasi internal yang diselenggarakan oleh Ikatan Mahasiswa (IM) STT-NF untuk memilih Presiden Mahasiswa (Presma) dan Wakil Presiden Mahasiswa (Wa-Presma) periode 2026-2027. PEMIRA merupakan wujud nyata dari kedaulatan mahasiswa dalam menentukan pemimpin masa depan yang akan mewakili aspirasi dan kepentingan seluruh mahasiswa di lingkungan kampus.
                                    </p>
                                    <div className="bg-accent-blue/20 p-4 border-2 border-black neo-shadow-sm font-bold -skew-x-2">
                                         &quot;DARI MAHASISWA, OLEH MAHASISWA, UNTUK MAHASISWA.&quot;
