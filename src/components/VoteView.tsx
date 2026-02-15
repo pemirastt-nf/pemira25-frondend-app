@@ -97,8 +97,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                     sessionStorage.removeItem("voting_state");
                }
           } catch (err) {
-               console.error(err);
-               localStorage.removeItem("token");
+               storage.removeItem("token");
                sessionStorage.removeItem("voting_state");
                setAuthStage('email_input');
           }
