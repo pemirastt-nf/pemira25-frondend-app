@@ -1,6 +1,6 @@
 "use client";
 
-import { Handshake, FileText, Megaphone } from "lucide-react";
+import Image from "next/image";
 
 export default function AboutSection() {
      return (
@@ -29,9 +29,6 @@ export default function AboutSection() {
                          {/* Main Content Card (Folder Style) */}
                          <div className="relative group mt-8 lg:mt-0">
                               {/* Tab */}
-                              <div className="absolute -top-8 left-0 bg-black text-white px-4 py-1 md:px-6 md:py-2 font-mono text-sm md:text-base font-bold border-2 border-black border-b-0">
-                                   DEFINISI.TXT
-                              </div>
                               <div className="neo-card p-6 md:p-12 relative z-10 bg-neutral-cream h-full">
                                    <h3 className="font-heading text-3xl md:text-5xl mb-4 md:mb-6">APA ITU PEMIRA?</h3>
                                    <p className="font-mono text-sm md:text-lg leading-relaxed mb-6">
@@ -45,34 +42,71 @@ export default function AboutSection() {
                               <div className="absolute inset-0 bg-black translate-x-4 translate-y-4 -z-10 border-2 border-black"></div>
                          </div>
 
-                         {/* Side Grid - Bento Style */}
-                         <div className="grid grid-cols-1 gap-6">
-                              {/* Card 1 */}
-                              <div className="bg-primary text-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-start gap-4 hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all">
-                                   <Handshake size={48} strokeWidth={2.5} className="text-accent-blue" />
-                                   <div>
-                                        <h4 className="font-heading text-2xl mb-2">KEDAULATAN</h4>
-                                        <p className="font-mono text-sm leading-tight text-white/90">Wujud tertinggi aspirasi mahasiswa dalam menentukan pemimpin masa depan.</p>
+                         {/* Side Grid - Tape Collage Style */}
+                         <div className="relative h-125 md:h-full w-full flex items-center justify-center p-8">
+                              
+                              {/* Background Pattern */}
+                              <div className="absolute inset-0 opacity-10" 
+                                   style={{ backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
+                              </div>
+
+                              {/* Photo 1: Logic / Tech Vibe (Bottom Layer) */}
+                              <div className="absolute top-10 right-10 w-48 md:w-64 aspect-video bg-white z-0 transform rotate-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] grayscale hover:grayscale-0 transition-all duration-500">
+                                   <div className="p-2 h-full">
+                                        <div className="h-full w-full relative bg-neutral-200 overflow-hidden">
+                                             <Image 
+                                                  src="https://i.ibb.co.com/nsrQNkGB/IMG-7105.jpg" 
+                                                  alt="Kegiatan 2" 
+                                                  fill
+                                                  className="object-cover"
+                                             />
+                                        </div>
+                                   </div>
+                                   {/* Tape Element */}
+                                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-yellow-300/80 transform -rotate-2 shadow-sm border border-black/10"></div>
+                              </div>
+
+                              {/* Photo 2: Discussion Vibe (Middle Layer) */}
+                              <div className="absolute bottom-16 left-4 w-44 md:w-60 aspect-4/5 bg-white z-10 transform -rotate-3 border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105 hover:z-30">
+                                   <div className="p-2 h-full flex flex-col">
+                                        <div className="grow w-full relative bg-neutral-200 overflow-hidden mb-2">
+                                             <Image 
+                                                  src="https://i.ibb.co.com/WNWLRdWV/IMG-7330.jpg" 
+                                                  alt="Kegiatan 3" 
+                                                  fill
+                                                  className="object-cover"
+                                             />
+                                        </div>
+                                   </div>
+                                   {/* Tape Element */}
+                                   <div className="absolute -top-4 right-10 w-20 h-8 bg-pink-400/80 transform rotate-12 shadow-sm border border-black/10"></div>
+                              </div>
+
+                              {/* Photo 3: Main Event (Top Layer) */}
+                              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-52 md:w-72 aspect-square bg-white z-20 transform -rotate-2 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:scale-105 transition-all duration-500">
+                                   <div className="p-3 h-full">
+                                        <div className="h-full w-full relative bg-neutral-200 overflow-hidden border-2 border-black">
+                                             <Image 
+                                                  src="https://i.ibb.co.com/zHBHMtqz/IMG-7456.jpg" 
+                                                  alt="Kegiatan 1" 
+                                                  fill
+                                                  className="object-cover"
+                                             />
+                                        </div>
+                                   </div>
+                                   {/* Corner Accent */}
+                                   <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-accent-orange border-2 border-black"></div>
+                                   <div className="absolute -top-2 -left-2 w-8 h-8 bg-accent-blue border-2 border-black"></div>
+                                   
+                              </div>
+
+                              {/* Decorative 'Sticker' */}
+                              <div className="absolute bottom-10 right-10 z-30 animate-bounce-slow">
+                                   <div className="bg-yellow-400 text-black border-2 border-black rounded-full w-20 h-20 flex items-center justify-center font-bold text-xs text-center p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform rotate-12">
+                                        SUARA<br/>KITA
                                    </div>
                               </div>
 
-                              {/* Card 2 */}
-                              <div className="bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-start gap-4 hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all">
-                                   <FileText size={48} strokeWidth={2.5} className="text-primary-light" />
-                                   <div>
-                                        <h4 className="font-heading text-2xl mb-2">LUBER JURDIL</h4>
-                                        <p className="font-mono text-sm leading-tight text-slate-700">Langsung, Umum, Bebas, Rahasia, Jujur, dan Adil sebagai landasan demokrasi.</p>
-                                   </div>
-                              </div>
-
-                              {/* Card 3 */}
-                              <div className="bg-accent-orange border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-start gap-4 hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all">
-                                   <Megaphone size={48} strokeWidth={2.5} className="text-black" />
-                                   <div>
-                                        <h4 className="font-heading text-2xl mb-2">AKUNTABILITAS</h4>
-                                        <p className="font-mono text-sm leading-tight text-black">Penyelenggaraan yang transparan dan dapat dipertanggungjawabkan.</p>
-                                   </div>
-                              </div>
                          </div>
                     </div>
                </div>

@@ -11,7 +11,7 @@ export default function Footer() {
                          <div className="font-heading text-2xl md:text-3xl uppercase tracking-tighter mb-1">
                               PEMIRA<span className="text-accent-orange">2025</span>
                          </div>
-                         <div className="text-neutral-400 font-semibold text-xs md:text-sm font-mono">&copy; PEMIRA IM STT <a href="https://nurulfikri.ac.id/">Nurul Fikri</a> 2025. All Right Reserved.</div>
+                         <div className="text-neutral-400 font-semibold text-xs md:text-sm font-mono">&copy; PEMIRA IM STT <a href="https://nurulfikri.ac.id/">Nurul Fikri</a> {new Date().getFullYear()}. All Right Reserved.</div>
                     </div>
 
                     {/* Right Content */}

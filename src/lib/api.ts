@@ -12,12 +12,19 @@ const getBaseUrl = () => {
 
 const API_URL = getBaseUrl();
 
+const getHeaders = (token?: string | null) => {
+     const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+     if (token) headers.Authorization = `Bearer ${token}`;
+     
+     return headers;
+};
+
 export const api = {
 
      login: async (nim: string, password: string) => {
           const res = await fetch(`${API_URL}/auth/login`, {
                method: 'POST',
-               headers: { 'Content-Type': 'application/json' },
+               headers: getHeaders(),
                body: JSON.stringify({ nim, password }),
           });
           if (!res.ok) throw new Error('Login failed');
@@ -27,7 +34,7 @@ export const api = {
      requestOtp: async (email: string) => {
           const res = await fetch(`${API_URL}/auth/otp-request`, {
                method: 'POST',
-               headers: { 'Content-Type': 'application/json' },
+               headers: getHeaders(),
                body: JSON.stringify({ email }),
           });
           const data = await res.json();
@@ -38,7 +45,7 @@ export const api = {
      verifyOtp: async (email: string, otp: string) => {
           const res = await fetch(`${API_URL}/auth/otp-verify`, {
                method: 'POST',
-               headers: { 'Content-Type': 'application/json' },
+               headers: getHeaders(),
                body: JSON.stringify({ email, otp }),
           });
           const data = await res.json();
@@ -47,9 +54,11 @@ export const api = {
      },
 
      getCandidates: async (options?: RequestInit) => {
-          // Merge defaults with tags to allow revalidation
+          const headers = getHeaders();
+          
           const fetchOptions = {
                ...options,
+               headers: { ...headers, ...options?.headers },
                next: {
                     ...options?.next,
                     tags: ['candidates']
@@ -63,10 +72,7 @@ export const api = {
      vote: async (candidateId: string, token: string) => {
           const res = await fetch(`${API_URL}/votes`, {
                method: 'POST',
-               headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-               },
+               headers: getHeaders(token),
                body: JSON.stringify({ candidateId }),
           });
           if (!res.ok) {
@@ -78,9 +84,7 @@ export const api = {
 
      getVoteStatus: async (token: string) => {
           const res = await fetch(`${API_URL}/votes/status`, {
-               headers: {
-                    'Authorization': `Bearer ${token}`
-               }
+               headers: getHeaders(token)
           });
           if (!res.ok) {
                throw new Error('Failed to get status');
