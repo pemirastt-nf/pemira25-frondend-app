@@ -120,7 +120,8 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                }));
 
           } catch (err: any) {
-               setError(err.message || "Gagal mengirim OTP");
+               console.error("OTP Request Error:", err);
+               setError(err.message || "Gagal mengirim OTP. Layanan mungkin sedang sibuk.");
           } finally {
                setIsSubmitting(false);
           }
