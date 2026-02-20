@@ -185,23 +185,36 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
 
      if (authStage === 'voted') {
           return (
-               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center min-h-[60vh] flex items-center justify-center">
-                    <motion.div
-                         initial={{ scale: 0.8, opacity: 0 }}
-                         animate={{ scale: 1, opacity: 1 }}
-                         className="max-w-md w-full bg-surface p-10 rounded-3xl shadow-2xl shadow-blue-100 border border-blue-50"
-                    >
-                         <div className="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 flex items-center justify-center min-h-[60vh]">
+                    <div className="max-w-md w-full bg-white border-4 border-black neo-shadow-lg p-8 relative text-center">
+                         {/* Decorative Corner */}
+                         <div className="absolute -top-3 -right-3 w-8 h-8 bg-black z-10"></div>
+                         <div className="absolute -bottom-3 -left-3 w-8 h-8 bg-primary border-2 border-black z-10"></div>
+
+                         <div className="w-24 h-24 bg-green-400 border-4 border-black text-black flex items-center justify-center mx-auto mb-6 neo-shadow-sm rotate-3 hover:rotate-0 transition-transform duration-300">
                               <CheckCircle2 className="h-12 w-12" />
                          </div>
-                         <h2 className="text-3xl font-bold mb-4 text-slate-900">Terima Kasih!</h2>
-                         <p className="text-neutral-slate mb-10 text-lg">
-                              Suara anda telah berhasil direkam. Terima kasih telah berpartisipasi dalam <span className="font-bold">PEMIRA IM STTNF 2025</span>.
-                         </p>
-                         <Button onClick={() => window.location.href = "/"} className="w-full h-12 text-lg rounded-full bg-primary hover:bg-primary-light">
-                              Kembali ke Beranda
+                         
+                         <h2 className="text-4xl font-heading uppercase mb-4 text-stroke-black leading-none">
+                              TERIMA KASIH!
+                         </h2>
+                         
+                         <div className="bg-neutral-cream border-2 border-black p-4 mb-8 font-mono text-sm neo-shadow-sm">
+                              <p className="mb-2">
+                                   Suara anda telah BERHASIL direkam.
+                              </p>
+                              <p>
+                                   Terima kasih telah berpartisipasi dalam <span className="font-bold bg-primary px-1">PEMIRA IM STTNF 2025</span>.
+                              </p>
+                         </div>
+
+                         <Button 
+                              onClick={() => window.location.href = "/"} 
+                              className="w-full h-14 neo-button text-lg bg-black text-white hover:bg-neutral-800 hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none"
+                         >
+                              KEMBALI KE BERANDA
                          </Button>
-                    </motion.div>
+                    </div>
                </div>
           );
      }

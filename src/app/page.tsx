@@ -2,6 +2,7 @@ import { api } from "@/lib/api";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
 import LiveTrackSection from "@/components/sections/LiveTrackSection";
+import TutorialSection from "@/components/sections/TutorialSection";
 import CandidatesSection from "@/components/sections/CandidatesSection";
 import TimelineSection from "@/components/sections/TimelineSection";
 
@@ -35,6 +36,7 @@ export default async function Home() {
                <HeroSection />
                <AboutSection />
                <LiveTrackSection stats={stats} results={results} />
+               <TutorialSection />
                <CandidatesSection candidates={candidates} />
                <TimelineSection />
           </main>
