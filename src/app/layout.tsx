@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Inter, Outfit, Archivo_Black, Space_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingChat from "@/components/FloatingChat";
 import AlertBanner from "@/components/AlertBanner";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
-const archivo = Archivo_Black({ weight: "400", subsets: ["latin"], variable: "--font-archivo" });
-const space = Space_Mono({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-space" });
+const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-sans" });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-heading" });
 
 const metadataBase = new URL("https://pemira-sttnf.vercel.app");
 const metadataTitle = "PEMIRA STTNF 2025 | Pemilihan Raya Mahasiswa STT Terpadu Nurul Fikri";
@@ -76,7 +74,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="id">
-            <body className={`${inter.variable} ${outfit.variable} ${archivo.variable} ${space.variable} font-sans antialiased`}>
+            <body className={`${plusJakarta.variable} ${outfit.variable} font-sans antialiased text-slate-900`}>
                 <div className="flex flex-col min-h-screen">
                     <AlertBanner />
                     <Navbar />

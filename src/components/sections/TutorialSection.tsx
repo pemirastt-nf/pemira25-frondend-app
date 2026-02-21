@@ -1,64 +1,62 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Play } from "lucide-react";
+import { Star } from "lucide-react";
 
 export default function TutorialSection() {
      return (
-          <section id="tutorial" className="scroll-mt-24 py-20 md:py-32 bg-white border-b-4 border-black">
+          <section id="tutorial" className="py-24 bg-gray-50 overflow-hidden relative">
+               <Star className="absolute top-20 right-[5%] w-8 h-8 text-yellow-400/40 animate-pulse hidden md:block rotate-12" fill="currentColor" />
                <div className="container mx-auto px-4 max-w-6xl">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+                    <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
                          
                          {/* Text Content */}
-                         <div className="w-full md:w-1/2 space-y-6">
+                         <div className="w-full lg:w-1/2 space-y-8">
                               <motion.div
-                                   initial={{ opacity: 0, x: -50 }}
-                                   whileInView={{ opacity: 1, x: 0 }}
+                                   initial={{ opacity: 0, y: 20 }}
+                                   whileInView={{ opacity: 1, y: 0 }}
                                    viewport={{ once: true }}
-                                   transition={{ duration: 0.8 }}
+                                   transition={{ duration: 0.6 }}
                               >
-                                   <div className="inline-block bg-primary text-white border-2 border-black px-4 py-1 mb-4 font-mono font-bold text-sm transform -rotate-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                                        PANDUAN PEMILIHAN
-                                   </div>
-                                   <h2 className="font-heading text-5xl md:text-7xl uppercase leading-none mb-6 text-stroke-black">
-                                        CARA MEMILIH <br/>
-                                        <span className="text-primary text-stroke-black">DI PEMIRA</span>
+                                   <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight leading-tight">
+                                        Cara Menggunakan <span className="text-secondary">Hak Suara</span> Anda
                                    </h2>
-                                   <p className="font-mono text-lg leading-relaxed border-l-4 border-black pl-4 mb-8">
-                                        Bingung cara menggunakan hak suaramu? Tonton video panduan singkat ini agar suaramu sah dan terhitung! Jangan sampai salah langkah.
+                                   <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                                        Ikuti langkah-langkah mudah berikut untuk berpartisipasi dalam Pemira 2025. Suara Anda sangat berarti.
                                    </p>
                                    
-                                   <div className="flex flex-wrap gap-4 font-mono font-bold text-sm">
-                                        <div className="flex items-center gap-2 bg-neutral-cream border-2 border-black px-3 py-2 neo-shadow-sm">
-                                             <span className="w-6 h-6 bg-black text-white flex items-center justify-center rounded-full">1</span>
-                                             LOGIN
-                                        </div>
-                                        <div className="flex items-center gap-2 bg-neutral-cream border-2 border-black px-3 py-2 neo-shadow-sm">
-                                             <span className="w-6 h-6 bg-black text-white flex items-center justify-center rounded-full">2</span>
-                                             PILIH
-                                        </div>
-                                        <div className="flex items-center gap-2 bg-neutral-cream border-2 border-black px-3 py-2 neo-shadow-sm">
-                                             <span className="w-6 h-6 bg-black text-white flex items-center justify-center rounded-full">3</span>
-                                             KONFIRMASI
-                                        </div>
+                                   <div className="space-y-6">
+                                        {[
+                                             { title: "Login", desc: "Masuk menggunakan email mahasiswa NF.", icon: "1" },
+                                             { title: "Pilih Kandidat", desc: "Pelajari visi misi dan tentukan pilihan.", icon: "2" },
+                                             { title: "Konfirmasi", desc: "Verifikasi pilihan Anda untuk menyelesaikan.", icon: "3" }
+                                        ].map((step, i) => (
+                                             <div key={i} className="flex gap-4 items-start group">
+                                                  <div className="shrink-0 w-10 h-10 rounded-full bg-white border border-gray-200 text-primary font-bold flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all">
+                                                       {step.icon}
+                                                  </div>
+                                                  <div>
+                                                       <h4 className="font-bold text-gray-900 text-lg">{step.title}</h4>
+                                                       <p className="text-gray-500">{step.desc}</p>
+                                                  </div>
+                                             </div>
+                                        ))}
                                    </div>
                               </motion.div>
                          </div>
 
                          {/* Video Content */}
                          <motion.div 
-                              className="w-full md:w-1/2"
-                              initial={{ opacity: 0, x: 50 }}
-                              whileInView={{ opacity: 1, x: 0 }}
+                              className="w-full lg:w-1/2"
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
                               viewport={{ once: true }}
-                              transition={{ duration: 0.8, delay: 0.2 }}
+                              transition={{ duration: 0.8 }}
                          >
-                              <div className="relative bg-black p-2 border-4 border-black neo-shadow-lg transform rotate-2 hover:rotate-0 transition-transform duration-300">
-                                   <div className="absolute -top-6 -right-6 bg-accent-blue w-16 h-16 border-4 border-black flex items-center justify-center z-10 neo-shadow-sm">
-                                        <Play className="w-8 h-8 text-black fill-current" />
-                                   </div>
+                              <div className="relative group rounded-2xl overflow-hidden shadow-2xl shadow-gray-200">
+                                   <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors pointer-events-none z-10"></div>
                                    
-                                   <div className="relative w-full aspect-video bg-gray-900 border-2 border-white/20 overflow-hidden">
+                                   <div className="relative w-full aspect-video bg-gray-900">
                                         <iframe 
                                              width="100%" 
                                              height="100%" 

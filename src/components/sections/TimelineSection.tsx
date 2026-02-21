@@ -1,78 +1,64 @@
 "use client";
 
-import { timeline } from "@/lib/data";
 import Link from "next/link";
+import { Star } from "lucide-react";
+import { timeline } from "@/lib/data";
 
 export default function TimelineSection() {
      return (
-          <section id="timeline" className="scroll-mt-24 py-20 md:py-32 bg-neutral-cream border-b-4 border-black">
+          <section id="timeline" className="py-24 bg-white relative overflow-hidden">
+               <Star className="absolute top-20 right-[15%] w-8 h-8 text-yellow-400/50 animate-pulse hidden md:block rotate-12" fill="currentColor" />
                <div className="container mx-auto px-4 max-w-5xl">
-                    {/* Header Label */}
-                    <div className="mb-20 flex justify-center">
-                         <div className="relative inline-block bg-neutral-cream border-4 border-black p-6 neo-shadow-lg transform -rotate-1">
-                              <h2 className="font-heading text-4xl md:text-7xl uppercase leading-none text-center mb-2 text-stroke-black text-white drop-shadow-none">
-                                   TIMELINE
-                              </h2>
-                              <div className="flex justify-center">
-                                   <div className="bg-black text-white px-4 py-1 md:px-6 transform rotate-2 border-2 border-white">
-                                        <p className="font-mono text-xs md:text-base font-bold uppercase tracking-widest">
-                                             JADWAL PELAKSANAAN
-                                        </p>
-                                   </div>
-                              </div>
-                         </div>
+                    
+                    <div className="text-center mb-16">
+                         <h2 className="text-4xl font-bold text-gray-900 tracking-tight">
+                              Timeline <span className="text-primary">PEMIRA 2025</span>
+                         </h2>
                     </div>
 
                     <div className="relative">
-                         {/* Central/Left Line */}
-                         <div className="absolute left-4.75 md:left-1/2 top-0 bottom-0 w-1 bg-black md:-ml-0.5 z-0"></div>
+                         {/* Vertical Line */}
+                         <div className="absolute left-4 md:left-1/2 top-4 bottom-4 w-0.5 bg-gray-100 -translate-x-1/2"></div>
 
-                         <div className="space-y-12">
+                         <div className="space-y-8">
                               {timeline.map((item, index) => (
-                                   <div key={index} className={`relative flex flex-col md:flex-row items-center w-full ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-
-                                        {/* Spacer for Desktop */}
+                                   <div key={index} className={`relative flex items-start md:items-center ${index % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+                                        
+                                        {/* Spacer for desktop alignment */}
                                         <div className="hidden md:block md:w-1/2"></div>
-
-                                        {/* Node Point */}
-                                        <div className="absolute left-0.5 md:left-1/2 md:-translate-x-1/2 w-10 h-10 flex items-center justify-center z-10">
-                                             <div className="w-6 h-6 bg-white border-4 border-black rotate-45 group-hover:bg-accent-blue group-hover:scale-125 transition-all"></div>
-                                        </div>
-
-                                        {/* Content Box Wrapper */}
-                                        <div className={`w-full md:w-1/2 pl-16 md:pl-0 ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12 md:text-left'}`}>
-                                             <div className={`bg-white border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-0.75 hover:translate-y-0.75 transition-all group w-full ${index % 2 === 0 ? 'items-end' : 'items-start'}`}>
-                                                  <div className="inline-block bg-black text-white px-2 py-1 font-mono text-sm font-bold mb-2">
+                                        
+                                        {/* Dot */}
+                                        <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-white ring-4 ring-gray-50 bg-primary z-10 mt-1.5 md:mt-0 shadow-sm"></div>
+                                        
+                                        {/* Content */}
+                                        <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12 md:text-left'}`}>
+                                             <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow group">
+                                                  <span className="inline-block px-3 py-1 bg-gray-50 text-gray-600 text-xs font-bold uppercase tracking-wider rounded-lg mb-2 group-hover:bg-primary/5 group-hover:text-primary transition-colors">
                                                        {item.date}
-                                                  </div>
-                                                  <h3 className="font-heading text-xl md:text-2xl uppercase leading-tight mb-2 group-hover:text-primary transition-colors">
+                                                  </span>
+                                                  <h3 className="text-lg font-bold text-gray-900 leading-tight">
                                                        {item.event}
                                                   </h3>
-                                                  <div className={`h-1 w-12 bg-primary mb-2 ${index % 2 === 0 ? 'md:ml-auto md:mr-0' : 'mr-auto'}`}></div>
                                              </div>
                                         </div>
-
                                    </div>
                               ))}
                          </div>
                     </div>
 
-                    {/* Footer Connect */}
-                    <div className="mt-16 text-center flex flex-col items-center gap-8">
-                         <div className="inline-block border-4 border-black p-4 bg-white font-mono font-bold rotate-2 neo-shadow">
-                              MASA DEPAN DIMULAI SEKARANG
+                    <div className="mt-20 text-center">
+                         <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100 max-w-2xl mx-auto">
+                              <h3 className="text-xl font-bold text-gray-900 mb-2">Jangan Lewatkan Hak Pilih Anda!</h3>
+                              
+                              <Link
+                                   href="/vote"
+                                   className="inline-flex items-center justify-center h-12 px-8 rounded-xl font-semibold bg-primary text-white shadow-lg shadow-primary/25 hover:bg-primary-light transition-all hover:-translate-y-0.5"
+                              >
+                                   Mulai Memilih
+                              </Link>
                          </div>
-
-                         <Link
-                              href="/vote"
-                              className="neo-button text-2xl py-4 px-12 bg-primary text-white hover:bg-primary-light hover:text-white"
-                         >
-                              VOTE SEKARANG
-                         </Link>
                     </div>
                </div>
-
-
           </section>
      );
 }

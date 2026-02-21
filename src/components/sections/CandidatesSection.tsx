@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Star } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export interface Candidate {
@@ -19,75 +20,103 @@ interface CandidatesSectionProps {
 
 export default function CandidatesSection({ candidates = [] }: CandidatesSectionProps) {
      return (
-          <section id="candidates" className="scroll-mt-24 py-20 md:py-32 bg-white border-b-4 border-black">
-               <div className="container mx-auto px-4">
-                    {/* Header Label */}
-                    <div className="mb-20 flex justify-center">
-                         <div className="relative bg-accent-blue border-4 border-black p-6 md:p-8 neo-shadow-lg max-w-4xl w-full text-center">
-                              {/* Tape Effect */}
-                              <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-8 bg-black/10 rotate-2 backdrop-blur-sm border-l-2 border-r-2 border-white/20"></div>
+          <section id="candidates" className="py-24 bg-white relative overflow-hidden">
+               {/* Background Elements */}
+               <div className="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-gray-200 to-transparent"></div>
+               <div className="absolute right-0 top-1/4 w-1/3 h-1/3 bg-blue-50/50 rounded-full blur-3xl pointer-events-none -z-10"></div>
+               <div className="absolute left-0 bottom-1/4 w-1/4 h-1/4 bg-purple-50/50 rounded-full blur-3xl pointer-events-none -z-10"></div>
+               
+               <Star className="absolute bottom-20 right-10 w-8 h-8 text-blue-500/20 animate-pulse hidden md:block -rotate-12" fill="currentColor" />
 
-                              <h2 className="font-heading text-5xl md:text-7xl uppercase tracking-tighter mb-2">
-                                   THE CANDIDATES
-                              </h2>
-                              <div className="inline-block bg-black text-white px-4 py-1 transform rotate-1">
-                                   <p className="font-mono text-sm md:text-lg font-bold uppercase tracking-widest">
-                                        KENALI CALON PRESMA dan WA-PRESMA
-                                   </p>
-                              </div>
-                         </div>
+               <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="text-center max-w-3xl mx-auto mb-20">
+                         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+                              Kenali Calon Pemimpin Anda
+                         </h2>
+                         <p className="text-gray-600 text-lg leading-relaxed">
+                              Pelajari visi, misi, dan program kerja mereka untuk masa depan organisasi yang lebih baik.
+                         </p>
                     </div>
 
-                    <div className="flex flex-wrap justify-center items-start gap-8 md:gap-12">
+                    <div className="flex flex-wrap justify-center gap-8 md:gap-10">
                          {candidates.map((candidate) => (
-                              <div key={candidate.id} className="group relative w-full max-w-sm grow-0">
-                                   {/* The Card */}
-                                   <div className="h-full bg-neutral-cream border-4 border-black p-4 neo-shadow-lg transition-transform duration-200 group-hover:-translate-y-2 group-hover:translate-x-1 flex flex-col">
-                                        {/* Mugshot Area */}
-                                        <div className="bg-slate-200 border-2 border-black aspect-3/4 mb-4 relative overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500 shrink-0">
-                                             <Image
-                                                  src={candidate.photoUrl || '/assets/placeholder-candidate.png'}
-                                                  alt={candidate.name}
-                                                  fill
-                                                  className="object-cover object-top"
-                                             />
-                                             <div className="absolute top-2 left-2 bg-black text-white px-3 py-1 font-heading text-xl md:text-2xl border-2 border-white">
-                                                  #{candidate.orderNumber}
-                                             </div>
+                              <div 
+                                   key={candidate.id} 
+                                   className="group w-full max-w-sm bg-white rounded-2xl border border-gray-100 shadow-lg shadow-gray-100/50 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                              >
+                                   {/* Image Container */}
+                                   <div className="relative aspect-4/5 w-full bg-gray-100 overflow-hidden">
+                                        <Image
+                                             src={candidate.photoUrl || '/assets/placeholder-candidate.png'}
+                                             alt={candidate.name}
+                                             fill
+                                             className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80"></div>
+                                        
+                                        <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-gray-900 w-12 h-12 flex items-center justify-center rounded-xl font-bold text-xl shadow-lg shadow-black/5">
+                                             {candidate.orderNumber}
                                         </div>
 
-                                        {/* Name Plate */}
-                                        <div className="text-center mb-6">
-                                             <h3 className="font-heading text-2xl md:text-3xl leading-none mb-1 uppercase bg-white border-2 border-black inline-block px-2 rotate-1">
+                                        <div className="absolute bottom-0 left-0 w-full p-6 text-white">
+                                             <h3 className="text-2xl font-bold leading-tight mb-1">
                                                   {candidate.name}
                                              </h3>
+                                             <p className="text-white/80 text-sm font-medium uppercase tracking-wider">
+                                                  Calon Ketua & Wakil
+                                             </p>
                                         </div>
+                                   </div>
 
-                                        {/* Details Accordion */}
-                                        <Accordion type="single" collapsible className="w-full bg-white border-2 border-black">
-                                             <AccordionItem value="visimisi" className="border-b-0">
-                                                  <AccordionTrigger className="px-4 py-3 font-mono font-bold hover:bg-yellow-100 hover:no-underline border-b-2 border-black">
-                                                       &gt; LIHAT GRAND DESAIN KANDIDAT
+                                   {/* Content */}
+                                   <div className="p-6">
+                                        <Accordion type="single" collapsible className="w-full">
+                                             <AccordionItem value="details" className="border-b-0">
+                                                  <AccordionTrigger className="hover:no-underline py-2 group-data-[state=open]:text-primary">
+                                                       <span className="font-semibold text-gray-700 text-sm">Lihat Visi & Misi Lengkap</span>
                                                   </AccordionTrigger>
-                                                  <AccordionContent className="px-4 py-4 font-mono text-sm bg-neutral-50">
-                                                       <div className="mb-4">
-                                                            <strong className="block uppercase border-b border-black mb-1">VISI:</strong>
-                                                            <p>{candidate.vision}</p>
-                                                       </div>
+                                                  <AccordionContent className="pt-4 space-y-6">
                                                        <div>
-                                                            <strong className="block uppercase border-b border-black mb-1">MISI:</strong>
-                                                            <ul className="list-disc pl-4 space-y-1">
+                                                            <h4 className="flex items-center gap-2 font-bold text-gray-900 mb-2 text-sm uppercase tracking-wide">
+                                                                 <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
+                                                                 Visi
+                                                            </h4>
+                                                            <p className="text-gray-600 text-sm leading-relaxed bg-gray-50 p-4 rounded-xl border border-gray-100">
+                                                                 {candidate.vision}
+                                                            </p>
+                                                       </div>
+                                                       
+                                                       <div>
+                                                            <h4 className="flex items-center gap-2 font-bold text-gray-900 mb-2 text-sm uppercase tracking-wide">
+                                                                 <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
+                                                                 Misi
+                                                            </h4>
+                                                            <ul className="space-y-2 text-sm text-gray-600 pl-1">
                                                                  {candidate.mission.split('\n').map((m, i) => (
-                                                                      <li key={i}>{m}</li>
+                                                                      <li key={i} className="flex gap-3">
+                                                                           <span className="shrink-0 w-5 h-5 rounded-full bg-gray-100 text-gray-500 font-bold text-[10px] flex items-center justify-center mt-0.5">
+                                                                                {i + 1}
+                                                                           </span>
+                                                                           <span className="leading-relaxed">{m}</span>
+                                                                      </li>
                                                                  ))}
                                                             </ul>
                                                        </div>
+
                                                        {candidate.programs && (
-                                                            <div className="mt-4">
-                                                                 <strong className="block uppercase border-b border-black mb-1">PROGRAM UNGGULAN:</strong>
-                                                                 <ul className="list-disc pl-4 space-y-1">
+                                                            <div>
+                                                                 <h4 className="flex items-center gap-2 font-bold text-gray-900 mb-2 text-sm uppercase tracking-wide">
+                                                                      <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
+                                                                      Program Unggulan
+                                                                 </h4>
+                                                                 <ul className="space-y-2 text-sm text-gray-600 pl-1">
                                                                       {candidate.programs.split('\n').map((program, i) => (
-                                                                           <li key={i}>{program}</li>
+                                                                           <li key={i} className="flex gap-3">
+                                                                                <span className="shrink-0 w-5 h-5 rounded-full bg-blue-50 text-blue-600 font-bold text-[10px] flex items-center justify-center mt-0.5">
+                                                                                     ★
+                                                                                </span>
+                                                                                <span className="leading-relaxed">{program}</span>
+                                                                           </li>
                                                                       ))}
                                                                  </ul>
                                                             </div>

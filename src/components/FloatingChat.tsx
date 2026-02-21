@@ -224,7 +224,7 @@ export default function FloatingChat() {
                                              <MessageCircle size={20} />
                                         </div>
                                         <div>
-                                             <h3 className="font-bold text-sm">Live Chat Panitia</h3>
+                                             <h3 className="font-bold text-sm text-white">Live Chat Panitia</h3>
                                              <p className="text-xs text-white/80 flex items-center gap-1">
                                                   {isConnected ? (
                                                        <><span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" /> Online</>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
      Dialog,
@@ -34,52 +34,57 @@ interface Candidate {
 export default function CandidateCard({ candidate }: { candidate: Candidate }) {
      return (
           <motion.div
-               whileHover={{ y: -5 }}
+               whileHover={{ y: -8 }}
                transition={{ duration: 0.3 }}
-               className="h-full"
+               className="h-full w-full"
           >
-               <Card className="overflow-hidden max-w-[320px] border border-slate-100 shadow-lg bg-white rounded-3xl h-full flex flex-col group">
-                    <div className="relative aspect-4/5 bg-slate-50 w-full overflow-hidden">
+               <Card className="overflow-hidden border border-white/50 shadow-xl shadow-slate-200/50 bg-white/80 backdrop-blur-sm rounded-3xl h-full flex flex-col group transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/20">
+                    <div className="relative aspect-4/5 bg-slate-100 w-full overflow-hidden">
                          <Image
                               src={candidate.president.photo}
                               alt={`Pasangan Calon ${candidate.id} `}
                               fill
                               loading="eager"
-                              className="object-cover"
+                              className="object-cover transition-transform duration-700 group-hover:scale-105"
                          />
-                         <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-slate-900/90 via-slate-900/50 to-transparent p-5 pt-24 text-white">
-                              <div className="flex justify-between items-end gap-4">
+                         <div className="absolute inset-0 bg-linear-to-t from-slate-900/90 via-slate-900/40 to-transparent"></div>
+                         
+                         <div className="absolute top-4 left-4 bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow-lg">
+                              NO. {candidate.id}
+                         </div>
+
+                         <div className="absolute inset-x-0 bottom-0 p-5 pt-10 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                              <div className="flex justify-between items-end gap-3">
                                    <div className="text-left flex-1 min-w-0">
-                                        <p className="text-slate-200 text-[10px] uppercase font-bold tracking-wider mb-1">Presma</p>
-                                        <p className="font-bold text-sm leading-tight truncate">{candidate.president.name}</p>
+                                        <p className="text-white/60 text-[10px] uppercase font-bold tracking-wider mb-1">Presma</p>
+                                        <p className="font-heading font-bold text-lg leading-tight truncate drop-shadow-md">{candidate.president.name}</p>
                                    </div>
                                    <div className="text-right flex-1 min-w-0">
-                                        <p className="text-slate-200 text-[10px] uppercase font-bold tracking-wider mb-1">Wapresma</p>
-                                        <p className="font-bold text-sm leading-tight truncate">{candidate.vicePresident.name}</p>
+                                        <p className="text-white/60 text-[10px] uppercase font-bold tracking-wider mb-1">Wapresma</p>
+                                        <p className="font-heading font-bold text-lg leading-tight truncate drop-shadow-md">{candidate.vicePresident.name}</p>
                                    </div>
                               </div>
                          </div>
                     </div>
 
-                    <CardHeader className="text-center pb-2 pt-2">
-                         <CardTitle className="text-lg font-bold text-slate-900">Pasangan Calon {candidate.id}</CardTitle>
-                    </CardHeader>
-
-                    <CardContent className="px-6 pb-6 grow flex flex-col">
-                         <div className="mb-4">
-                              <p className="text-sm text-slate-600 italic leading-relaxed text-center line-clamp-3">
+                    <CardContent className="px-6 py-6 grow flex flex-col relative bg-transparent">
+                         <div className="mb-6 text-center">
+                              <div className="inline-block p-1 px-3 bg-slate-100 rounded-full text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">
+                                   Visi Singkat
+                              </div>
+                              <p className="text-sm text-slate-600 font-medium leading-relaxed line-clamp-3">
                                    &quot;{candidate.vision}&quot;
                               </p>
                          </div>
 
-                         <div className="mt-auto pt-2">
+                         <div className="mt-auto">
                               <Dialog>
                                    <DialogTrigger asChild>
-                                        <Button variant="outline" className="w-full rounded-xl border-slate-200 text-slate-700 hover:text-primary hover:border-primary/50 hover:bg-slate-50 transition-all">
-                                             Detail Kandidat
+                                        <Button className="w-full h-12 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold hover:text-primary hover:border-primary/50 hover:bg-slate-50 transition-all shadow-sm group-hover:bg-primary group-hover:text-white group-hover:border-primary group-hover:shadow-primary/30">
+                                             Lihat Detail Lengkap
                                         </Button>
                                    </DialogTrigger>
-                                   <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden rounded-3xl bg-white border-0 shadow-2xl flex flex-col md:flex-row">
+                                   <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden rounded-4xl bg-white border-0 shadow-2xl flex flex-col md:flex-row gap-0">
 
                                         {/* Accessibility: Hidden Title & Description */}
                                         <div className="sr-only">
@@ -129,7 +134,7 @@ export default function CandidateCard({ candidate }: { candidate: Candidate }) {
                                                             <div className="p-2.5 bg-blue-50 rounded-xl text-primary">
                                                                  <SquareCheckBig className="w-6 h-6" />
                                                             </div>
-                                                            <h1 className="text-2xl font-bold text-slate-900">
+                                                            <h1 className="text-2xl font-heading font-bold text-slate-900">
                                                                  Visi & Misi
                                                             </h1>
                                                        </div>

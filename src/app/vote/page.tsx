@@ -19,17 +19,17 @@ export default async function VotePage() {
      if (!settings) {
           return (
                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 flex items-center justify-center min-h-[60vh]">
-                    <div className="max-w-md w-full bg-white border-4 border-black neo-shadow-lg p-8 text-center">
-                         <div className="mx-auto w-20 h-20 bg-red-600 border-2 border-black rounded-full flex items-center justify-center mb-6 text-white neo-shadow-sm">
-                              <CalendarClock className="w-10 h-10" />
+                    <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-10 text-center border border-gray-100">
+                         <div className="mx-auto w-20 h-20 bg-red-50 text-red-600 rounded-full flex items-center justify-center mb-6 ring-8 ring-red-50/50">
+                              <AlertCircle className="w-10 h-10" />
                          </div>
-                         <h2 className="text-3xl font-heading uppercase mb-4">Gagal Memuat Jadwal</h2>
-                         <p className="font-mono text-sm mb-8">
+                         <h2 className="text-2xl font-bold text-gray-900 mb-3">Gagal Memuat Jadwal</h2>
+                         <p className="text-gray-500 text-sm mb-8 leading-relaxed">
                               Terjadi kesalahan saat memeriksa jadwal pemilihan. Mohon coba beberapa saat lagi.
                          </p>
                          <Link href="/">
-                              <Button className="w-full h-12 neo-button hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none">
-                                   KEMBALI KE BERANDA
+                              <Button className="w-full h-12 rounded-xl text-base font-semibold bg-gray-900 text-white hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl">
+                                   Kembali ke Beranda
                               </Button>
                          </Link>
                     </div>
@@ -47,25 +47,30 @@ export default async function VotePage() {
      if (!isOpen) {
           return (
                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 flex items-center justify-center min-h-[60vh]">
-                    <div className="max-w-md w-full bg-white border-4 border-black neo-shadow-lg p-8 text-center">
-                         <div className="mx-auto w-20 h-20 bg-accent-yellow border-2 border-black rounded-full flex items-center justify-center mb-6 neo-shadow-sm">
-                              <CalendarClock className="w-10 h-10 text-black" />
+                    <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-10 text-center border border-gray-100 relative overflow-hidden">
+                         <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-yellow-400 to-orange-500"></div>
+                         
+                         <div className="mx-auto w-20 h-20 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mb-6 ring-8 ring-orange-50/50">
+                              <CalendarClock className="w-10 h-10" />
                          </div>
-                         <h2 className="text-3xl font-heading uppercase mb-4">Pemilihan Belum Dibuka</h2>
-                         <p className="font-mono text-sm mb-8">
-                              Sesi pemilihan belum dimulai atau sudah berakhir. Silakan cek jadwal pemilihan.
+                         <h2 className="text-2xl font-bold text-gray-900 mb-3">Pemilihan Belum Dibuka</h2>
+                         <p className="text-gray-500 text-sm mb-8 leading-relaxed">
+                              Sesi pemilihan belum dimulai atau sudah berakhir. Silakan cek jadwal pemilihan untuk informasi lebih lanjut.
                          </p>
 
-                         <Link href="/#timeline">
-                              <Button className="w-full h-12 neo-button hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none mb-4">
-                                   LIHAT JADWAL
-                              </Button>
-                         </Link>
-                         <Link href="/">
-                              <Button variant="outline" className="w-full h-12 font-bold font-mono border-2 border-black hover:bg-neutral-cream rounded-none">
-                                   KEMBALI
-                              </Button>
-                         </Link>
+                         <div className="space-y-3">
+                              <Link href="/#timeline" className="block w-full">
+                                   <Button className="w-full h-12 rounded-xl text-base font-semibold bg-primary text-white hover:bg-primary-light transition-all shadow-lg shadow-primary/20">
+                                        Lihat Jadwal
+                                   </Button>
+                              </Link>
+                              
+                              <Link href="/" className="block w-full">
+                                   <Button variant="ghost" className="w-full h-12 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
+                                        Kembali
+                                   </Button>
+                              </Link>
+                         </div>
                     </div>
                </div>
           );
