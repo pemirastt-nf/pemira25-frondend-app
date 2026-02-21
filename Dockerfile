@@ -1,60 +1,43 @@
-# Base Image
+# Base Image (Debian slim, lebih aman untuk Next/SWC dibanding Alpine)
 FROM node:20-bookworm-slim AS base
 
 # Install dependencies only when needed
 FROM base AS deps
 WORKDIR /app
 COPY package.json package-lock.json* pnpm-lock.yaml* ./
-# Install pnpm if needed, or use npm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 RUN pnpm i --frozen-lockfile
 
-# Rebuild the source code only when needed
+# Build
 FROM base AS builder
 WORKDIR /app
+ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
-ENV NEXT_TELEMETRY_DISABLED 1
-
 RUN corepack enable && corepack prepare pnpm@latest --activate
 RUN pnpm run build
 
-# Production image, copy all the files and run next
+# Production runner
 FROM base AS runner
 WORKDIR /app
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
-ENV NODE_ENV production
-# Uncomment the following line in case you want to disable telemetry during runtime.
-# ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+RUN addgroup --system --gid 1001 nodejs \
+ && adduser  --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
 
-# Set the correct permission for prerender cache
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
+RUN mkdir .next && chown nextjs:nodejs .next
 
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Ensure the cache directory exists and is writable
-RUN mkdir -p .next/cache/images
-RUN chown -R nextjs:nodejs .next/cache
-
 USER nextjs
 
+# Next standalone server defaultnya listen di PORT env
+ENV HOSTNAME=0.0.0.0
+ENV PORT=5000
 EXPOSE 5000
-
-ENV PORT 5000
-# set hostname to localhost
-ENV HOSTNAME "0.0.0.0"
 
 CMD ["node", "server.js"]
