@@ -12,7 +12,7 @@ export default function TimelineSection() {
                     
                     <div className="text-center mb-16">
                          <h2 className="text-4xl font-bold text-gray-900 tracking-tight">
-                              Timeline <span className="text-primary">PEMIRA 2025</span>
+                              Timeline <span className="text-primary">PEMIRA IM STTNF 2025</span>
                          </h2>
                     </div>
 

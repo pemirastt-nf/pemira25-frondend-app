@@ -29,14 +29,15 @@ export default function HeroSection() {
                          <Star className="absolute bottom-10 right-[20%] w-6 h-6 text-secondary hidden md:block -rotate-12 opactiy-80" fill="currentColor" />
 
                          <h1 className="font-heading font-extrabold text-5xl sm:text-7xl lg:text-8xl leading-[1.1] md:leading-[1.1] text-slate-900 mb-8 tracking-tight">
-                              PEMIRA<br className="hidden md:block" />
+                              Pemilihan Raya<br className="hidden md:block" />
                               <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-blue-500 to-secondary animate-gradient-x">
                                    2025
                               </span>
                          </h1>
 
                          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
-                              Gunakan hak pilih Anda dalam <span className="text-primary font-bold">PEMIRA 2025</span>. Satu suara menentukan arah kepemimpinan organisasi mahasiswa STT-NF periode mendatang.
+                              Gunakan hak suara Anda dalam <span className="text-primary font-bold">PEMIRA IM STT NF</span> dengan bijak.
+                              Suara Anda menetukan arah kebijakan Organisasi Kemahasiswaan STT NF pada periode mendatang.
                          </p>
 
                          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

@@ -12,7 +12,7 @@ export default function Footer() {
                               <h3 className="text-2xl font-bold text-gray-900 tracking-tight mb-1">
                                    PEMIRA <span className="text-primary">2025</span>
                               </h3>
-                              <p className="text-gray-500 text-sm font-medium">
+                              <p className="text-gray-500 text-sm font-semibold">
                                    &copy; {new Date().getFullYear()} PEMIRA IM STT-NF. All rights reserved.
                               </p>
                          </div>
@@ -22,13 +22,13 @@ export default function Footer() {
                               <Link
                                    href="https://www.instagram.com/pemirasttnf/"
                                    target="_blank"
-                                   className="inline-flex items-center gap-2 text-gray-600 text-sm font-medium"
+                                   className="inline-flex items-center gap-2 text-gray-500 text-sm font-semibold"
                               >
                                    <Instagram className="w-4 h-4" />
                                    @pemirasttnf
                               </Link>
 
-                              <div className="flex items-center gap-1.5 text-gray-400 text-sm font-medium">
+                              <div className="flex items-center gap-1.5 text-gray-500 text-sm font-semibold">
                                    <span>Made with</span>
                                    <Heart className="w-3 h-3 text-red-500 fill-red-500" />
                                    <span>by IT Support PEMIRA</span>

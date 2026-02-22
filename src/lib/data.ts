@@ -50,7 +50,7 @@ export const timeline = [
   { date: "14 Feb 2025", event: "Musyawarah Umum DPM" },
   { date: "22 Feb 2025", event: "Uji Publik BEM" },
   { date: "24 - 26 Feb 2025", event: "Pemungutan Suara" },
-  { date: "01 Mar 2025", event: "Sidang Voting" },
+  { date: "01 Mar 2025", event: "Sidang Penetapan Hasil" },
   { date: "08 Mar 2025", event: "Pelantikan" }
 ];
 

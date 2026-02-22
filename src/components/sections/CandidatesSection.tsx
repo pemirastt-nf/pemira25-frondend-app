@@ -11,7 +11,8 @@ export interface Candidate {
     mission: string;
     photoUrl: string | null;
     orderNumber: number;
-    programs: string | null;
+    programs: string[] | null;
+    isBlankBox?: boolean;
 }
 
 interface CandidatesSectionProps {
@@ -59,16 +60,26 @@ export default function CandidatesSection({ candidates = [] }: CandidatesSection
                                         </div>
 
                                         <div className="absolute bottom-0 left-0 w-full p-6 text-white">
-                                             <h3 className="text-2xl font-bold leading-tight mb-1">
-                                                  {candidate.name}
-                                             </h3>
-                                             <p className="text-white/80 text-sm font-medium uppercase tracking-wider">
-                                                  Calon Ketua & Wakil
-                                             </p>
+                                             {candidate.isBlankBox ? (
+                                                  <>
+                                                       <h3 className="text-2xl font-bold leading-tight mb-1 text-white">Kotak Kosong</h3>
+                                                       <p className="text-white/70 text-sm font-medium uppercase tracking-wider">Tidak memilih kandidat manapun</p>
+                                                  </>
+                                             ) : (
+                                                  <>
+                                                       <h3 className="text-2xl font-bold leading-tight mb-1 text-white">
+                                                            {candidate.name}
+                                                       </h3>
+                                                       <p className="text-white/80 text-sm font-medium uppercase tracking-wider">
+                                                            Calon PRESMA & WAPRESMA BEM IM STTNF
+                                                       </p>
+                                                  </>
+                                             )}
                                         </div>
                                    </div>
 
                                    {/* Content */}
+                                   {!candidate.isBlankBox && (
                                    <div className="p-6">
                                         <Accordion type="single" collapsible className="w-full">
                                              <AccordionItem value="details" className="border-b-0">
@@ -103,14 +114,14 @@ export default function CandidatesSection({ candidates = [] }: CandidatesSection
                                                             </ul>
                                                        </div>
 
-                                                       {candidate.programs && (
+                                                       {candidate.programs && candidate.programs.length > 0 && (
                                                             <div>
                                                                  <h4 className="flex items-center gap-2 font-bold text-gray-900 mb-2 text-sm uppercase tracking-wide">
                                                                       <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
                                                                       Program Unggulan
                                                                  </h4>
                                                                  <ul className="space-y-2 text-sm text-gray-600 pl-1">
-                                                                      {candidate.programs.split('\n').map((program, i) => (
+                                                                      {candidate.programs!.map((program, i) => (
                                                                            <li key={i} className="flex gap-3">
                                                                                 <span className="shrink-0 w-5 h-5 rounded-full bg-blue-50 text-blue-600 font-bold text-[10px] flex items-center justify-center mt-0.5">
                                                                                      ★
@@ -125,6 +136,7 @@ export default function CandidatesSection({ candidates = [] }: CandidatesSection
                                              </AccordionItem>
                                         </Accordion>
                                    </div>
+                                   )}
                               </div>
                          ))}
                     </div>

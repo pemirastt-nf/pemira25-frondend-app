@@ -95,7 +95,7 @@ export default function CandidateCard({ candidate }: { candidate: Candidate }) {
                                         </div>
 
                                         {/* Left Side: Photo (Fixed on Desktop, Top on Mobile) */}
-                                        <div className="relative w-full md:w-5/12 h-64 md:h-auto bg-neutral-100 shrink-0">
+                                        <div className="relative w-full md:w-5/12 aspect-4/5 bg-neutral-100 shrink-0">
                                              <Image
                                                   src={candidate.president.photo}
                                                   alt={`Pasangan Calon ${candidate.id} `}

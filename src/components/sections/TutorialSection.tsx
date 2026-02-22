@@ -60,7 +60,7 @@ export default function TutorialSection() {
                                         <iframe 
                                              width="100%" 
                                              height="100%" 
-                                             src="https://www.youtube.com/embed/bf8t8FW4Ri4?si=6C6lEUXMGM4p-HrP" 
+                                             src="https://www.youtube.com/embed/aEQNsgxnIS4?si=beRpqcxTZt4e-eXe" 
                                              title="Panduan Pemira" 
                                              frameBorder="0" 
                                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 

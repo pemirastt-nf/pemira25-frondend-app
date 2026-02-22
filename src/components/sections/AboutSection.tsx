@@ -18,10 +18,10 @@ export default function AboutSection() {
                               </h2>
                               <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
                                    <p>
-                                        PEMIRA (Pemilihan Raya) adalah mekanisme demokrasi tertinggi yang diselenggarakan oleh Ikatan Mahasiswa (IM) STT-NF untuk memilih Presiden Mahasiswa dan Wakil Presiden Mahasiswa.
+                                        <span className="text-primary font-bold">Pemilihan Raya</span> adalah pesta demokrasi tertinggi di IM STT NF yang diselenggarakan oleh Penyelenggara PEMIRA untuk memilih Anggota <span className="text-orange-500 font-bold">DPM IM STT NF</span> serta Presiden Mahasiswa dan Wakil Presiden Mahasiswa <span className="text-[#041BB5] font-bold">BEM IM STT NF</span>.
                                    </p>
                                    <p>
-                                        Ini merupakan momentum bagi setiap mahasiswa untuk menggunakan hak suaranya dalam menentukan arah gerak dan kepemimpinan organisasi untuk satu periode ke depan.
+                                        Ini momentum bagi setiap mahasiswa untuk menggunakan hak suaranya dalam menentukan arah gerak, advokasi dan kepemimpinan mahasiswa STT NF.
                                    </p>
                               </div>
                          </div>

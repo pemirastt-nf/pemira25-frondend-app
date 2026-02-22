@@ -43,6 +43,7 @@ interface Candidate {
      vision: string;
      mission: string;
      programs?: string[];
+     isBlankBox?: boolean;
 }
 
 type AuthStage = 'check_auth' | 'email_input' | 'otp_input' | 'manual_otp' | 'voting' | 'voted';
@@ -473,35 +474,14 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
 
                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-0">
                     <div className="text-center mb-16">
-                         <motion.div 
-                              initial={{ y: -20, opacity: 0 }}
-                              animate={{ y: 0, opacity: 1 }}
-                              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-primary/20 shadow-lg shadow-primary/5 mb-6"
-                         >
-                              <span className="relative flex h-2 w-2">
-                                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                              </span>
-                              <span className="text-sm font-semibold text-primary tracking-wide">PEMIRA 2025</span>
-                         </motion.div>
-                         
                          <motion.h1 
                               initial={{ y: 20, opacity: 0 }}
                               animate={{ y: 0, opacity: 1 }}
                               transition={{ delay: 0.1 }}
                               className="text-4xl md:text-6xl font-heading font-bold text-slate-900 mb-6 tracking-tight leading-tight"
                          >
-                              Suara Anda, <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-600">Masa Depan Kita</span>
+                              Pilih Pemimpinmu, <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-600">Tentukan Arah</span>
                          </motion.h1>
-                         
-                         <motion.p 
-                              initial={{ y: 20, opacity: 0 }}
-                              animate={{ y: 0, opacity: 1 }}
-                              transition={{ delay: 0.2 }}
-                              className="text-slate-600 max-w-2xl mx-auto text-lg leading-relaxed"
-                         >
-                              Pilih pemimpin yang akan membawa perubahan positif. Satu suara Anda sangat berarti untuk kemajuan bersama.
-                         </motion.p>
                     </div>
 
                     <div className="flex flex-wrap justify-center gap-8 md:gap-10 max-w-6xl mx-auto mb-20">
@@ -529,34 +509,42 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                                         <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
                                         
                                         {/* Name Overlay (Bottom) */}
-                                        <div className="absolute bottom-0 left-0 w-full p-6 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                                             <h3 className="text-2xl font-heading font-bold leading-tight drop-shadow-md">
-                                                  {candidate.name.split('&')[0]?.trim()}
-                                                  {candidate.name.includes('&') && (
-                                                       <>
-                                                            <span className="text-primary-light mx-2">&</span>
-                                                            <br/>
-                                                            {candidate.name.split('&')[1]?.trim()}
-                                                       </>
-                                                  )}
-                                             </h3>
-                                             <p className="text-white/80 text-sm font-medium mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                                                  Kandidat Ketua & Wakil Ketua
-                                             </p>
-                                        </div>
+                                        {candidate.isBlankBox ? (
+                                             <div className="absolute bottom-0 left-0 w-full p-6 text-white">
+                                                  <h3 className="text-2xl font-heading font-bold text-white leading-tight drop-shadow-md">Kotak Kosong</h3>
+                                                  <p className="text-white/70 text-sm font-medium mt-1">Tidak memilih kandidat manapun</p>
+                                             </div>
+                                        ) : (
+                                             <div className="absolute bottom-0 left-0 w-full p-6 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                                                  <h3 className="text-2xl font-heading font-bold text-white leading-tight drop-shadow-md">
+                                                       {candidate.name.split('&')[0]?.trim()}
+                                                       {candidate.name.includes('&') && (
+                                                            <>
+                                                                 <span className="text-primary-light mx-2">&</span>
+                                                                 <br/>
+                                                                 {candidate.name.split('&')[1]?.trim()}
+                                                            </>
+                                                       )}
+                                                  </h3>
+                                                  <p className="text-white/80 text-sm font-medium mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                                                       Kandidat Ketua & Wakil Ketua
+                                                  </p>
+                                             </div>
+                                        )}
                                    </div>
 
                                    {/* Actions */}
                                    <div className="p-5 bg-white border-t border-slate-50 relative z-10">
-                                        <div className="grid grid-cols-2 gap-3">
-                                             <Button
-                                                  variant="secondary"
-                                                  className="h-12 rounded-xl bg-slate-100 text-slate-700 font-bold hover:bg-slate-200 transition-colors"
-                                                  onClick={() => setViewCandidate(candidate)}
-                                             >
-                                                  Visi & Misi
-                                             </Button>
-
+                                        <div className={`grid gap-3 ${candidate.isBlankBox ? 'grid-cols-1' : 'grid-cols-2'}`}>
+                                             {!candidate.isBlankBox && (
+                                                  <Button
+                                                       variant="secondary"
+                                                       className="h-12 rounded-xl bg-slate-100 text-slate-700 font-bold hover:bg-slate-200 transition-colors"
+                                                       onClick={() => setViewCandidate(candidate)}
+                                                  >
+                                                       Visi & Misi
+                                                  </Button>
+                                             )}
                                              <Button
                                                   onClick={() => setSelectedId(candidate.id)}
                                                   className="h-12 rounded-xl bg-primary text-white font-bold shadow-lg shadow-primary/25 hover:bg-primary-light hover:shadow-primary/40 transition-all border border-transparent"
@@ -617,9 +605,9 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                {/* Vision Mission Modal */}
                <Dialog open={!!viewCandidate} onOpenChange={(open) => !open && setViewCandidate(null)}>
                     <DialogContent className="max-w-4xl max-h-[90vh] bg-white rounded-2xl shadow-2xl p-0 gap-0 overflow-hidden border-none">
-                         <div className="grid md:grid-cols-2 h-full max-h-[90vh]">
+                         <div className="grid md:grid-cols-2 h-[90vh] max-h-[90vh]">
                               {/* Left Column: Image & Basic Info */}
-                              <div className="relative bg-neutral-100 h-64 md:h-full hidden md:block">
+                              <div className="relative bg-neutral-100 h-full hidden md:block">
                                    <Image
                                         src={viewCandidate?.photoUrl || "https://placehold.co/800x1000/png"}
                                         alt={viewCandidate?.name || "Candidate"}
@@ -634,14 +622,14 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                                         <div className="flex justify-between items-end gap-4 border-t border-white/20 pt-6">
                                              <div className="text-left flex-1 min-w-0">
                                                   <p className="text-white/60 text-xs uppercase font-medium mb-1 tracking-wider">Ketua</p>
-                                                  <h2 className="text-xl font-bold leading-tight">
+                                                  <h2 className="text-xl font-bold text-white leading-tight">
                                                        {viewCandidate?.name.split('&')[0]?.trim() || viewCandidate?.name}
                                                   </h2>
                                              </div>
                                              {viewCandidate?.name.includes('&') && (
                                                   <div className="text-right flex-1 min-w-0">
                                                        <p className="text-white/60 text-xs uppercase font-medium mb-1 tracking-wider">Wakil</p>
-                                                       <h2 className="text-xl font-bold leading-tight">
+                                                       <h2 className="text-xl font-bold text-white leading-tight">
                                                             {viewCandidate?.name.split('&')[1]?.trim()}
                                                        </h2>
                                                   </div>
