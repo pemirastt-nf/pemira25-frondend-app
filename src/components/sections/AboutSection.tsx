@@ -31,7 +31,7 @@ export default function AboutSection() {
                               {/* Background Blob */}
                               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-100/50 rounded-full blur-3xl -z-10"></div>
 
-                              <div className="grid grid-cols-2 gap-4">
+                              <div className="grid grid-cols-2 gap-8">
                                    <div className="space-y-4 pt-8">
                                         <div className="relative aspect-3/4 w-full bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-[1.02] transition-transform duration-500">
                                              <Image 
