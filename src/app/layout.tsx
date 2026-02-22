@@ -11,8 +11,8 @@ const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-sa
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-heading" });
 
 const metadataBase = new URL("https://pemira-sttnf.vercel.app");
-const metadataTitle = "PEMIRA STTNF 2025 | Pemilihan Raya Mahasiswa STT Terpadu Nurul Fikri";
-const metadataDescription = "Pemilihan Raya Mahasiswa STT Terpadu Nurul Fikri atau PEMIRA 2025 adalah acara pemilihan mahasiswa STTNF untuk memilih calon PRESMA (Presiden Mahasiswa) dan WAKIL PRESMA (Wakil Presiden Mahasiswa) untuk periode 2026-2027.";
+const metadataTitle = "PEMIRA IM STTNF 2025";
+const metadataDescription = "PEMIRA IM STTNF 2025 adalah pemilihan raya mahasiswa STT Terpadu Nurul Fikri untuk memilih Presiden Mahasiswa dan Wakil Presiden Mahasiswa periode 2026–2027.";
 
 export const metadata: Metadata = {
     title: metadataTitle,
@@ -23,18 +23,15 @@ export const metadata: Metadata = {
     },
     keywords: [
         "pemira sttnf",
-        "pemira sttnf 2025",
+        "pemira sttnf 2025-2026",
         "pemira nurul fikri",
         "pemilihan raya mahasiswa sttnf",
-        "pemilihan raya mahasiswa nurul fikri",
+        "pemilihan raya mahasiswa stt terpadu nurul fikri",
         "website pemira sttnf",
-        "login pemira sttnf",
         "e-voting pemira sttnf",
-        "pemira online sttnf",
-        "hasil pemira sttnf",
+        "voting online sttnf",
         "stt terpadu nurul fikri",
-        "kampus nurul fikri",
-        "pemilihan raya mahasiswa website"
+        "kampus nurul fikri"
     ],
     manifest: "/icons/site.webmanifest",
     openGraph: {
