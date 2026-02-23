@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { api } from "@/lib/api";
-import { CheckCircle2, Loader2, Mail, Lock, Info, X, Key,  Rocket, CheckCircle, ChevronLeft } from "lucide-react";
+import { CheckCircle2, Loader2, Mail, Lock, Info, X, Key, Rocket, CheckCircle, ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { OtpInput } from "@/components/ui/otp-input";
@@ -193,22 +193,21 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                     {/* Background Elements */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl max-h-4xl bg-green-500/5 rounded-full blur-[100px] -z-10" />
 
-                    <motion.div 
+                    <motion.div
                          initial={{ opacity: 0, scale: 0.95 }}
                          animate={{ opacity: 1, scale: 1 }}
                          transition={{ duration: 0.5 }}
                          className="max-w-md w-full bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-10 relative overflow-hidden ring-1 ring-green-100 text-center"
                     >
-                         <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-green-400 via-emerald-500 to-teal-500"></div>
 
                          <div className="w-24 h-24 bg-green-50 text-green-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-inner rotate-3">
                               <CheckCircle2 className="h-12 w-12 drop-shadow-sm" />
                          </div>
-                         
+
                          <h2 className="text-3xl font-heading font-bold text-slate-900 mb-3 tracking-tight">
                               Terima Kasih!
                          </h2>
-                         
+
                          <div className="bg-green-50/50 rounded-2xl p-6 mb-8 text-slate-600 leading-relaxed border border-green-100/50 shadow-sm">
                               <p className="mb-2 font-medium text-slate-900">
                                    Suara Anda telah berhasil direkam.
@@ -218,12 +217,24 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                               </p>
                          </div>
 
-                         <Button 
-                              onClick={() => window.location.href = "/"} 
-                              className="w-full h-12 rounded-xl text-base font-bold bg-slate-900 text-white hover:bg-slate-800 transition-all shadow-lg shadow-slate-900/10 hover:shadow-xl hover:-translate-y-0.5"
-                         >
-                              Kembali ke Beranda
-                         </Button>
+                         <div className="space-y-3">
+                              <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4 text-center">
+                                   <p className="text-sm text-slate-600">Isi survei singkat untuk membantu kami meningkatkan pengalaman Website Voting PEMIRA kedepannya.</p>
+                              </div>
+                              <Button
+                                   onClick={() => window.open("https://forms.gle/HQrmrW2BjE57dnwx8", "_blank")}
+                                   className="w-full h-12 rounded-xl text-base font-bold bg-blue-600 text-white hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20 hover:shadow-xl hover:-translate-y-0.5"
+                              >
+                                   Isi Survei Sekarang →
+                              </Button>
+                              <Button
+                                   onClick={() => window.location.href = "/#livetrack"}
+                                   variant="ghost"
+                                   className="w-full h-11 rounded-xl text-sm text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-all"
+                              >
+                                   Lihat Perolehan Suara
+                              </Button>
+                         </div>
                     </motion.div>
                </div>
           );
@@ -235,14 +246,12 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                     {/* Background Elements */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl max-h-4xl bg-primary/5 rounded-full blur-[100px] -z-10" />
 
-                    <motion.div 
+                    <motion.div
                          initial={{ opacity: 0, scale: 0.95 }}
                          animate={{ opacity: 1, scale: 1 }}
                          transition={{ duration: 0.5 }}
                          className="max-w-md w-full bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8 md:p-10 relative overflow-hidden ring-1 ring-gray-100"
                     >
-                         <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-primary via-blue-400 to-secondary"></div>
-                         
                          <div className="text-center mb-10">
                               <div className="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mx-auto mb-4 rotate-3 shadow-sm">
                                    <Mail className="w-8 h-8" />
@@ -312,13 +321,12 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                     {/* Background Elements */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl max-h-4xl bg-blue-500/5 rounded-full blur-[100px] -z-10" />
 
-                    <motion.div 
+                    <motion.div
                          initial={{ opacity: 0, scale: 0.95 }}
                          animate={{ opacity: 1, scale: 1 }}
                          transition={{ duration: 0.5 }}
                          className="max-w-md w-full bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8 md:p-10 relative overflow-hidden ring-1 ring-blue-100"
                     >
-                         <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-blue-400 via-primary to-purple-500"></div>
 
                          <div className="text-center mb-10">
                               <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 -rotate-3 shadow-sm border border-blue-100">
@@ -385,13 +393,12 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                     {/* Background Elements */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl max-h-4xl bg-yellow-500/5 rounded-full blur-[100px] -z-10" />
 
-                    <motion.div 
+                    <motion.div
                          initial={{ opacity: 0, scale: 0.95 }}
                          animate={{ opacity: 1, scale: 1 }}
                          transition={{ duration: 0.5 }}
                          className="max-w-md w-full bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8 md:p-10 relative overflow-hidden ring-1 ring-yellow-100"
                     >
-                         <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-yellow-400 via-orange-400 to-red-400"></div>
 
                          <div className="text-center mb-10">
                               <div className="w-16 h-16 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-4 rotate-3 shadow-sm border border-yellow-100">
@@ -430,7 +437,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                                              onComplete={(val) => {
                                              }}
                                              disabled={isSubmitting}
-                                   />
+                                        />
                                    </div>
                               </div>
 
@@ -474,7 +481,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
 
                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-0">
                     <div className="text-center mb-16">
-                         <motion.h1 
+                         <motion.h1
                               initial={{ y: 20, opacity: 0 }}
                               animate={{ y: 0, opacity: 1 }}
                               transition={{ delay: 0.1 }}
@@ -507,7 +514,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                                              className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                                         />
                                         <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
-                                        
+
                                         {/* Name Overlay (Bottom) */}
                                         {candidate.isBlankBox ? (
                                              <div className="absolute bottom-0 left-0 w-full p-6 text-white">
@@ -521,7 +528,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                                                        {candidate.name.includes('&') && (
                                                             <>
                                                                  <span className="text-primary-light mx-2">&</span>
-                                                                 <br/>
+                                                                 <br />
                                                                  {candidate.name.split('&')[1]?.trim()}
                                                             </>
                                                        )}
@@ -570,7 +577,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
 
                          <div className="p-8 text-center">
                               <p className="text-gray-500 mb-6">Anda akan memilih kandidat nomor urut:</p>
-                              
+
                               <div className="text-5xl font-bold text-primary mb-2">
                                    {candidates.find(c => c.id === selectedId)?.orderNumber}
                               </div>

@@ -38,10 +38,28 @@ export default async function VotePage() {
      }
 
      const now = new Date();
-     const startDate = settings.startDate ? new Date(settings.startDate) : null;
-     const endDate = settings.endDate ? new Date(settings.endDate) : null;
 
-     const inSchedule = startDate && endDate && now >= startDate && now <= endDate;
+     // Check multi-day schedule first
+     const votingSchedules = settings.votingSchedules as { dates: string[]; startTime: string; endTime: string } | null;
+     let inSchedule = false;
+
+     if (votingSchedules?.dates?.length && votingSchedules.startTime && votingSchedules.endTime) {
+          const todayStr = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jakarta' }).format(now);
+          if (votingSchedules.dates.includes(todayStr)) {
+               const [sh, sm] = votingSchedules.startTime.split(':').map(Number);
+               const [eh, em] = votingSchedules.endTime.split(':').map(Number);
+               const wibTime = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hour12: false }).format(now);
+               const [wibH, wibM] = wibTime.split(':').map(Number);
+               const nowMin = wibH * 60 + wibM;
+               inSchedule = nowMin >= sh * 60 + sm && nowMin <= eh * 60 + em;
+          }
+     } else {
+          // Legacy fallback: single startDate / endDate
+          const startDate = settings.startDate ? new Date(settings.startDate) : null;
+          const endDate = settings.endDate ? new Date(settings.endDate) : null;
+          inSchedule = !!(startDate && endDate && now >= startDate && now <= endDate);
+     }
+
      const isOpen = settings.isVoteOpen || inSchedule;
 
      if (!isOpen) {
