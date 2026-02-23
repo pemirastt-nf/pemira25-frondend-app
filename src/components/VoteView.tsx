@@ -60,6 +60,14 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
      const [authStage, setAuthStage] = useState<AuthStage>('check_auth');
      const [email, setEmail] = useState("");
      const [otp, setOtp] = useState("");
+     const [resendCooldown, setResendCooldown] = useState(0);
+
+     useEffect(() => {
+          if (resendCooldown > 0) {
+               const timer = setTimeout(() => setResendCooldown(resendCooldown - 1), 1000);
+               return () => clearTimeout(timer);
+          }
+     }, [resendCooldown]);
 
      useEffect(() => {
           const savedState = sessionStorage.getItem("voting_state");
@@ -114,6 +122,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                }
 
                setAuthStage('otp_input');
+               setResendCooldown(60);
                sessionStorage.setItem("voting_state", JSON.stringify({
                     stage: 'otp_input',
                     savedEmail: email
@@ -369,6 +378,26 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                               >
                                    {isSubmitting ? <Loader2 className="animate-spin" /> : "Verifikasi & Masuk"}
                               </Button>
+
+                              <div className="text-center text-sm font-medium">
+                                   {resendCooldown > 0 ? (
+                                        <p className="text-slate-500">
+                                             Kirim ulang kode dalam <span className="text-primary font-bold">{resendCooldown}s</span>
+                                        </p>
+                                   ) : (
+                                        <p className="text-slate-500">
+                                             Belum menerima kode?{" "}
+                                             <button
+                                                  type="button"
+                                                  onClick={handleRequestOtp}
+                                                  disabled={isSubmitting}
+                                                  className="text-primary font-bold hover:underline disabled:opacity-50"
+                                             >
+                                                  Kirim Ulang
+                                             </button>
+                                        </p>
+                                   )}
+                              </div>
 
                               <Button
                                    type="button"

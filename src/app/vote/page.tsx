@@ -66,8 +66,6 @@ export default async function VotePage() {
           return (
                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 flex items-center justify-center min-h-[60vh]">
                     <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-10 text-center border border-gray-100 relative overflow-hidden">
-                         <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-yellow-400 to-orange-500"></div>
-                         
                          <div className="mx-auto w-20 h-20 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mb-6 ring-8 ring-orange-50/50">
                               <CalendarClock className="w-10 h-10" />
                          </div>
