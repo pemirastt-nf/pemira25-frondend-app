@@ -44,17 +44,17 @@ export default function LiveTrackSection({ stats, results = [] }: LiveTrackProps
                          <div className="lg:col-span-1 bg-white rounded-3xl p-8 border border-gray-100 shadow-xl shadow-gray-100/50 relative overflow-hidden flex flex-col justify-between group hover:border-primary/20 transition-all duration-300">
                               <div>
                                    <div className="flex items-center gap-3 mb-2">
-                                        
+
                                         <h3 className="text-gray-500 font-medium text-sm uppercase tracking-wider">Partisipasi Mahasiswa</h3>
                                    </div>
                                    <div className="text-6xl font-bold tracking-tight text-gray-900 mb-2">
                                         {stats.turnout}
                                    </div>
-                                   <p className="text-gray-400 text-sm">
-                                        Mahasiswa telah menggunakan hak suaranya.
+                                   <p className="text-gray-500 text-sm mt-3 leading-relaxed">
+                                        <span className="font-semibold text-gray-900">{stats.votesCast}</span> dari <span className="font-semibold text-gray-900">{stats.totalVoters}</span> mahasiswa (DPT) telah menggunakan hak suaranya.
                                    </p>
                               </div>
-                              
+
                               <div className="mt-8 pt-8 border-t border-gray-50">
                                    <div className="flex items-center justify-between text-sm mb-2">
                                         <span className="font-medium text-gray-700">Progress</span>
@@ -93,8 +93,8 @@ export default function LiveTrackSection({ stats, results = [] }: LiveTrackProps
                                                                  <p className="text-xs text-gray-400 font-medium">Kandidat No. Urut {candidate.orderNumber}</p>
                                                             </div>
                                                        </div>
-                                                       
                                                        <div className="text-right shrink-0">
+                                                            <div className="text-sm font-semibold text-gray-500 mb-0.5">{candidate.votes.toLocaleString('id-ID')} Suara</div>
                                                             <div className="text-2xl font-bold text-gray-900">{percentage}%</div>
                                                        </div>
                                                   </div>
@@ -103,7 +103,7 @@ export default function LiveTrackSection({ stats, results = [] }: LiveTrackProps
                                                   <div className="absolute bottom-0 left-0 h-1 w-full bg-gray-50">
                                                        <motion.div
                                                             initial={{ width: 0 }}
-                                                            whileInView={{ width: `${percentage}%` }}
+                                                            whileInView={{ width: percentage + "%" }}
                                                             transition={{ duration: 1, delay: 0.2 }}
                                                             className="h-full bg-primary"
                                                        />

@@ -12,10 +12,19 @@ const getBaseUrl = () => {
 
 const API_URL = getBaseUrl();
 
+export const BASE_URL = (() => {
+     try {
+          const url = new URL(API_URL);
+          return url.origin;
+     } catch {
+          return 'http://localhost:5000';
+     }
+})();
+
 const getHeaders = (token?: string | null) => {
      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
      if (token) headers.Authorization = `Bearer ${token}`;
-     
+
      return headers;
 };
 
@@ -55,7 +64,7 @@ export const api = {
 
      getCandidates: async (options?: RequestInit) => {
           const headers = getHeaders();
-          
+
           const fetchOptions = {
                ...options,
                headers: { ...headers, ...options?.headers },
@@ -101,6 +110,12 @@ export const api = {
      getResults: async (options?: RequestInit) => {
           const res = await fetch(`${API_URL}/votes/results`, options);
           if (!res.ok) throw new Error('Failed to fetch results');
+          return res.json();
+     },
+
+     getWinner: async (options?: RequestInit) => {
+          const res = await fetch(`${API_URL}/votes/winner`, options);
+          if (!res.ok) throw new Error('Failed to fetch winner');
           return res.json();
      },
 

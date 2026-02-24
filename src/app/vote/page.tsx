@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { api } from "@/lib/api";
 import VoteView from "@/components/VoteView";
@@ -80,7 +81,7 @@ export default async function VotePage() {
                                         Lihat Jadwal
                                    </Button>
                               </Link>
-                              
+
                               <Link href="/" className="block w-full">
                                    <Button variant="ghost" className="w-full h-12 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
                                         Kembali
@@ -94,7 +95,8 @@ export default async function VotePage() {
 
      let candidates = [];
      try {
-          candidates = await api.getCandidates({ next: { revalidate: 60 } });
+          const fetchedCandidates = await api.getCandidates({ next: { revalidate: 60 } });
+          candidates = fetchedCandidates?.filter((c: any) => c.name !== 'SUARA TIDAK SAH') || [];
      } catch (err) {
           console.error("Failed to fetch candidates for vote page:", err);
      }
