@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
@@ -87,15 +88,18 @@ export default function FloatingChat() {
                setIsConnected(false);
           });
 
-          newSocket.on('session_joined', (data: { sessionId: string }) => {
+          newSocket.on('session_joined', (data: { sessionId: string | null }) => {
                // Session joined
-               setSessionId(data.sessionId);
-               storage.setItem('chat_session_id', data.sessionId); // Persist session ID
+               if (data.sessionId) {
+                    setSessionId(data.sessionId);
+                    storage.setItem('chat_session_id', data.sessionId); // Persist session ID
+               }
                setShowGuestForm(false);
 
-
-               // Request message history for this session
-               newSocket.emit('get_message_history', { sessionId: data.sessionId });
+               // Request message history for this session if it exists
+               if (data.sessionId) {
+                    newSocket.emit('get_message_history', { sessionId: data.sessionId });
+               }
           });
 
           // Add message event handlers
@@ -186,7 +190,7 @@ export default function FloatingChat() {
 
      const handleSendMessage = (e: React.FormEvent) => {
           e.preventDefault();
-          if (!inputValue.trim() || !socketRef.current || !sessionId || isSending) return;
+          if (!inputValue.trim() || !socketRef.current || isSending) return;
 
           setIsSending(true);
 
@@ -194,13 +198,26 @@ export default function FloatingChat() {
           const messageContent = inputValue.trim();
           setInputValue("");
 
-          // Send message to socket
-          socketRef.current.emit('send_message', {
-               message: messageContent,
-               sessionId
-          });
+          const token = storage.getItem("token");
+          let studentId;
+          if (token) {
+               try {
+                    const user = jwtDecode<{ id: string }>(token);
+                    studentId = user.id;
+               } catch (e) {
+                    console.error(e);
+               }
+          }
 
-          setTimeout(() => setIsSending(false), 1000); // 1s cooldown
+          const payload: Record<string, any> = { message: messageContent };
+          if (sessionId) payload.sessionId = sessionId;
+          if (studentId) payload.studentId = studentId;
+          if (guestEmail) payload.guestInfo = { email: guestEmail };
+
+          // Send message to socket
+          socketRef.current.emit('send_message', payload);
+
+          setTimeout(() => setIsSending(false), 1000); 
      };
 
      return (
