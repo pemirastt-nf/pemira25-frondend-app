@@ -346,6 +346,18 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
                                    Kode dikirim ke: <br />
                                    <span className="font-bold text-slate-900 bg-slate-100 px-3 py-1 rounded-lg mt-2 inline-block shadow-sm border border-slate-200/50">{email}</span>
                               </p>
+                              <div className="mt-4 flex items-start gap-2 bg-amber-50 text-amber-800 text-xs text-left p-3 rounded-xl border border-amber-200/50 shadow-sm">
+                                   <div className="shrink-0 mt-0.5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                             <circle cx="12" cy="12" r="10"></circle>
+                                             <line x1="12" y1="8" x2="12" y2="12"></line>
+                                             <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                        </svg>
+                                   </div>
+                                   <p>
+                                        Silakan periksa folder <strong>Kotak Masuk (Inbox)</strong> atau <strong>Spam</strong> pada email Anda untuk menemukan kode OTP.
+                                   </p>
+                              </div>
                          </div>
 
                          <div className="space-y-8">
