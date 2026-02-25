@@ -28,16 +28,16 @@ const getHeaders = (token?: string | null) => {
      return headers;
 };
 
-// Extractor to fetch location directly on browser dynamically
-export const getTraceHeaders = async (): Promise<Record<string, string>> => {
+// Fetch location from browser to bypass proxy header stripping
+export const getTracePayload = async (): Promise<Record<string, string>> => {
      if (typeof window === 'undefined') return {};
      try {
           const locCache = sessionStorage.getItem('voter_loc_cache');
           if (locCache) {
                const parsed = JSON.parse(locCache);
                return {
-                    'x-client-ip': String(parsed.ip || ''),
-                    'x-client-location': String(parsed.location || '')
+                    _clientIp: String(parsed.ip || ''),
+                    _clientLocation: String(parsed.location || '')
                };
           }
           const res = await fetch('https://freeipapi.com/api/json/', { method: 'GET' });
@@ -47,10 +47,10 @@ export const getTraceHeaders = async (): Promise<Record<string, string>> => {
                const location = String([data.cityName, data.regionName, data.countryName].filter(Boolean).join(', '));
 
                sessionStorage.setItem('voter_loc_cache', JSON.stringify({ ip, location }));
-               return { 'x-client-ip': ip, 'x-client-location': location };
+               return { _clientIp: ip, _clientLocation: location };
           }
-     } catch (e) {
-          return {}; // Silently ignore if blocked
+     } catch {
+          // Silently ignore if blocked
      }
      return {};
 };
@@ -58,22 +58,22 @@ export const getTraceHeaders = async (): Promise<Record<string, string>> => {
 export const api = {
 
      login: async (nim: string, password: string) => {
-          const trace = await getTraceHeaders();
+          const trace = await getTracePayload();
           const res = await fetch(`${API_URL}/auth/login`, {
                method: 'POST',
-               headers: { ...getHeaders(), ...trace },
-               body: JSON.stringify({ nim, password }),
+               headers: getHeaders(),
+               body: JSON.stringify({ nim, password, ...trace }),
           });
           if (!res.ok) throw new Error('Login failed');
           return res.json();
      },
 
      requestOtp: async (email: string) => {
-          const trace = await getTraceHeaders();
+          const trace = await getTracePayload();
           const res = await fetch(`${API_URL}/auth/otp-request`, {
                method: 'POST',
-               headers: { ...getHeaders(), ...trace },
-               body: JSON.stringify({ email }),
+               headers: getHeaders(),
+               body: JSON.stringify({ email, ...trace }),
           });
           const data = await res.json();
           if (!res.ok) throw new Error(data.message || 'Request OTP failed');
@@ -81,11 +81,11 @@ export const api = {
      },
 
      verifyOtp: async (email: string, otp: string) => {
-          const trace = await getTraceHeaders();
+          const trace = await getTracePayload();
           const res = await fetch(`${API_URL}/auth/otp-verify`, {
                method: 'POST',
-               headers: { ...getHeaders(), ...trace },
-               body: JSON.stringify({ email, otp }),
+               headers: getHeaders(),
+               body: JSON.stringify({ email, otp, ...trace }),
           });
           const data = await res.json();
           if (!res.ok) throw new Error(data.message || 'Verify OTP failed');
@@ -109,11 +109,11 @@ export const api = {
      },
 
      vote: async (candidateId: string, token: string) => {
-          const trace = await getTraceHeaders();
+          const trace = await getTracePayload();
           const res = await fetch(`${API_URL}/votes`, {
                method: 'POST',
-               headers: { ...getHeaders(token), ...trace },
-               body: JSON.stringify({ candidateId }),
+               headers: getHeaders(token),
+               body: JSON.stringify({ candidateId, ...trace }),
           });
           if (!res.ok) {
                const err = await res.json();
