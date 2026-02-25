@@ -40,17 +40,44 @@ export const getTracePayload = async (): Promise<Record<string, string>> => {
                     _clientLocation: String(parsed.location || '')
                };
           }
-          const res = await fetch('https://freeipapi.com/api/json/', { method: 'GET' });
-          if (res.ok) {
-               const data = await res.json();
-               const ip = String(data.ipAddress || '');
-               const location = String([data.cityName, data.regionName, data.countryName].filter(Boolean).join(', '));
 
+          let ip = '';
+          let location = '';
+
+          try {
+               const res = await fetch('https://freeipapi.com/api/json/', { method: 'GET', signal: AbortSignal.timeout(3000) });
+               if (res.ok) {
+                    const data = await res.json();
+                    ip = String(data.ipAddress || '');
+                    location = String([data.cityName, data.regionName, data.countryName].filter(Boolean).join(', '));
+               }
+          } catch {
+               // Silently ignore freeipapi block (adblockers/network)
+          }
+
+          if (!ip) {
+               try {
+                    // Fallback to Cloudflare's native first-party trace (adblock proof on the same domain)
+                    const cfRes = await fetch('/cdn-cgi/trace', { signal: AbortSignal.timeout(3000) });
+                    if (cfRes.ok) {
+                         const text = await cfRes.text();
+                         const lines = text.split('\n');
+                         for (const line of lines) {
+                              if (line.startsWith('ip=')) ip = line.split('=')[1].trim();
+                              if (line.startsWith('loc=')) location = line.split('=')[1].trim() + ' (Cloudflare)';
+                         }
+                    }
+               } catch {
+                    // Final fallback fails
+               }
+          }
+
+          if (ip) {
                sessionStorage.setItem('voter_loc_cache', JSON.stringify({ ip, location }));
                return { _clientIp: ip, _clientLocation: location };
           }
      } catch {
-          // Silently ignore if blocked
+          // Absolute fail
      }
      return {};
 };
