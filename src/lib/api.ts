@@ -28,12 +28,40 @@ const getHeaders = (token?: string | null) => {
      return headers;
 };
 
+// Extractor to fetch location directly on browser dynamically
+export const getTraceHeaders = async (): Promise<Record<string, string>> => {
+     if (typeof window === 'undefined') return {};
+     try {
+          const locCache = sessionStorage.getItem('voter_loc_cache');
+          if (locCache) {
+               const parsed = JSON.parse(locCache);
+               return {
+                    'x-client-ip': String(parsed.ip || ''),
+                    'x-client-location': String(parsed.location || '')
+               };
+          }
+          const res = await fetch('https://freeipapi.com/api/json/', { method: 'GET' });
+          if (res.ok) {
+               const data = await res.json();
+               const ip = String(data.ipAddress || '');
+               const location = String([data.cityName, data.regionName, data.countryName].filter(Boolean).join(', '));
+
+               sessionStorage.setItem('voter_loc_cache', JSON.stringify({ ip, location }));
+               return { 'x-client-ip': ip, 'x-client-location': location };
+          }
+     } catch (e) {
+          return {}; // Silently ignore if blocked
+     }
+     return {};
+};
+
 export const api = {
 
      login: async (nim: string, password: string) => {
+          const trace = await getTraceHeaders();
           const res = await fetch(`${API_URL}/auth/login`, {
                method: 'POST',
-               headers: getHeaders(),
+               headers: { ...getHeaders(), ...trace },
                body: JSON.stringify({ nim, password }),
           });
           if (!res.ok) throw new Error('Login failed');
@@ -41,9 +69,10 @@ export const api = {
      },
 
      requestOtp: async (email: string) => {
+          const trace = await getTraceHeaders();
           const res = await fetch(`${API_URL}/auth/otp-request`, {
                method: 'POST',
-               headers: getHeaders(),
+               headers: { ...getHeaders(), ...trace },
                body: JSON.stringify({ email }),
           });
           const data = await res.json();
@@ -52,9 +81,10 @@ export const api = {
      },
 
      verifyOtp: async (email: string, otp: string) => {
+          const trace = await getTraceHeaders();
           const res = await fetch(`${API_URL}/auth/otp-verify`, {
                method: 'POST',
-               headers: getHeaders(),
+               headers: { ...getHeaders(), ...trace },
                body: JSON.stringify({ email, otp }),
           });
           const data = await res.json();
@@ -79,9 +109,10 @@ export const api = {
      },
 
      vote: async (candidateId: string, token: string) => {
+          const trace = await getTraceHeaders();
           const res = await fetch(`${API_URL}/votes`, {
                method: 'POST',
-               headers: getHeaders(token),
+               headers: { ...getHeaders(token), ...trace },
                body: JSON.stringify({ candidateId }),
           });
           if (!res.ok) {
