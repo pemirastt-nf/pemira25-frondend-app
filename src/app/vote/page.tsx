@@ -61,7 +61,7 @@ export default async function VotePage() {
           inSchedule = !!(startDate && endDate && now >= startDate && now <= endDate);
      }
 
-     const isOpen = settings.isVoteOpen || inSchedule;
+     const isOpen = settings.isVoteOpen || settings.is_vote_open || inSchedule || settings.isWinnerPublished || settings.is_winner_published;
 
      if (!isOpen) {
           return (

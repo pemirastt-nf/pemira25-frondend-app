@@ -58,6 +58,7 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
      const router = useRouter();
 
      const [authStage, setAuthStage] = useState<AuthStage>('check_auth');
+     const [isWinnerPublished, setIsWinnerPublished] = useState(false);
      const [email, setEmail] = useState("");
      const [otp, setOtp] = useState("");
      const [resendCooldown, setResendCooldown] = useState(0);
@@ -82,6 +83,18 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
      }, []);
 
      const checkAuth = async () => {
+          try {
+               const settings = await api.getSettings({ cache: 'no-store' });
+               if (settings.isWinnerPublished || settings.is_winner_published) {
+                    setIsWinnerPublished(true);
+                    setAuthStage('voted'); // Just skip to a blocked state
+                    sessionStorage.removeItem("voting_state");
+                    return;
+               }
+          } catch (e) {
+               console.error("Failed to fetch settings:", e);
+          }
+
           const token = storage.getItem("token");
           if (!token) {
                const savedState = sessionStorage.getItem("voting_state");
@@ -192,6 +205,48 @@ export default function VoteView({ initialCandidates }: { initialCandidates: Can
           return (
                <div className="min-h-screen flex items-center justify-center bg-slate-50">
                     <Loader2 className="animate-spin h-12 w-12 text-primary/80" />
+               </div>
+          );
+     }
+
+     if (isWinnerPublished) {
+          return (
+               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 flex items-center justify-center min-h-[60vh] relative">
+                    {/* Background Elements */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl max-h-4xl bg-blue-500/5 rounded-full blur-[100px] -z-10" />
+
+                    <motion.div
+                         initial={{ opacity: 0, scale: 0.95 }}
+                         animate={{ opacity: 1, scale: 1 }}
+                         transition={{ duration: 0.5 }}
+                         className="max-w-xl w-full bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-10 relative overflow-hidden ring-1 ring-blue-100 text-center"
+                    >
+                         <div className="w-24 h-24 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-inner rotate-3">
+                              <CheckCircle2 className="h-12 w-12 drop-shadow-sm" />
+                         </div>
+
+                         <h2 className="text-3xl font-heading font-bold text-slate-900 mb-3 tracking-tight">
+                              PEMIRA Telah Usai
+                         </h2>
+
+                         <div className="bg-blue-50/50 rounded-2xl p-6 mb-8 text-slate-600 leading-relaxed border border-blue-100/50 shadow-sm">
+                              <p className="mb-2 font-medium text-slate-900">
+                                   Voting telah ditutup dan hasil pemenang sudah dipublikasikan.
+                              </p>
+                              <p className="text-sm">
+                                   Terima kasih atas partisipasi Anda dalam <span className="font-bold text-primary">PEMIRA IM STTNF 2025</span>.
+                              </p>
+                         </div>
+
+                         <div className="space-y-3">
+                              <Button
+                                   onClick={() => window.location.href = "/#winner"}
+                                   className="w-full h-12 rounded-xl text-base font-bold bg-blue-600 text-white hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20 hover:shadow-xl hover:-translate-y-0.5"
+                              >
+                                   Lihat Hasil Pemenang →
+                              </Button>
+                         </div>
+                    </motion.div>
                </div>
           );
      }
