@@ -21,6 +21,15 @@ const nextConfig: NextConfig = {
         hostname: "**"
       }
     ]
+  },
+  async redirects() {
+    return [
+      {
+        source: '/vote',
+        destination: '/',
+        permanent: false,
+      },
+    ];
   }
 };
 
